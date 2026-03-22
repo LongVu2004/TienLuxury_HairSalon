@@ -1,0 +1,669 @@
+/* Sử dụng CSS Variables từ hệ thống chính */
+.product-detail {
+    margin: var(--space-xl) 0;
+    padding: var(--space-md);
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+.dark-mode .product-detail {
+    background: var(--color-card-dark);
+    box-shadow: 0 4px 12px var(--shadow-dark);
+}
+
+.product-overview {
+    display: flex;
+    gap: var(--space-xl);
+    padding: var(--space-md);
+}
+
+@media (max-width: 768px) {
+    .product-overview {
+    flex-direction: column;
+    gap: var(--space-md);
+    }
+}
+
+/* Chi tiết sản phẩm */
+.product-details-section {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 8px var(--shadow-light);
+}
+
+.dark-mode .product-details-section {
+    background: var(--color-card-dark);
+    box-shadow: 0 4px 8px var(--shadow-dark);
+}
+
+.product-details-section h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-md);
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: var(--space-sm);
+    color: var(--color-text-dark);
+}
+
+.dark-mode .product-details-section h2 {
+    color: var(--color-text-light);
+}
+
+.product-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-details-table td {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--color-light-gray);
+}
+
+.dark-mode .product-details-table td {
+    border-bottom-color: var(--color-header-dark);
+}
+
+.product-details-table td:first-child {
+    font-weight: bold;
+    width: 30%;
+    color: var(--color-accent);
+}
+
+/* Mô tả sản phẩm */
+.product-description-section {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 8px var(--shadow-light);
+}
+
+.dark-mode .product-description-section {
+    background: var(--color-card-dark);
+    box-shadow: 0 4px 8px var(--shadow-dark);
+}
+
+.product-description-section h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-md);
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: var(--space-sm);
+    color: var(--color-text-dark);
+}
+
+.dark-mode .product-description-section h2 {
+    color: var(--color-text-light);
+}
+
+.product-description-section p {
+    text-align: justify;
+    font-size: var(--text-base);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+.product-description-section p img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.dark-mode .product-description-section p {
+    color: var(--color-text-light);
+}
+
+/* Ảnh sản phẩm */
+.product-image {
+    flex: 0 0 40%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-light-gray);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+}
+
+.dark-mode .product-image {
+    background: var(--color-header-dark);
+}
+
+.product-image img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    transition: transform var(--transition);
+}
+
+.product-image img:hover {
+    transform: scale(1.03);
+}
+
+/* Thông tin sản phẩm */
+.product-info {
+    flex: 1;
+    padding: var(--space-md) 0;
+}
+
+.product-info h1 {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-dark);
+}
+
+.dark-mode .product-info h1 {
+    color: var(--color-text-light);
+}
+
+.product-id {
+    font-size: 0.9rem;
+}
+
+.selling {
+    background-color: #F0E68C;
+    color: #1e1e1e;
+}
+
+.stop-selling {
+    background-color: #FF6F61;
+    color: white;
+}
+
+.dark-mode .product-meta {
+    color: var(--color-text-light);
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-coral);
+    margin: var(--space-sm) 0;
+}
+
+.extend-infor {
+    margin-top: var(--space-md);
+    font-size: var(--text-sm);
+}
+
+.out-of-stock-container,
+.in-stock-container {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-md);
+    background-color: var(--color-light-gray);
+    border: 1px solid var(--color-light-gray);
+    transition: all var(--transition);
+}
+
+.dark-mode .out-of-stock-container,
+.dark-mode .in-stock-container {
+    background-color: var(--color-card-dark);
+    border-color: var(--color-header-dark);
+}
+
+.out-of-stock-content {
+    margin-top: var(--space-md);
+    color: var(--color-text-dark);
+    transition: color var(--transition);
+}
+
+.dark-mode .out-of-stock-content {
+    color: var(--color-text-light);
+}
+
+.original-price {
+    text-decoration: none;
+    color: var(--color-dark-gray);
+    font-size: var(--text-lg);
+    opacity: 0.8;
+    position: relative;
+    display: inline-block;
+}
+
+.dark-mode .original-price {
+    color: var(--color-text-light);
+}
+
+.original-price::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-dark-coral), var(--color-accent));
+    transform: translateY(-50%);
+}
+
+.out-of-stock-label {
+    color: var(--color-dark-coral);
+    font-weight: bold;
+    margin-left: var(--space-sm);
+    background-color: rgba(231, 111, 81, 0.1);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-dark-coral);
+    transition: all var(--transition);
+}
+
+.dark-mode .out-of-stock-label {
+    background-color: rgba(231, 111, 81, 0.2);
+    color: var(--color-coral);
+}
+
+.out-of-stock-message {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    margin: var(--space-md) 0;
+    background-color: rgba(231, 111, 81, 0.08);
+    border: 1px solid rgba(231, 111, 81, 0.2);
+    color: var(--color-text-dark);
+    transition: all var(--transition);
+}
+
+.dark-mode .out-of-stock-message {
+    background-color: rgba(231, 111, 81, 0.15);
+    border-color: rgba(231, 111, 81, 0.3);
+    color: var(--color-text-light);
+}
+
+.out-of-stock-message i {
+    font-size: var(--text-xl);
+    flex-shrink: 0;
+    color: var(--color-dark-coral);
+}
+
+.dark-mode .out-of-stock-message i {
+    color: var(--color-coral);
+}
+
+.contact-suggestion {
+    margin: var(--space-lg) 0;
+    background-color: rgba(207, 169, 112, 0.05);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--color-accent);
+    transition: all var(--transition);
+}
+
+.dark-mode .contact-suggestion {
+    background-color: rgba(207, 169, 112, 0.1);
+    border-color: var(--color-accent);
+}
+
+.contact-suggestion p {
+    color: var(--color-accent);
+    font-weight: bold;
+    margin-bottom: var(--space-sm);
+    transition: color var(--transition);
+}
+
+.contact-suggestion ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: var(--space-sm);
+}
+
+.contact-suggestion li {
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) 0;
+    color: var(--color-text-dark);
+    transition: all var(--transition);
+}
+
+.dark-mode .contact-suggestion li {
+    color: var(--color-text-light);
+}
+
+.contact-suggestion li:hover {
+    color: var(--color-accent);
+    transform: translateX(5px);
+}
+
+.contact-suggestion li i {
+    color: var(--color-accent);
+    transition: var(--transition);
+}
+
+.contact-suggestion li:hover i {
+    color: var(--color-dark-coral);
+    transform: scale(1.2);
+}
+
+.dark-mode .contact-suggestion li:hover i {
+    color: var(--color-coral);
+}
+
+.notify-me-btn {
+    width: 100%;
+    padding: var(--space-md);
+    background-color: var(--color-dark-coral);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.notify-me-btn:hover {
+    background-color: var(--color-coral);
+    transform: translateY(-2px);
+}
+
+.dark-mode .notify-me-btn {
+    background-color: var(--color-coral);
+}
+
+.dark-mode .notify-me-btn:hover {
+    background-color: var(--color-dark-coral);
+}
+
+/* Số lượng */
+.quantity-section {
+    margin: var(--space-sm) 0;
+}
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--radius-sm);
+    padding: var(--space-xs);
+}
+
+.dark-mode .quantity-control {
+    border-color: var(--color-header-dark);
+}
+
+.qty-btn {
+    background: var(--color-light-gray);
+    border: none;
+    padding: var(--space-xs) var(--space-sm);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-weight: bold;
+    transition: background-color var(--transition);
+}
+
+.dark-mode .qty-btn {
+    background: var(--color-header-dark);
+    color: var(--color-text-light);
+}
+
+.qty-btn:hover {
+    background: var(--color-accent);
+    color: white;
+}
+
+.quantity {
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Nút thao tác */
+.action-buttons {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.add-to-cart-btn,
+.buy-now-btn {
+    padding: var(--space-sm) var(--space-md);
+    min-width: 180px;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-weight: bold;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+}
+
+.add-to-cart-btn {
+    background: var(--color-accent);
+    color: white;
+}
+
+.add-to-cart-btn:hover {
+    background: var(--color-dark-gray);
+    transform: translateY(-2px);
+}
+
+.buy-now-btn {
+    background: var(--color-coral);
+    color: white;
+}
+
+.buy-now-btn:hover {
+    background: var(--color-dark-coral);
+    transform: translateY(-2px);
+}
+
+/* Sản phẩm liên quan */
+.product-name {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.related-products {
+    margin-top: var(--space-xl);
+}
+
+.related-products h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-md);
+    color: var(--color-text-dark);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.dark-mode .related-products h2 {
+    color: var(--color-text-light);
+}
+
+.related-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.related-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    box-shadow: 0 4px 8px var(--shadow-light);
+    transition: all var(--transition);
+    width: 100%;
+    max-width: 350px;
+    /* Điều chỉnh kích thước tối đa */
+    margin: auto;
+}
+
+/* Hình ảnh mặc định (màn hình lớn - desktop) */
+.related-item img {
+    width: 100%;
+    max-width: 300px;
+    max-height: 250px;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.related-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-accent);
+}
+
+
+.related-item:hover img {
+    transform: scale(1.05);
+}
+
+
+
+.dark-mode .related-item {
+    background: var(--color-card-dark);
+    box-shadow: 0 4px 8px var(--shadow-dark);
+}
+
+.related-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+}
+
+.related-item p {
+    font-weight: bold;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text-dark);
+}
+
+.dark-mode .related-item p {
+    color: var(--color-text-light);
+}
+
+.current-price {
+    display: block;
+    color: var(--color-coral);
+    font-weight: bold;
+    margin-bottom: var(--space-sm);
+}
+
+.view-detail {
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition);
+    width: 100%;
+}
+
+.view-detail:hover {
+    background: var(--color-dark-gray);
+}
+
+/* Badge trạng thái */
+.status-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: bold;
+    margin-left: var(--space-sm);
+}
+
+.in-stock {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.dark-mode .in-stock {
+    background-color: #155724;
+    color: #d4edda;
+}
+
+.out-of-stock {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.dark-mode .out-of-stock {
+    background-color: #721c24;
+    color: #f8d7da;
+}
+
+
+
+
+.star-input-group input {
+    display: none;
+}
+
+/* Style cho ngôi sao */
+.star-input-group label {
+    font-size: 30px;
+    color: #ddd; /* Màu xám mặc định */
+    padding: 0 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Đảo ngược thứ tự hiển thị của sao (quan trọng để CSS hover hoạt động) */
+.star-input-group {
+    display: flex;
+    flex-direction: row-reverse; /* Sao 5 nằm đầu code nhưng hiển thị cuối cùng */
+}
+
+    /* Hiệu ứng khi chọn (Checked) */
+    .star-input-group input:checked ~ label {
+        color: #fd4;
+        text-shadow: 0 0 5px #952;
+    }
+
+    /* Hiệu ứng khi Hover: Làm sáng các sao đứng trước nó */
+    .star-input-group input:not(:checked) ~ label:hover,
+    .star-input-group input:not(:checked) ~ label:hover ~ label {
+        color: #fd4;
+    }
+
+    /* Hiệu ứng giữ màu khi đã chọn mà hover lại */
+    .star-input-group input:checked + label:hover,
+    .star-input-group input:checked + label:hover ~ label,
+    .star-input-group input:checked ~ label:hover,
+    .star-input-group input:checked ~ label:hover ~ label,
+    .star-input-group label:hover ~ input:checked ~ label {
+        color: #fd4;
+        text-shadow: 0 0 5px #952;
+    }
+
+/* --- PHẦN STYLE CHỮ TRẠNG THÁI --- */
+.rating-text-status {
+    width: 100%;
+    min-height: 40px; /* QUAN TRỌNG: Giữ chiều cao cố định để không bị nhảy khung */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    font-weight: 600;
+    color: #888;
+}
+
+/* Chỉnh màu chữ mặc định */
+#status-display {
+    transition: color 0.3s;
+}

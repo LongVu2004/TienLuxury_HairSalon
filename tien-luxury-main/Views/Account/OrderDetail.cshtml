@@ -1,0 +1,110 @@
+﻿@model TienLuxury.ViewModels.SuccessfulViewModel
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/non-admin-style/order-successfull-style.css" rel="stylesheet">
+
+<div class="container">
+    <div class="order-detail-container">
+
+        <div class="text-center mb-4 border-bottom py-4">
+            <h2 style="color: #8e735b; font-weight: bold; margin-top: 0;">CHI TIẾT ĐƠN HÀNG</h2>
+            @* <p class="text-muted mt-2 mb-0">Mã đơn hàng: <span class="fw-bold text-dark">#@Model.Invoice.ID.ToString().Substring(18, 6)</span></p> *@
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="info-card">
+                    <h5 class="mb-4 fw-bold" style="color: #5a4a3f;">Thông tin nhận hàng</h5>
+
+                    <div class="info-row">
+                        <span class="info-label"><i class="far fa-clock me-2"></i>Ngày đặt:</span>
+                        <span class="info-value">@Model.Invoice.CreatedDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label"><i class="far fa-user me-2"></i>Người nhận:</span>
+                        <span class="info-value">@Model.Invoice.CustomerName</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-phone-alt me-2"></i>Điện thoại:</span>
+                        <span class="info-value">@Model.Invoice.PhoneNumber</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label"><i class="fas fa-map-marker-alt me-2"></i>Địa chỉ:</span>
+                        <span class="info-value" style="font-size: 0.9rem;">@Model.Invoice.Address</span>
+                    </div>
+
+                    <div class="info-row" style="border-bottom: none;">
+                        <span class="info-label"><i class="fas fa-info-circle me-2"></i>Trạng thái:</span>
+                        <span class="badge bg-success" style="font-size: 0.9rem; align-self: center;">@Model.Invoice.Status.ToUpper()</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                @* <h5 class="mb-4 fw-bold" style="color: #5a4a3f; padding-left: 10px;">Sản phẩm đã mua (@Model.Items.Count)</h5> *@
+
+                <div class="products-list">
+                    @foreach (var i in Model.Items)
+                    {
+                        <div class="product-item">
+                            <img src="@i.ImagePath" alt="@i.ProductName" class="product-image" onerror="this.src='https://via.placeholder.com/80'">
+
+                            <div class="product-info-group">
+                                <div class="product-name">
+                                    @i.ProductName
+                                </div>
+
+                                <div class="product-meta">
+                                    <div style="color: #999; font-size: 0.9rem;">x<span class="fw-bold text-dark">@i.Quantity</span></div>
+                                    <div style="color: #d2b48c; font-weight: bold; font-size: 1.1rem;">@i.ProductPrice.ToString("N0") ₫</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-4 pt-3 border-top d-flex justify-content-end align-items-center">
+                    <div class="text-end">
+                        <p class="mb-1 text-muted small">Phương thức thanh toán: <span class="fw-bold text-uppercase">@Model.Invoice.PaymentMethod</span></p>
+                        @{
+                            // Tính toán lại các con số
+                            var discount = Model.Invoice.DiscountAmount.GetValueOrDefault();
+                            var finalTotal = Model.Invoice.Total;
+                            var subTotal = finalTotal + discount;
+                        }
+
+                        <p class="mb-1 text-muted" style="font-size: 0.95rem;">
+                            Tạm tính: <span>@subTotal.ToString("N0") ₫</span>
+                        </p>
+
+                        @if (discount > 0)
+                        {
+                            <p class="mb-1 text-success" style="font-size: 0.95rem;">
+                                <i class="fas fa-ticket-alt me-1"></i>
+                                Mã giảm giá (@(Model.Invoice.VoucherCode ?? "Code")):
+                                <span class="fw-bold">-@discount.ToString("N0") ₫</span>
+                            </p>
+                        }
+                        <div style="font-size: 1.2rem;">
+                            Tổng tiền: <span style="color: #d9534f; font-weight: 800; font-size: 1.5rem;">@Model.Invoice.Total.ToString("N0") ₫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="@Url.Action("Profile", "Account")" class="back-btn">
+                <i class="fas fa-arrow-left me-2"></i> Quay lại Lịch sử
+            </a>
+        </div>
+
+    </div>
+</div>

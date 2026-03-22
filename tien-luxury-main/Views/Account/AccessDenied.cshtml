@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null; /* QUAN TRỌNG: Dòng này giúp bỏ Header/Footer để trang đứng một mình */
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truy cập bị từ chối</title>
+    <link href="~/css/non-admin-style/access-denied-style.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="icon-circle">
+            <i class="fas fa-lock"></i>
+        </div>
+
+        <span class="error-code">Error 403</span>
+        <h1>Truy cập bị chặn</h1>
+
+        <p>
+            Tài khoản của bạn không có quyền quản trị viên.<br>
+            Vui lòng quay lại trang chủ hoặc đăng nhập tài khoản khác.
+        </p>
+
+        <a href="@Url.Action("Index", "Home")" class="btn-home">
+            <i class="fas fa-arrow-left me-2"></i> Về trang chủ
+        </a>
+
+        <a href="@Url.Action("Logout", "Account")" class="logout-link">
+            Đăng xuất tài khoản này
+        </a>
+    </div>
+
+</body>
+</html>

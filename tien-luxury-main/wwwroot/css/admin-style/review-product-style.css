@@ -1,0 +1,242 @@
+﻿/* --- 1. Kế thừa các biến và cấu trúc Container --- */
+.reviews-container {
+    padding: 2.5rem;
+}
+
+/* Header giống Product Header */
+.reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.reviews-title {
+    color: var(--text-color);
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    position: relative;
+    padding-left: 20px; /* Khoảng cách cho gạch dọc */
+}
+
+    /* Kế thừa dấu gạch dọc màu vàng gold đặc trưng */
+    .reviews-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 24px;
+        background-color: #cfa970; /* Màu accent giống Product */
+        border-radius: 2px;
+    }
+
+/* --- 2. Container cho Bảng (Style giống Product Card) --- */
+/* Thay vì mỗi review là 1 card, ta gom bảng vào 1 card lớn */
+.review-table-card {
+    background: var(--card-color);
+    border-radius: 10px;
+    padding: 0; /* Table sẽ tràn viền đẹp hơn */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Shadow giống Product Card */
+    transition: all var(--transition-speed);
+    overflow: hidden; /* Bo góc cho cả bảng bên trong */
+}
+
+    .review-table-card:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Hover effect giống Product Card */
+    }
+
+/* --- 3. Style cho Table bên trong --- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+    color: var(--text-color);
+}
+
+    .table thead {
+        background-color: #f8f9fa; /* Màu nền header bảng nhẹ nhàng */
+        border-bottom: 2px solid #eee;
+    }
+
+    .table th {
+        padding: 15px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+        font-size: 0.95rem;
+        color: #5a4a3f; /* Màu chữ hơi nâu đậm cho sang */
+    }
+
+    .table td {
+        padding: 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #eee;
+        font-size: 0.9rem;
+    }
+
+    .table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table tr:hover {
+        background-color: rgba(0, 0, 0, 0.01); /* Hiệu ứng hover nhẹ lên dòng */
+    }
+
+    /* Dòng chưa duyệt có màu nền vàng nhạt cảnh báo */
+    .table tr.pending-row {
+        background-color: #fff8e1;
+    }
+
+/* --- 4. Các thành phần chi tiết (Ảnh, Avatar, Badge) --- */
+
+/* Ảnh sản phẩm (Thumbnail nhỏ) */
+.review-product-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px; /* Bo góc giống Product Image */
+    border: 1px solid #eee;
+}
+
+.product-name-link {
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Avatar người dùng */
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+/* Số sao (Rating) */
+.star-rating {
+    color: #fd4; /* Màu vàng sao */
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+    .star-rating .text-muted {
+        color: #e4e5e9; /* Màu sao rỗng */
+    }
+
+/* Nội dung comment */
+.review-content {
+    max-width: 300px;
+    max-height: 80px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* Badge trạng thái (Kế thừa logic status-badge) */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+    .status-badge.approved {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status-badge.pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+/* --- 5. Nút bấm (Buttons) - Đồng bộ với Product Buttons --- */
+.action-btn {
+    border: none;
+    border-radius: 6px; /* Bo góc giống Add btn */
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    color: white;
+    font-size: 0.85rem;
+    margin-right: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px; /* Làm nút hình vuông cho icon */
+}
+
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+/* Màu sắc nút dựa trên ngữ cảnh */
+.btn-approve {
+    background: #28a745; /* Xanh lá */
+}
+
+    .btn-approve:hover {
+        background: #218838;
+    }
+
+.btn-censor {
+    background: #ffc107; /* Vàng */
+    color: #212529;
+}
+
+    .btn-censor:hover {
+        background: #e0a800;
+    }
+
+.btn-delete {
+    background: #dc3545; /* Đỏ - Giống Product Delete Btn */
+}
+
+    .btn-delete:hover {
+        background: #c82333;
+    }
+
+/* --- 6. Responsive --- */
+@media (max-width: 768px) {
+    .reviews-container {
+        padding: 15px;
+    }
+
+    .reviews-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    /* Trên mobile, có thể ẩn bớt cột nếu cần, hoặc để scroll ngang */
+    .table th, .table td {
+        padding: 10px;
+    }
+
+    .review-product-img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .product-name-link {
+        max-width: 120px;
+        font-size: 0.85rem;
+    }
+}

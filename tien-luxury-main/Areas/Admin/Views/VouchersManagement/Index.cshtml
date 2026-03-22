@@ -1,0 +1,120 @@
+﻿@model List<TienLuxury.Models.Voucher>
+@{
+    ViewData["Title"] = "Quản lý Voucher";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/admin-style/voucher-management-style.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="voucher-container">
+    <div class="voucher-header">
+        <h2 class="voucher-title">Danh sách Mã giảm giá</h2>
+        <a href="@Url.Action("AddVoucher")" class="add-btn"><i class="fas fa-plus"></i> Tạo Mã Mới</a>
+    </div>
+
+    <div class="voucher-table-card">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mã Code</th>
+                        <th>Giảm giá</th>
+                        <th>Điều kiện</th>
+                        <th>Số lượng</th>
+                        <th>Thời gian</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            // Logic xác định trạng thái hiển thị
+                            string statusClass = "active";
+                            string statusText = "Đang chạy";
+                            if (!item.IsActive) { statusClass = "expired"; statusText = "Đã khóa"; }
+                            else if (DateTime.Now > item.EndDate) { statusClass = "expired"; statusText = "Hết hạn"; }
+                            else if (DateTime.Now < item.StartDate) { statusClass = "upcoming"; statusText = "Sắp chạy"; }
+                            else if (item.UsedCount >= item.Quantity) { statusClass = "expired"; statusText = "Hết mã"; }
+
+                            <tr>
+                                <td>
+                                    <span class="code-badge">@item.Code</span><br />
+                                    <small class="text-muted">@item.Description</small>
+                                </td>
+                                <td>
+                                    @if (item.DiscountType == "PERCENT")
+                                    {
+                                        <span class="fw-bold text-success">Giảm @item.Value.ToString("0")%</span>
+                                        @if (item.MaxDiscountAmount.HasValue)
+                                        {
+                                            <div style="font-size: 0.8rem;">Tối đa: @item.MaxDiscountAmount.Value.ToString("N0")đ</div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="fw-bold text-primary">Giảm @item.Value.ToString("N0")đ</span>
+                                    }
+                                </td>
+                                <td>
+                                    <small>Đơn tối thiểu:</small><br />
+                                    <strong>@item.MinOrderAmount.ToString("N0")đ</strong>
+                                </td>
+                                <td>
+                                    <div class="progress" style="height: 6px; width: 80px; margin-bottom: 5px;">
+                                        @{
+                                            var percent = item.Quantity > 0 ? (item.UsedCount * 100 / item.Quantity) : 0;
+                                        }
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: @percent%"></div>
+                                    </div>
+                                    <small>@item.UsedCount / @item.Quantity</small>
+                                </td>
+                                <td>
+                                    <small>@item.StartDate.ToString("dd/MM") - @item.EndDate.ToString("dd/MM/yyyy")</small>
+                                </td>
+                                <td>
+                                    <span class="status-badge @statusClass">@statusText</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="@Url.Action("UpdateVoucher", new { id = item.Id })" class="btn btn-sm btn-info text-white" title="Sửa"><i class="fas fa-edit"></i></a>
+
+                                        <form asp-action="DeleteVoucher" method="post" onsubmit="confirmDelete(event)">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="7" class="text-center py-5">Chưa có mã giảm giá nào.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(event) {
+        event.preventDefault();
+        var form = event.target;
+        Swal.fire({
+            title: 'Xóa voucher này?',
+            text: "Không thể khôi phục sau khi xóa!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Xóa ngay',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) form.submit();
+        })
+    }
+</script>

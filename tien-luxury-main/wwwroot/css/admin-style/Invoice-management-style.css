@@ -1,0 +1,232 @@
+:root {
+    --primary-color: #d2b48c;
+    --secondary-color: #c8a77b;
+    --hover-color: #b89b6d;
+    --accent-color: #a18859;
+    --background-color: #f8f5f0;
+    --text-color: #5a4a3f;
+    --card-color: #ffffff;
+    --transition-speed: 0.3s;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(90, 74, 63, 0.15);
+    --danger-color: #d9534f;
+    --success-color: #5cb85c;
+}
+
+.orders-container {
+    padding: 2.5rem;
+    min-height: calc(100vh - 4.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: var(--background-color);
+}
+
+/* Table wrapper */
+.table-wrapper {
+    width: 100%;
+    background: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+    margin: 0 auto;
+    border: 1px solid rgba(210, 180, 140, 0.3);
+    overflow: hidden;
+}
+
+.table-container .address-row {
+    max-width: 0;
+    width: 30%;
+}
+.table-container .address-row,
+.table-container .customer-name-row {
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.table-header h2 {
+    color: var(--text-color);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Filter section */
+.filter-section {
+    display: flex;
+    align-items: center;
+}
+
+.filter-section label {
+    margin-right: 10px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.filter-section select {
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--text-color);
+    background: var(--card-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.filter-section select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(210, 180, 140, 0.3);
+}
+
+/* Table container */
+.table-container {
+    max-height: 600px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+/* Table styling */
+.table-container table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-container th, 
+.table-container td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(210, 180, 140, 0.2);
+}
+
+.table-container th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table-container th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.table-container th:last-child {
+    border-top-right-radius: 8px;
+}
+
+/* Table rows */
+.order-row {
+    transition: background-color var(--transition-speed);
+    cursor: pointer;
+}
+
+.order-row:nth-child(even) {
+    background-color: rgba(210, 180, 140, 0.1);
+}
+
+.order-row:hover {
+    background-color: rgba(210, 180, 140, 0.2);
+}
+
+/* Status styles */
+.status {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+    color: white;
+}
+
+.status[data-status="Chưa xử lý"] {
+    background-color: #817f7e;
+}
+
+.status[data-status="Đang xử lý"] {
+    background: var(--accent-color);
+}
+
+.status[data-status="Đã xử lý"] {
+    background-color: #5cb85c;
+}
+
+.status[data-status="Đã thanh toán"] {
+    background-color: #5cb85c;
+}
+
+.status[data-status="Hủy đơn"] {
+    background-color: #d9534f;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .table-wrapper {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-wrapper {
+        padding: 1.5rem 1rem;
+    }
+
+    .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .filter-section {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .table-container th, 
+    .table-container td {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-wrapper {
+        padding: 1rem 0.75rem;
+    }
+
+    .table-container th, 
+    .table-container td {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .status {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+}

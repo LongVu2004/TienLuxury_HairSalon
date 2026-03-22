@@ -1,0 +1,154 @@
+﻿@model TienLuxury.ViewModels.OrderReviewViewModel
+@{
+    ViewData["Title"] = "Đánh giá đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* CSS cho sao */
+    .star-rating {
+        direction: rtl;
+        display: inline-flex;
+    }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ddd;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 0 2px;
+        }
+
+        .star-rating input:checked ~ label {
+            color: #fd4;
+        }
+
+        /* Chỉ hover khi chưa bị disabled */
+        .star-rating:not(.disabled-rating) input:not(:checked) ~ label:hover,
+        .star-rating:not(.disabled-rating) input:not(:checked) ~ label:hover ~ label {
+            color: #fd4;
+        }
+
+    .btn-gold {
+        background-color: #d2b48c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 30px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+        .btn-gold:hover {
+            background-color: #b08d55;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(210, 180, 140, 0.4);
+        }
+
+    /* Class làm mờ khi đã đánh giá */
+    .opacity-75 {
+        opacity: 0.75;
+        pointer-events: none; /* Chặn click chuột */
+    }
+</style>
+
+<div class="container py-5">
+    <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 fw-bold" style="color: #5a4a3f;">
+                <i class="fas fa-star-half-alt me-2" style="color: #d2b48c;"></i> ĐÁNH GIÁ ĐƠN HÀNG
+            </h5>
+            <small class="text-muted">Ngày đặt: @Model.CreatedDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</small>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="SubmitOrderReviews" method="post">
+                <input type="hidden" asp-for="InvoiceId" />
+
+                @for (int i = 0; i < Model.Items.Count; i++)
+                {
+                    // Biến kiểm tra: Đã đánh giá hay chưa?
+                    bool daDanhGia = Model.Items[i].IsReviewed;
+
+                    <div class="d-flex align-items-start mb-4 pb-4 border-bottom">
+                        <input type="hidden" asp-for="Items[i].ProductId" />
+
+                        <img src="@(string.IsNullOrEmpty(Model.Items[i].ProductImage) ? "/images/no-image.png" : Model.Items[i].ProductImage)"
+                             alt="@Model.Items[i].ProductName"
+                             style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #eee;"
+                             onerror="this.onerror=null; this.src='/images/no-image.png';">
+
+                        <div class="ms-3 w-100">
+                            <h6 class="fw-bold mb-2">@Model.Items[i].ProductName</h6>
+
+                            @if (daDanhGia)
+                            {
+                                // Hiển thị trạng thái
+                                if (Model.Items[i].IsApproved)
+                                {
+                                    <div class="text-success small mb-2"><i class="fas fa-check-circle"></i> Đánh giá đã được duyệt và hiển thị.</div>
+                                }
+                                else
+                                {
+                                    <div class="text-warning small mb-2"><i class="fas fa-clock"></i> Đánh giá đang chờ quản trị viên phê duyệt.</div>
+                                }
+                            }
+
+                            <div class="star-rating mb-2 @(daDanhGia ? "disabled-rating opacity-75" : "")">
+                                <input type="radio" asp-for="Items[i].Rating" value="5" id="rate-@i-5" disabled="@(daDanhGia ? "disabled" : null)" />
+                                <label for="rate-@i-5" class="fas fa-star"></label>
+
+                                <input type="radio" asp-for="Items[i].Rating" value="4" id="rate-@i-4" disabled="@(daDanhGia ? "disabled" : null)" />
+                                <label for="rate-@i-4" class="fas fa-star"></label>
+
+                                <input type="radio" asp-for="Items[i].Rating" value="3" id="rate-@i-3" disabled="@(daDanhGia ? "disabled" : null)" />
+                                <label for="rate-@i-3" class="fas fa-star"></label>
+
+                                <input type="radio" asp-for="Items[i].Rating" value="2" id="rate-@i-2" disabled="@(daDanhGia ? "disabled" : null)" />
+                                <label for="rate-@i-2" class="fas fa-star"></label>
+
+                                <input type="radio" asp-for="Items[i].Rating" value="1" id="rate-@i-1" disabled="@(daDanhGia ? "disabled" : null)" />
+                                <label for="rate-@i-1" class="fas fa-star"></label>
+                            </div>
+
+                            <textarea asp-for="Items[i].Comment"
+                                      class="form-control @(daDanhGia ? "bg-white" : "bg-light")"
+                                      rows="2"
+                                      placeholder="@(daDanhGia ? "" : "Chất lượng sản phẩm thế nào?")"
+                                      readonly="@(daDanhGia ? "readonly" : null)"></textarea>
+                        </div>
+                    </div>
+                }
+
+                <div class="text-end mt-4">
+                    <a href="@Url.Action("Profile", "Account")" class="btn btn-outline-secondary me-2" style="border-radius: 8px;">
+                        Quay lại
+                    </a>
+
+                    @{
+                        // Kiểm tra xem còn sản phẩm nào CHƯA đánh giá không
+                        bool conSanPhamChuaDanhGia = Model.Items.Any(x => !x.IsReviewed);
+                    }
+
+                    @if (conSanPhamChuaDanhGia)
+                    {
+                        <button type="submit" class="btn-gold">
+                            <span>Hoàn tất đánh giá</span>
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-secondary" disabled style="border-radius: 8px;">
+                            <i class="fas fa-check"></i> Đã hoàn tất đánh giá
+                        </button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

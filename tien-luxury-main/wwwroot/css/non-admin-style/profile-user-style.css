@@ -1,0 +1,226 @@
+﻿.profile-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    border: 1px solid #f0e6d2;
+}
+
+.profile-sidebar {
+    background-color: #fbf8f3;
+    padding: 30px;
+    border-right: 1px solid #eee;
+}
+
+/* Khung ảnh đại diện xịn xò */
+.avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+}
+
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Giúp ảnh không bị méo */
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* Nút camera nhỏ */
+.camera-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: #d2b48c;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid white;
+    transition: 0.3s;
+}
+
+    .camera-btn:hover {
+        background-color: #b08d55;
+        transform: scale(1.1);
+    }
+
+.nav-tabs .nav-link {
+    color: #666;
+    font-weight: 600;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px 20px;
+}
+
+    .nav-tabs .nav-link.active {
+        color: #8e735b;
+        border-bottom: 3px solid #d2b48c;
+        background: none;
+    }
+
+/* Các style khác giữ nguyên */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block; /* Để badge không bị vỡ dòng */
+}
+
+/* Màu Xanh lá (Đã thanh toán, Đã xử lý) - Giống Admin */
+.bg-success-soft {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Màu Đỏ (Hủy đơn) - Giống Admin */
+.bg-danger-soft {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Màu Vàng/Cam (Chờ thanh toán) */
+.bg-warning-soft {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Màu Xanh dương/Nâu nhạt (Đang xử lý) */
+.bg-info-soft {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Mặc định (Khác) */
+.bg-pending {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.custom-input {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+    .custom-input:focus {
+        border-color: #d2b48c;
+        box-shadow: 0 0 0 0.2rem rgba(210, 180, 140, 0.25);
+    }
+
+/* --- DARK MODE STYLES --- */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* 1. Container chính */
+.dark-mode .profile-container {
+    background-color: #1e1e1e; /* Nền xám đen */
+    border-color: #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* 2. Sidebar bên trái */
+.dark-mode .profile-sidebar {
+    background-color: #252525; /* Tối hơn một chút để phân biệt */
+    border-right-color: #333;
+}
+
+/* 3. Các text và input */
+.dark-mode h5, .dark-mode h6 {
+    color: #d4af37 !important;
+}
+/* Vàng gold */
+.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+.dark-mode .text-dark {
+    color: #fff !important;
+}
+/* Mã đơn hàng màu trắng */
+
+.dark-mode .custom-input {
+    background-color: #333;
+    border-color: #444;
+    color: #fff;
+}
+
+    .dark-mode .custom-input:focus {
+        border-color: #d4af37;
+    }
+
+/* 4. Tabs */
+.dark-mode .nav-tabs {
+    border-bottom-color: #333;
+}
+
+    .dark-mode .nav-tabs .nav-link {
+        color: #888;
+    }
+
+        .dark-mode .nav-tabs .nav-link.active {
+            color: #d4af37;
+            border-bottom-color: #d4af37;
+        }
+
+/* 5. BẢNG DỮ LIỆU (QUAN TRỌNG NHẤT) */
+.dark-mode .table {
+    color: #e0e0e0;
+    border-color: #333;
+}
+
+    /* Header bảng: Nền đen đậm, chữ vàng */
+    .dark-mode .table thead th {
+        background-color: #2c2c2c !important;
+        color: #d4af37; /* Màu vàng cho tiêu đề cột */
+        border-bottom: 1px solid #444;
+        border-top: none;
+    }
+
+    /* Dòng dữ liệu: Nền xám, chữ trắng */
+    .dark-mode .table tbody td {
+        background-color: #1e1e1e !important;
+        color: #ddd;
+        border-bottom: 1px solid #333;
+    }
+
+/* Hiệu ứng khi di chuột vào dòng */
+.dark-mode .table-hover tbody tr:hover td {
+    background-color: #2a2a2a !important;
+    color: #fff;
+}
+
+/* Nút Chi tiết */
+.dark-mode .btn-outline-secondary {
+    color: #bbb;
+    border-color: #555;
+}
+
+    .dark-mode .btn-outline-secondary:hover {
+        background-color: #d4af37;
+        border-color: #d4af37;
+        color: #000;
+    }
+
+/* Avatar Border */
+.dark-mode .profile-avatar-img {
+    border-color: #333;
+}
+
+.dark-mode .camera-btn {
+    border-color: #333;
+    background-color: #d4af37;
+    color: #000;
+}

@@ -1,0 +1,90 @@
+﻿@model InvoiceListViewModel
+
+@{
+    ViewData["Title"] = "Orders Management";
+}
+
+<link href="~/css/admin-style/Invoice-management-style.css" rel="stylesheet" asp-append-version="true" />
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Orders Management</span>
+
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<divc class="orders-container">
+    <div class="table-wrapper" id="orders">
+
+        <div class="table-header">
+            <h2>Danh Sách Đơn Hàng</h2>
+
+            <div class="filter-section" style="margin-bottom: 15px;">
+                <label for="statusFilter" style="margin-right: 10px; color: var(--text-color);">Lọc theo trạng
+                    thái:</label>
+                <select id="statusFilter" onchange="filterOrders(this.value)" style="">
+                    <option value="all">Tất cả</option>
+                    @* <option value="Chưa xử lý">Chưa xử lý</option> *@
+                    <option value="Đã thanh toán">Đã thanh toán</option>
+                    <option value="Đang xử lý">Đang xử lý</option>
+                    <option value="Đã xử lý">Đã xử lý</option>
+                    <option value="Hủy đơn">Hủy đơn</option>
+                </select>
+            </div>
+        </div>
+
+
+        <!-- Danh sách đơn hàng -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày đặt</th>
+                        <th class="customer-name-row">Khách hàng</th>
+                        <th>SĐT</th>
+                        <th class="address-row">Địa chỉ</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @{
+                        foreach (var i in Model.Invoices)
+                        {
+                            <tr class="order-row"
+                                onclick="window.location='@Url.Action("UpdateInvoiceStatus", "OrdersManagement", new { invoiceID = i.ID })'">
+                                <td>@i.ID</td>
+                                <td>@i.CreatedDate.ToLocalTime().ToString("dd/MM/yyyy")</td>
+                                <td class="customer-name-row">@i.CustomerName</td>
+                                <td>@i.PhoneNumber</td>
+                                <td class="address-row">@i.Address</td>
+                                <td>@i.Total.ToString("C0")</td>
+                                <td><span class="status" data-status="@i.Status">@i.Status</span></td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    function filterOrders(status) {
+        const rows = document.querySelectorAll('.order-row');
+
+        rows.forEach(row => {
+            const statusCell = row.querySelector('.status').dataset.status;
+            if (status === "all" || statusCell === status) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>

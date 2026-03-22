@@ -1,0 +1,295 @@
+/* Tiêu đề */
+.contact h2 {
+    color: var(--dark-blue);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+    margin: 3rem 0;
+    padding-bottom: 10px;
+    transition: color var(--transition);
+    /* Thêm transition cho màu */
+}
+
+/* Hiệu ứng gạch chân tiêu đề */
+.contact h2::after {
+    content: "";
+    width: 30%;
+    height: 4px;
+    background: var(--color-coral);
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    transition: background var(--transition);
+    /* Thêm transition cho màu nền */
+}
+
+/* Bố cục chính */
+.contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Thông tin liên hệ */
+.contact-info {
+    text-align: left;
+    background: var(--bg-light);
+    padding: 2rem;
+    /* Tăng padding */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    width: 100%;
+    max-width: 400px;
+    /* Tăng max-width */
+    transition: background var(--transition);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* Tăng khoảng cách giữa các phần tử */
+    width: 100%;
+    max-width: 450px;
+    /* Tăng max-width */
+    background: var(--bg-light);
+    padding: 2rem;
+    /* Tăng padding */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    transition: background var(--transition);
+}
+
+.contact-info p {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    transition: color var(--transition);
+    /* Thêm transition cho màu chữ */
+}
+
+.contact-info i {
+    margin-right: 0.75rem;
+    color: var(--coral);
+    font-size: 1.125rem;
+    transition: color var(--transition);
+    /* Thêm transition cho màu icon */
+}
+
+.contact-info a {
+    color: var(--dark-blue);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color var(--transition);
+    /* Đồng bộ transition */
+}
+
+.contact-info a:hover {
+    color: var(--coral);
+}
+
+/* Mạng xã hội */
+.social-links {
+    margin-top: 0.5rem;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    color: var(--dark-blue);
+    transition: color var(--transition);
+    /* Đồng bộ transition */
+}
+
+.social-links a:hover {
+    color: var(--coral);
+}
+
+
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--bg-light);
+    /* Thêm nền để chuyển màu mượt mà */
+    color: var(--text-light);
+    /* Thêm màu chữ để chuyển màu */
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+    /* Đồng bộ transition */
+}
+
+.contact-form textarea {
+    max-height: 200px;
+    min-height: 100px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--color-coral);
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 127, 80, 0.5);
+}
+
+.contact-form button {
+    background: var(--color-coral);
+    color: var(--white);
+    border: none;
+    padding: 0.875rem;
+    font-size: 1.125rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background var(--transition), color var(--transition);
+    /* Đồng bộ transition */
+}
+
+.contact-form button:hover {
+    background: var(--color-dark-coral);
+}
+
+/* Banner */
+.contact-banner {
+    text-align: center;
+    margin: 1.5rem auto;
+    max-width: 900px;
+}
+
+.contact-banner img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow var(--transition);
+    /* Thêm transition cho bóng */
+}
+
+/* Bản đồ Google Maps */
+.map {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.map iframe {
+    width: 100%;
+    max-width: 1000px;
+    height: 350px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    transition: box-shadow var(--transition);
+    /* Thêm transition cho bóng */
+}
+
+/* Chế độ tối */
+.dark-mode {
+    --bg-light: #252525;
+    --text-light: #f0f0f0;
+    --dark-blue: #a3bffa;
+    --coral: #ec805c;
+    --dark-coral: #ff7f50;
+    --light-gray: #666666;
+    --shadow-light: var(--shadow-dark);
+}
+
+.dark-mode .contact h2 {
+    color: var(--dark-blue);
+}
+
+.dark-mode .contact-info,
+.dark-mode .contact-form {
+    background: var(--bg-light);
+    box-shadow: 0 5px 15px var(--shadow-dark);
+}
+
+.dark-mode .contact-info p {
+    color: var(--text-light);
+}
+
+.dark-mode .contact-info a,
+.dark-mode .social-links a {
+    color: var(--dark-blue);
+}
+
+.dark-mode .contact-info a:hover,
+.dark-mode .social-links a:hover {
+    color: var(--coral);
+}
+
+.dark-mode .contact-form input,
+.dark-mode .contact-form textarea {
+    background: #333333;
+    color: var(--text-light);
+    border-color: var(--light-gray);
+}
+
+.dark-mode .contact-form button {
+    background: var(--coral);
+    color: var(--white);
+}
+
+.dark-mode .contact-form button:hover {
+    background: var(--dark-coral);
+}
+
+.dark-mode .contact-banner img {
+    box-shadow: 0 4px 10px var(--shadow-dark);
+}
+
+.dark-mode .map iframe {
+    box-shadow: 0 5px 15px var(--shadow-dark);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .contact h2 {
+        font-size: 2rem;
+        margin: 2rem 0;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .contact-info,
+    .contact-form {
+        max-width: 100%;
+    }
+
+    .map iframe {
+        height: 250px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact h2 {
+        font-size: 1.75rem;
+    }
+
+    .contact-info p {
+        font-size: 0.875rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 0.5rem;
+    }
+
+    .contact-form button {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+}

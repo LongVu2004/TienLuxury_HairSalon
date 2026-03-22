@@ -1,0 +1,116 @@
+﻿.payment-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(165, 0, 100, 0.1);
+    text-align: center;
+    border: 1px solid #d82d8b; /* Viền hồng Momo */
+}
+
+.momo-logo {
+    width: 80px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+}
+
+.qr-image {
+    max-width: 250px;
+    border: 2px solid #f5f5f5;
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.bank-info {
+    background: #fff0f6; /* Nền hồng nhạt */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    text-align: left;
+    border: 1px dashed #d82d8b;
+}
+
+    .bank-info p {
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+    .bank-info strong {
+        color: #333;
+    }
+
+.btn-finish {
+    background-color: #d82d8b; /* Màu Momo */
+    color: white;
+    padding: 12px 35px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+    transition: 0.3s;
+    border: none;
+    box-shadow: 0 4px 10px rgba(216, 45, 139, 0.3);
+}
+
+    .btn-finish:hover {
+        background-color: #b01b6c;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0;
+}
+
+.dark-mode .payment-container {
+    background-color: #1e1e1e;
+    border-color: #d82d8b; /* Giữ viền hồng đặc trưng */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Giữ nền trắng cho QR để quét được */
+.dark-mode .qr-image {
+    background-color: #fff;
+    border-color: #333;
+}
+
+.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+/* Khung thông tin chuyển sang màu tối */
+.dark-mode .bank-info {
+    background-color: #252525; /* Thay vì hồng nhạt thì dùng xám tối */
+    border-color: #d82d8b;
+}
+
+    .dark-mode .bank-info strong {
+        color: #fff;
+    }
+
+/* Xử lý khung lưu ý (Alert) */
+.dark-mode .alert-secondary {
+    background-color: #252525 !important;
+    border-color: #444 !important;
+    color: #ddd;
+}
+
+/* Nút Hủy giao dịch */
+.dark-mode .text-decoration-none {
+    color: #aaa !important;
+}
+
+    .dark-mode .text-decoration-none:hover {
+        color: #fff !important;
+    }
+.dark-mode .content-badge {
+    background-color: #333 !important;
+    color: #ff6db5 !important; /* Màu hồng sáng hơn cho dễ đọc trên nền tối */
+    border-color: #d82d8b !important;
+}

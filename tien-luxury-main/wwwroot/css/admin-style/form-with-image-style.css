@@ -1,0 +1,201 @@
+﻿.form-with-image {
+    padding: 25px;
+    max-width: 700px;
+    width: 90%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Tiêu đề form */
+.modalTitle {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.9rem;
+    font-weight: 600;
+}
+
+/* Nhóm form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Label */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Input fields */
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    /* transition: all 0.3s ease; */
+    background-color: #f9f9f9;
+}
+
+.form-input:focus {
+    border-color: #cfa970;
+    box-shadow: 0 0 0 3px rgba(207, 169, 112, 0.2);
+    background-color: #fff;
+    outline: none;
+}
+
+/* Textarea */
+textarea.form-input {
+    min-height: 100px;
+    max-height: 30vh;
+    resize: vertical;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #7e7b7b;
+}
+
+.close:hover {
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+/* Checkbox tùy chỉnh */
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.custom-checkbox input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.custom-checkbox label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.custom-checkbox label:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.custom-checkbox input:checked + label {
+    background-color: #cfa970;
+}
+
+.custom-checkbox input:checked + label:before {
+    transform: translateX(26px);
+}
+
+/* Nút submit */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #cfa970;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    background-color: #b8935a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Xem trước ảnh */
+#imagePreview {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+#previewImage {
+    max-height: 200px;
+    object-fit: contain;
+}
+
+/* Thông báo lỗi */
+#errorMessage {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Khoảng cách giữa hai trường */
+}
+
+.form-group.half {
+    flex: 1; /* Chia đều không gian cho hai trường */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-left, .form-right {
+        width: 100%;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px 15px;
+    }
+}

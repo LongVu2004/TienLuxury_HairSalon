@@ -1,0 +1,62 @@
+@model MessageListViewModel
+
+@{
+    ViewData["Title"] = "User feedback management";
+}
+
+<link href="~/css/admin-style/messages-management.css" rel="stylesheet">
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Feedback management</span>
+        
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+
+<div class="message-container">
+    <!-- Message List -->
+    <div class="message-list">
+
+        <h3>Danh sách đánh giá</h3>
+
+        @{
+            foreach (var m in Model.Messages)
+            {
+                <div class="message-item" data-id="@m.Id" data-name="@m.CustomerName" data-email="@m.Email"
+                    data-phone="@m.PhoneNumber" data-content="@m.Content.Replace("\"", "&quot;")">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="message-name">@m.CustomerName</div>
+                        <div class="message-date">@m.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</div>
+                    </div>
+                    <div class="message-email">@m.Email</div>
+                    <div class="message-phone">@m.PhoneNumber</div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Message Detail -->
+    <div class="message-detail hidden" id="message-detail">
+        <div class="detail-header d-flex justify-content-between align-items-center">
+            <div class="customer-infor">
+                <div class="detail-name" id="detail-name"></div>
+                <div class="detail-phone" id="detail-phone"></div>
+                <div class="detail-email" id="detail-email"></div>
+            </div>
+            <div class="action-bnutton">
+                <button class="delete-btn"><i class="fas fa-trash"></i> Xóa đánh giá</button>
+            </div>
+        </div>
+        <div class="message-content" id="detail-content">
+            <h4>Nội dung đánh giá:</h4>
+            <p id="content-paragraph"></p>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/js/admin-script/message-management-script.js"></script>

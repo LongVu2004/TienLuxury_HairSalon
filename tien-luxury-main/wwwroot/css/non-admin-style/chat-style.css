@@ -1,0 +1,133 @@
+﻿/* --- KHUNG CHAT STYLE GEARVN --- */
+.mini-chat-container {
+    position: fixed;
+    bottom: 90px; /* Cách đáy màn hình */
+    right: 100px; /* Cách lề phải (để chừa chỗ cho cột nút tròn) */
+    width: 340px; /* Chiều rộng chuẩn */
+    height: 450px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2); /* Đổ bóng nổi */
+    z-index: 2147483647; /* Luôn nằm trên cùng (số max của z-index) */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    animation: popUp 0.3s ease-out;
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header màu đỏ */
+.chat-header {
+    background-color: #E30019; /* Màu đỏ giống GearVN (hoặc thay bằng màu Salon của bạn) */
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: bold;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.header-controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 10px;
+    opacity: 0.8;
+}
+
+    .header-controls button:hover {
+        opacity: 1;
+    }
+
+/* Phần thân chat */
+.chat-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #fdfdfd;
+    font-size: 14px;
+}
+
+/* Tin nhắn */
+.bot-msg {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 15px 15px 15px 0;
+    margin-bottom: 10px;
+    float: left;
+    clear: both;
+    max-width: 85%;
+    line-height: 1.5;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.user-msg {
+    background-color: #E30019;
+    color: white; /* Màu tin nhắn user */
+    padding: 10px 15px;
+    border-radius: 15px 15px 0 15px;
+    margin-bottom: 10px;
+    float: right;
+    clear: both;
+    max-width: 85%;
+    line-height: 1.5;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Footer nhập liệu */
+.chat-footer {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    background: white;
+}
+
+    .chat-footer input {
+        flex: 1;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 20px;
+        outline: none;
+        font-size: 14px;
+        margin-right: 8px;
+        background: #f9f9f9;
+    }
+
+        .chat-footer input:focus {
+            border-color: #E30019;
+            background: white;
+        }
+
+    .chat-footer button {
+        background: none;
+        border: none;
+        color: #E30019;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 5px;
+    }

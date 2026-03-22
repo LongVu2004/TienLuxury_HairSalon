@@ -1,0 +1,85 @@
+@using TienLuxury.ViewModels
+@model ProductIndexViewModel
+
+<link href="~/css/non-admin-style/product-style.css" rel="stylesheet">
+
+<div class="container">
+    <h1 class="page-title">SẢN PHẨM CHÍNH HÃNG</h1>
+
+    <div class="filter-section">
+        @* 1. THANH ĐIỀU HƯỚNG DANH MỤC (Tự động sinh ra dựa theo DB) *@
+        <div class="filter-group">
+            @if (Model.CategoryGroups != null)
+            {
+                foreach (var group in Model.CategoryGroups)
+                {
+                    // Tạo link dạng #cat-id để khi bấm nó trượt xuống section tương ứng
+                    <a class="filter-btn" href="#cat-@group.CategoryId">@group.CategoryName</a>
+                }
+            }
+        </div>
+
+        @* Phần tìm kiếm và giỏ hàng (Giữ nguyên) *@
+        <div class="d-flex align-items-center gap-3">
+            <form asp-controller="Product" asp-action="Index" method="get" class="search-form" style="position: relative;">
+                <div class="search-box position-relative d-flex align-items-center">
+                    <input type="text" id="live-search-input" name="searchTerm" value="@Model.SearchTerm"
+                           placeholder="Tìm kiếm sản phẩm..." autocomplete="off"
+                           style="padding-right: 40px;">
+                    <button type="submit" style="position: absolute; right: 10px; background: none; border: none;">
+                        <span class="material-symbols-outlined" style="color: #5a4a3f;">search</span>
+                    </button>
+                </div>
+                <div id="search-suggestions" class="suggestions-dropdown"></div>
+            </form>
+
+            <div class="shopping-bag-container">
+                <a class="shopping-bag" href="@Url.Action("Index", "ShoppingCart")">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                </a>
+                @if (Model.QuantityInCart > 0)
+                {
+                    <span class="cart-count">@Model.QuantityInCart</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    @* 2. DANH SÁCH SẢN PHẨM CHIA THEO TẦNG *@
+    @if (Model.CategoryGroups != null && Model.CategoryGroups.Any())
+    {
+        foreach (var group in Model.CategoryGroups)
+        {
+            <section class="category" id="cat-@group.CategoryId">
+
+                @* Tên danh mục viết hoa *@
+                <h2 class="category-title">@group.CategoryName.ToUpper()</h2>
+
+                <div class="products-grid">
+                    @foreach (var s in group.Products)
+                    {
+                        <a href="@Url.Action("ProductDetail", "Product", new { id = s.ID })" class="product-card" data-product-id="@s.ID">
+                            <div class="product-image-container">
+                                <img src="@s.ImagePath" alt="@s.ProductName" class="product-image">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">@s.ProductName</h3>
+                                <p class="product-price pb-2">@s.Price.ToString("C0")</p>
+                            </div>
+                            <div class="quick-view">Xem nhanh</div>
+                        </a>
+                    }
+                </div>
+            </section>
+        }
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <p>Không tìm thấy sản phẩm nào phù hợp.</p>
+        </div>
+    }
+
+</div>
+
+<script src="~/js/non-admin-script/product-script.js"></script>

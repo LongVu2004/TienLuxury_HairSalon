@@ -1,0 +1,810 @@
+/* Khung chứa chính - Light Mode mặc định */
+.shopping-cart-container {
+    display: flex;
+    gap: 1rem;
+    margin: 25px auto;
+    padding: 25px;
+    background-color: rgba(221, 221, 221, 0.221);
+    border: solid 1px rgba(240, 196, 93, 0.537);
+    border-radius: var(--radius-lg);
+    transition: background-color var(--transition), box-shadow var(--transition);
+}
+
+.back-to-shop-btn {
+    font-size: 0.8rem;
+    position: relative;
+    padding: 10px 15px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: background-color 0.3s;
+}
+
+.back-to-shop-btn:hover {
+    background-color: #9f7635;
+}
+
+.sliding-icon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s;
+}
+
+.btn-group:hover .sliding-icon {
+    transform: translate(-1.3rem, -50%);
+}
+
+/* Cột trái - Giỏ hàng */
+.cart-left {
+    flex: 3;
+    padding: 10px;
+    background-color: var(--color-card-light);
+    border-radius: var(--radius-md);
+    max-height: 600px;
+    overflow-y: auto;
+    color: var(--color-text-dark);
+    transition: background-color var(--transition), color var(--transition);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* Cột phải - Thông tin đặt hàng */
+.cart-right {
+    flex: 2;
+    padding: 10px;
+    background-color: var(--color-card-light);
+    border-radius: var(--radius-md);
+    max-width: 100%;
+    max-height: 600px;
+    overflow-y: auto;
+    color: var(--color-text-dark);
+    transition: background-color var(--transition), color var(--transition);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Heading styles - Light Mode */
+.cart-left h2,
+.cart-right h2 {
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--color-light-gray);
+    padding-bottom: 10px;
+    transition: color var(--transition), border-color var(--transition);
+}
+
+/* Form đặt hàng - Light Mode */
+form {
+    max-width: 95%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-weight: 600;
+    color: var(--color-text-dark);
+    font-size: 0.9rem;
+    transition: color var(--transition);
+}
+
+.provide-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+
+}
+
+form .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.input-group> :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: 0 !important;
+    /* Xóa margin gây lỗi */
+    border-top-left-radius: var(--radius-md) !important;
+    /* Khôi phục bo góc trên bên trái */
+    border-bottom-left-radius: var(--radius-md) !important;
+    /* Khôi phục bo góc dưới bên trái */
+}
+
+form input,
+form select {
+    font-size: 0.9rem;
+    width: 100%;
+    margin: 1rem;
+    padding: 12px 15px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--radius-md);
+    background-color: rgba(0, 0, 0, 0.03);
+    color: var(--color-text-dark);
+    transition: var(--transition);
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(207, 169, 112, 0.2);
+}
+
+/* Phương thức thanh toán - Light Mode */
+.payment-methods {
+    display: flex;
+    gap: 15px;
+    margin: 10px 0 20px;
+}
+
+.payment-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-light-gray);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.payment-option i {
+    font-size: 1.8rem;
+    color: var(--color-text-dark);
+    margin-bottom: 5px;
+    transition: color var(--transition);
+}
+
+.payment-option .payment-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-header-light);
+    color: var(--color-text-dark);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    margin-top: 8px;
+    z-index: 10;
+}
+
+.payment-option:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-accent);
+}
+
+.payment-option:hover .payment-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.payment-option.selected {
+    border-color: var(--color-coral);
+    background-color: rgba(246, 146, 109, 0.1);
+}
+
+/* Màu sắc cho từng phương thức */
+.payment-option[data-method="cod"] i {
+    color: var(--color-accent);
+}
+
+.payment-option[data-method="bank"] i {
+    color: var(--color-coral);
+}
+
+.payment-option[data-method="momo"] i {
+    color: var(--color-dark-coral);
+}
+
+/* Nút đặt hàng */
+.checkout-btn {
+    background: var(--color-coral);
+    color: var(--color-white);
+    padding: 15px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 550;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.checkout-btn:hover {
+    background: var(--color-dark-coral);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 111, 81, 0.3);
+}
+
+#cart-items,
+#information-form {
+    flex: 1;
+    /* Chiếm toàn bộ không gian còn lại */
+    overflow-y: auto;
+    /* Cho phép cuộn riêng nếu cần */
+}
+/* Khi được chọn: Đổi màu viền và nền */
+.payment-option.selected {
+    border-color: var(--color-coral) !important; /* Viền màu cam */
+    background-color: rgba(231, 111, 81, 0.1) !important; /* Nền cam nhạt */
+    opacity: 1 !important; /* Sáng rõ lên */
+    filter: grayscale(0%) !important; /* Có màu sắc */
+    transform: translateY(-5px); /* Nổi lên trên */
+    box-shadow: 0 5px 15px rgba(231, 111, 81, 0.3); /* Đổ bóng cam */
+    position: relative; /* Quan trọng để định vị dấu tích */
+}
+
+    /* 2. Tạo dấu tích (✓) tròn ở góc trên bên phải */
+    .payment-option.selected::after {
+        content: '✓'; /* Ký tự dấu tích */
+        font-weight: 900;
+        color: white;
+        background-color: var(--color-coral); /* Nền tròn màu cam */
+        /* Định vị góc trên phải */
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        /* Kích thước hình tròn */
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        /* Căn giữa dấu tích */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Viền trắng để tách biệt */
+        border: 2px solid var(--color-bg-light);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        z-index: 10;
+        animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+/* Hiệu ứng nảy cho dấu tích */
+@keyframes popIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Tổng thanh toán - Light Mode */
+
+.cart-summary {
+    text-align: right;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    border-top: 1px solid var(--color-light-gray);
+    margin-top: 20px;
+    transition: border-color var(--transition);
+    position: sticky;
+    /* Cố định vị trí */
+    bottom: 0;
+    /* Dính ở dưới cùng */
+    background-color: var(--color-card-light);
+    /* Đảm bảo nền không bị trong suốt */
+    z-index: 1;
+    /* Đặt lên trên các item nếu cần */
+}
+
+.cart-summary p {
+    color: var(--color-text-dark);
+    font-size: 1.1rem;
+    transition: color var(--transition);
+}
+
+#total-payment {
+    color: var(--color-dark-coral);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* DARK MODE */
+.dark-mode .shopping-cart-container {
+    background-color: var(--color-card-dark);
+    ;
+    box-shadow: 0 5px 15px var(--shadow-dark);
+}
+
+.dark-mode .cart-left,
+.dark-mode .cart-right {
+    background-color: var(--color-card-dark);
+    color: var(--color-text-light);
+}
+
+.dark-mode .cart-left h2,
+.dark-mode .cart-right h2 {
+    color: var(--color-text-light);
+    border-bottom: 1px solid var(--color-dark-gray);
+}
+
+.dark-mode form label {
+    color: var(--color-text-light);
+}
+
+.dark-mode form input,
+.dark-mode .select-input {
+    border: 1px solid var(--color-dark-gray);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-light);
+}
+
+
+.dark-mode .select-input option {
+    color: white;
+    background-color: #555;
+}
+
+.dark-mode .select-input:focus {
+    background-color: #444;
+}
+
+.dark-mode .payment-option {
+    background-color: var(--color-card-dark);
+}
+
+.dark-mode .payment-option i {
+    color: var(--color-text-light);
+}
+
+.dark-mode .payment-option .payment-tooltip {
+    background-color: var(--color-header-dark);
+    color: var(--color-text-light);
+}
+
+.dark-mode .cart-summary {
+    background-color: var(--color-card-dark);
+    border-top: 1px solid var(--color-dark-gray);
+}
+
+.dark-mode .cart-summary p {
+    color: var(--color-text-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .back-to-shop-btn {
+        padding: 8px 16px;
+        font-size: 0.875rem;
+    }
+
+    .sliding-icon {
+        left: 5px;
+    }
+
+    .btn-group:hover .sliding-icon {
+        transform: translate(-15px, -50%);
+    }
+
+    .shopping-cart-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .cart-left,
+    .cart-right {
+        max-height: none;
+        /* Bỏ giới hạn chiều cao trên mobile */
+    }
+
+    .payment-methods {
+        justify-content: space-between;
+    }
+
+    .payment-option {
+        width: 60px;
+        height: 60px;
+    }
+    .cart-item {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .cart-item-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item-quantity {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 480px) { /* Mobile nhỏ */
+    .back-to-shop-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .sliding-icon {
+        left: 3px;
+    }
+
+    .btn-group:hover .sliding-icon {
+        transform: translate(-10px, -50%);
+    }
+}
+
+/* Cart Items */
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--color-light-gray);
+    transition: border-color var(--transition);
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    margin-right: 15px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-name {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    transition: color var(--transition);
+}
+
+.cart-item-price {
+    margin: 5px 0 10px;
+    font-size: 0.9rem;
+    color: var(--color-dark-coral);
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    background-color: var(--color-light-gray);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    transition: var(--transition);
+}
+
+.quantity-btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+.quantity-input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--radius-sm);
+    background-color: rgba(0, 0, 0, 0.03);
+    color: var(--color-text-dark);
+    transition: var(--transition);
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: var(--color-dark-coral);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: var(--transition);
+}
+
+.remove-item:hover {
+    color: var(--color-coral);
+    transform: scale(1.1);
+}
+
+/* Dark Mode cho Cart Items */
+.dark-mode .cart-item {
+    border-bottom: 1px solid var(--color-dark-gray);
+}
+
+.dark-mode .cart-item-name {
+    color: var(--color-text-light);
+}
+
+.dark-mode .quantity-btn {
+    background-color: var(--color-card-dark);
+    color: var(--color-text-light);
+}
+
+.dark-mode .quantity-btn:hover {
+    background-color: var(--color-accent);
+}
+
+.dark-mode .quantity-input {
+    border: 1px solid var(--color-dark-gray);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-light);
+}
+
+.dark-mode .remove-item {
+    color: var(--color-coral);
+}
+
+
+/* Custom Scrollbar cho Light Mode */
+.cart-left::-webkit-scrollbar,
+.cart-right::-webkit-scrollbar {
+    width: 10px;
+    /* Chiều rộng thanh cuộn */
+}
+
+.cart-left::-webkit-scrollbar-track,
+.cart-right::-webkit-scrollbar-track {
+    background: var(--color-light-gray);
+    /* Màu nền của track */
+    border-radius: var(--radius-sm);
+    margin: 5px 0;
+    /* Khoảng cách trên dưới */
+}
+
+.cart-left::-webkit-scrollbar-thumb,
+.cart-right::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    /* Màu của thanh cuộn */
+    border-radius: var(--radius-sm);
+    transition: background var(--transition);
+}
+
+.cart-left::-webkit-scrollbar-thumb:hover,
+.cart-right::-webkit-scrollbar-thumb:hover {
+    background: var(--color-coral);
+    /* Màu khi hover */
+}
+
+/* Custom Scrollbar cho Dark Mode */
+.dark-mode .cart-left::-webkit-scrollbar-track,
+.dark-mode .cart-right::-webkit-scrollbar-track {
+    background: var(--color-dark-gray);
+    /* Màu nền track trong dark mode */
+}
+
+.dark-mode .cart-left::-webkit-scrollbar-thumb,
+.dark-mode .cart-right::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    /* Màu thanh cuộn trong dark mode */
+}
+
+.dark-mode .cart-left::-webkit-scrollbar-thumb:hover,
+.dark-mode .cart-right::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dark-coral);
+    /* Màu khi hover trong dark mode */
+}
+
+/* Firefox Scrollbar (hỗ trợ cross-browser) */
+.cart-left,
+.cart-right {
+    scrollbar-width: thin;
+    /* Độ mỏng của thanh cuộn */
+    scrollbar-color: var(--color-accent) var(--color-light-gray);
+    /* Màu thumb và track */
+}   
+
+.dark-mode .cart-left,
+.dark-mode .cart-right {
+    scrollbar-color: var(--color-accent) var(--color-dark-gray);
+    /* Dark mode cho Firefox */
+}
+
+.empty-cart {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 40vh;
+}
+
+.dark-mode .empty-cart {
+    color: var(--color-text-light);
+}
+.dark-mode .payment-option.selected::after {
+    border-color: var(--color-card-dark);
+}
+
+.custom-modal {
+    display: none; /* Ẩn mặc định */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Nền tối */
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.2s;
+}
+
+.custom-modal-content {
+    background-color: #f8f9fa;
+    margin: 5% auto;
+    width: 95%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+    animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.custom-modal-header {
+    padding: 15px 20px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-modal {
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+    .close-modal:hover {
+        color: #333;
+    }
+
+.custom-modal-body {
+    padding: 15px;
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.custom-modal-footer {
+    padding: 10px 20px;
+    background: #fff;
+    border-top: 1px solid #eee;
+}
+
+/* --- VOUCHER TICKET STYLE --- */
+.voucher-ticket {
+    display: flex;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+    .voucher-ticket:hover {
+        border-color: #ee4d2d;
+        box-shadow: 0 2px 8px rgba(238, 77, 45, 0.2);
+    }
+
+/* Phần bên trái (Icon/Mã) */
+.ticket-left {
+    width: 100px;
+    background: linear-gradient(135deg, #ee4d2d, #ff7337);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px dashed #fff;
+    position: relative;
+}
+
+/* Phần bên phải (Thông tin) */
+.ticket-right {
+    flex: 1;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ticket-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.ticket-desc {
+    font-size: 0.85rem;
+    color: #757575;
+    margin-bottom: 5px;
+}
+
+.ticket-expiry {
+    font-size: 0.75rem;
+    color: #999;
+}
+
+.ticket-btn {
+    border: none;
+    background: transparent;
+    color: #ee4d2d;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* --- TRẠNG THÁI ĐÃ SỬ DỤNG / DISABLED --- */
+.voucher-ticket.disabled-ticket {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+    .voucher-ticket.disabled-ticket .ticket-left {
+        background: #ccc; /* Đổi màu cam thành xám */
+    }
+
+    .voucher-ticket.disabled-ticket:hover {
+        border-color: #ddd;
+        box-shadow: none;
+    }
+
+    .voucher-ticket.disabled-ticket .ticket-btn {
+        color: #888;
+    }

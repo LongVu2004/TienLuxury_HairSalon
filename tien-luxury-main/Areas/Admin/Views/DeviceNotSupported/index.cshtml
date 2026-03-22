@@ -1,0 +1,268 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chỉ hỗ trợ truy cập từ máy tính</title>
+    <script src="https://unpkg.com/@@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-out;
+            margin: 10px 0;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .lottie-animation {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            margin: 0 auto 20px;
+        }
+
+        .device-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .device-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .device-item {
+            background-color: #f8f9fa;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+            max-width: 160px;
+        }
+
+        .device-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .device-item i {
+            font-size: 20px;
+        }
+
+        .desktop-item {
+            background-color: #e3f2fd;
+            border-left: 4px solid #3498db;
+        }
+
+        .mobile-item {
+            background-color: #ffebee;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .tablet-item {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@media (min-width: 600px) {
+            .container {
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            p {
+                font-size: 1.1rem;
+            }
+
+            .lottie-animation {
+                max-width: 300px;
+            }
+
+            .device-info {
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .device-row {
+                flex-direction: row;
+            }
+
+            .action-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @@media (max-width: 400px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .device-item {
+                padding: 10px 15px;
+                min-width: 100px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="lottie-animation">
+            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_vybwn7df.json" background="transparent"
+                speed="1" loop autoplay></lottie-player>
+        </div>
+
+        <h1>Trang web chỉ hỗ trợ truy cập từ máy tính</h1>
+
+        <p>
+            Xin lỗi, trang web này được thiết kế để hoạt động tốt nhất trên máy tính để bàn hoặc laptop.
+            Vui lòng truy cập lại từ thiết bị máy tính để có trải nghiệm tốt nhất.
+        </p>
+
+        <div class="device-info">
+            <div class="device-row">
+                <div class="device-item desktop-item">
+                    <i class="fas fa-desktop"></i>
+                    <span>Máy tính</span>
+                </div>
+                <div class="device-item desktop-item">
+                    <i class="fas fa-laptop"></i>
+                    <span>Laptop</span>
+                </div>
+            </div>
+            @* <div class="device-row">
+                <div class="device-item mobile-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Điện thoại</span>
+                </div>
+                <div class="device-item tablet-item">
+                    <i class="fas fa-tablet-alt"></i>
+                    <span>Máy tính bảng</span>
+                </div>
+            </div> *@
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary"
+                onclick="window.location.href='mailto:duong18v04@gmail.com?subject=Thông báo';">
+                <i class="fas fa-envelope"></i> Gửi email thông báo
+            </button>
+
+            <button class="btn btn-secondary"
+                onclick="window.location.href='mailto:duong18v04@gmail.com?subject=Trợ giúp';">
+                <i class="fas fa-question-circle"></i> Trợ giúp
+            </button>
+
+        </div>
+    </div>
+</body>
+
+</html>

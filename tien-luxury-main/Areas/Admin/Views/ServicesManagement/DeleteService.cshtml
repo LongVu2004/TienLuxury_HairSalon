@@ -1,0 +1,20 @@
+﻿@model ServiceDeleteViewModel
+
+@{
+    Layout = null;
+}
+
+
+<link href="~/css/admin-style/confirm-delete-style.css" rel="stylesheet" />
+<link href="~/css/forrm-style.css" rel="stylesheet" />
+
+<form class="modal-content serviceForm" method="post" asp-action="DeleteService" asp-controller="ServicesManagement" asp-route-id="@Model.Id">
+
+    <p>Bạn muốn xóa dịch vụ @Model.Name?</p>
+    <div class="modal-actions btn-group">
+        <button type="submit" class="btn-delete">Xóa</button>
+        <button type="button" class="btn-cancel" onclick="closeServiceForm()">Hủy</button>
+    </div>
+</form>
+
+<script src="~/js/admin-script/confirm-delete-script.js"></script>

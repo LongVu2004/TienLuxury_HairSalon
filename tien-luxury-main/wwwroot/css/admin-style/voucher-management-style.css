@@ -1,0 +1,139 @@
+﻿/* Kế thừa các biến màu từ các file cũ */
+:root {
+    --primary-color: #d2b48c;
+    --secondary-color: #c8a77b;
+    --hover-color: #b89b6d;
+    --accent-color: #a18859;
+    --text-color: #5a4a3f;
+    --card-color: #ffffff;
+    --danger-color: #d9534f;
+    --success-color: #5cb85c;
+    --border-radius: 10px;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.voucher-container {
+    padding: 2.5rem;
+    background: #f8f5f0;
+    min-height: 100vh;
+}
+
+.voucher-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 1rem;
+}
+
+.voucher-title {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+    position: relative;
+    padding-left: 15px;
+}
+
+    .voucher-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 30px;
+        background-color: var(--primary-color);
+        border-radius: 3px;
+    }
+
+/* Card chứa bảng */
+.voucher-table-card {
+    background: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    color: #333;
+}
+
+/* Badge trang trí cho Mã Voucher */
+.code-badge {
+    background: #e9ecef;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: bold;
+    border: 1px dashed #999;
+}
+
+/* Badge trạng thái */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+    .status-badge.active {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status-badge.expired {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .status-badge.upcoming {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+/* Nút thêm */
+.add-btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+    .add-btn:hover {
+        background: var(--hover-color);
+        transform: translateY(-2px);
+        color: white;
+    }
+
+/* Form Style */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }

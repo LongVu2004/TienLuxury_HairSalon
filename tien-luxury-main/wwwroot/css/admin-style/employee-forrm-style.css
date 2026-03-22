@@ -1,0 +1,131 @@
+/* .custome-form-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    z-index: 1000;
+} */
+
+.modal-content {
+    max-width: 800px;
+    margin: auto;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    /* animation: fadeIn 0.4s ease-in-out; */
+}
+
+.modalTitle {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.9rem;
+    font-weight: 600;
+}
+
+.form-container {
+    display: flex;
+    gap: 24px;
+}
+
+.form-left,
+.form-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gender {
+    display: flex;
+    gap: 16px;
+}
+
+.gender label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+input[type="text"],
+input[type="file"] {
+    padding: 8px;
+    border: 1px solid rgb(214, 213, 213);
+    border-radius: 5px;
+    width: 100%;
+    background: #ffffff;
+    color: #2f2d2d;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #cfa970;
+    outline: none;
+}
+
+.preview-container {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #f5f5f5;
+    padding: 16px;
+    border-radius: 5px;
+    min-height: 200px;
+    background: #ffffff;
+}
+
+.preview-container p {
+    margin-bottom: 8px;
+    text-align: center;
+    color: #2f2d2d;
+}
+
+#imagePreview {
+    max-width: 100%;
+    max-height: 180px;
+    /* display: block; */
+    border-radius: 5px;
+}
+
+.btn-primary {
+    padding: 8px 16px;
+    background-color: #cfa970;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 8px;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #b8935a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #7e7b7b;
+}
+
+
+.close:hover {
+    color: #e74c3c;
+    cursor: pointer;
+}

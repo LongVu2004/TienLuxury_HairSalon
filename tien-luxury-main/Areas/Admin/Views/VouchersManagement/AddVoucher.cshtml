@@ -1,0 +1,97 @@
+﻿@model TienLuxury.Areas.Admin.ViewModels.VoucherAddEditViewModel
+@{
+    ViewData["Title"] = "Thêm Voucher Mới";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/admin-style/voucher-management-style.css" rel="stylesheet" />
+
+<div class="voucher-container">
+    <h2 class="voucher-title mb-4">Tạo Mã Giảm Giá Mới</h2>
+
+    <div class="voucher-table-card" style="max-width: 800px; margin: 0 auto;">
+        <form asp-action="AddVoucher" method="post">
+
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>Mã Voucher (Code)</label>
+                    <input asp-for="Voucher.Code" class="form-input" placeholder="VD: TET2025" required style="text-transform: uppercase;" />
+                    <span asp-validation-for="Voucher.Code" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Tổng số lượng phát hành</label>
+                    <input asp-for="Voucher.Quantity" type="number" class="form-input" required min="1" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Mô tả ngắn</label>
+                <input asp-for="Voucher.Description" class="form-input" placeholder="VD: Giảm 10% cho đơn hàng từ 500k" />
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Loại giảm giá</label>
+                    <select asp-for="Voucher.DiscountType" class="form-input" id="discountType" onchange="toggleMaxDiscount()">
+                        <option value="PERCENT">Theo Phần trăm (%)</option>
+                        <option value="FIXED">Theo Tiền mặt (VNĐ)</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Giá trị giảm</label>
+                    <input asp-for="Voucher.Value" type="number" class="form-input" required min="0" />
+                    <small class="text-muted">Nhập số % hoặc số tiền VNĐ</small>
+                </div>
+                <div class="col-md-4 form-group" id="maxDiscountGroup">
+                    <label>Giảm tối đa (VNĐ)</label>
+                    <input asp-for="Voucher.MaxDiscountAmount" type="number" class="form-input" min="0" />
+                    <small class="text-muted">Để trống nếu không giới hạn</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Giá trị đơn hàng tối thiểu (Min Order)</label>
+                <input asp-for="Voucher.MinOrderAmount" type="number" class="form-input" value="0" min="0" />
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>Ngày bắt đầu</label>
+                    <input asp-for="Voucher.StartDate" type="datetime-local" class="form-input" required />
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Ngày kết thúc</label>
+                    <input asp-for="Voucher.EndDate" type="datetime-local" class="form-input" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" asp-for="Voucher.IsActive" checked>
+                    <label class="form-check-label">Kích hoạt ngay</label>
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <a href="@Url.Action("Index")" class="btn btn-secondary me-2">Hủy bỏ</a>
+                <button type="submit" class="btn btn-primary" style="background: var(--primary-color); border: none;">Lưu Voucher</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleMaxDiscount() {
+        var type = document.getElementById("discountType").value;
+        var maxGroup = document.getElementById("maxDiscountGroup");
+        if (type === "PERCENT") {
+            maxGroup.style.display = "block";
+        } else {
+            maxGroup.style.display = "none";
+            document.querySelector("#maxDiscountGroup input").value = ""; // Clear giá trị
+        }
+    }
+    // Chạy 1 lần lúc load trang
+    window.onload = toggleMaxDiscount;
+</script>

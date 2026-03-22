@@ -1,0 +1,74 @@
+@model EmployeeAddEditViewModel
+
+@{
+    Layout = null;
+}
+
+<link href="~/css/admin-style/employee-forrm-style.css" rel="stylesheet" />
+
+<form class="employeeForm modal-content" method="post" asp-action="UpdateEmployee" asp-controller="EmployeesManagement">
+    <span class="fs-4 close" onclick="closeEmployeeForm()" style="cursor: pointer;"><i class="fa-solid fa-xmark"></i></span>
+
+    <h2 class="modalTitle">Cập nhật thông tin</h2>
+
+    <input asp-for="Employee.ID" type="hidden" readonly />
+
+    <div id="errorMessage" class="alert alert-danger py-1" style="display: none;"></div>
+
+    <div class="form-container">
+        <div class="form-left">
+            <label>Tên Nhân Viên</label>
+            <input class="form-input" asp-for="Employee.Name" type="text" id="name" required>
+
+            <label>Giới Tính</label>
+            <div class="gender">
+                <label><input class="form-input" asp-for="Employee.Gender" type="radio" value="true" required> Nam</label>
+                <label><input class="form-input" asp-for="Employee.Gender" type="radio" value="false" required> Nữ</label>
+            </div>
+
+            <label>Vị Trí Làm Việc</label>
+            <input class="form-input" asp-for="Employee.Position" type="text" id="position" required>
+
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+
+        <div class="form-right">
+            <label for="image">Hình Ảnh Nhân Viên</label>
+            @{
+                if (string.IsNullOrEmpty(Model.Employee.ImagePath))
+                {
+                    <input type="file" id="employeeImage" name="employeeImage" accept="image/*" required
+                        onchange="previewImage(event)">
+                }
+                else
+                {
+                    <input type="file" id="employeeImage" name="employeeImage" accept="image/*" onchange="previewImage(event)">
+                    <input type="hidden" asp-for="Employee.ImagePath" />
+                }
+            }
+
+            <div class="preview-container">
+                <img id="imagePreview" src="@Model.Employee.ImagePath" alt="Xem trước hình ảnh">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+<script src="~/js/admin-script/check-validation-employee.js"></script>

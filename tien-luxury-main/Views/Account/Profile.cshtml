@@ -1,0 +1,233 @@
+﻿@using TienLuxury.ViewModels
+@model UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Hồ sơ của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/non-admin-style/profile-user-style.css" rel="stylesheet">
+
+<div class="container">
+
+    
+
+    <div class="profile-container">
+        <div class="row g-0">
+            <div class="col-md-4 profile-sidebar">
+
+                <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+
+                    <div class="text-center mb-4">
+                        <div class="avatar-wrapper">
+                            <img id="imgPreview" src="@Model.CurrentAvatar"
+                                 class="profile-avatar-img"
+                                 alt="Avatar"
+                                 style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.1);"
+                                 onerror="this.src='/image/user-image/default-avatar.png'">
+
+                            <button type="button" class="camera-btn" onclick="triggerFileInput()" title="Đổi ảnh đại diện"
+                                    style="position: absolute; bottom: 5px; right: 5px; background: #d2b48c; border: none; width: 32px; height: 32px; border-radius: 50%; color: white; cursor: pointer;">
+                                <i class="fas fa-camera"></i>
+                            </button>
+
+                            <input type="file" id="fileInput" name="AvatarUpload"
+                                   accept="image/png, image/jpeg, image/jpg"
+                                   style="display: none;"
+                                   onchange="previewImage(this)">
+                        </div>
+
+                        <h5 class="fw-bold text-uppercase" style="color: #5a4a3f;">@Model.FullName</h5>
+                        <p class="text-muted small"><i class="fas fa-envelope me-1"></i> @Model.Email</p>
+                    </div>
+
+                    <h6 class="mb-3 pb-2 border-bottom" style="color: #8e735b; font-weight: bold;">CẬP NHẬT THÔNG TIN</h6>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Họ và tên</label>
+                        <input type="text" name="FullName" class="form-control custom-input" value="@Model.FullName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Số điện thoại</label>
+                        <input type="text" name="PhoneNumber" class="form-control custom-input" value="@Model.PhoneNumber" placeholder="Nhập SĐT để đồng bộ đơn hàng">
+                    </div>
+
+                    <a href="@Url.Action("ChangePassword", "Account")" class="btn w-100 mb-3 fw-bold py-2"
+                       style="border: 1px solid #d2b48c; color: #d2b48c; border-radius: 8px; text-decoration: none; display: block; text-align: center;">
+                        <i class="fas fa-key me-2"></i> THAY ĐỔI MẬT KHẨU
+                    </a>
+
+                    <button type="submit" class="btn w-100 text-white mt-3 fw-bold py-2" style="background-color: #d2b48c; border-radius: 8px; transition: 0.3s;">
+                        <i class="fas fa-save me-2"></i> LƯU THAY ĐỔI
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-md-8 p-4">
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button">
+                            <i class="fas fa-receipt me-2"></i> LỊCH SỬ ĐƠN HÀNG
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="bookings-tab" data-bs-toggle="tab" data-bs-target="#bookings" type="button">
+                            <i class="fas fa-clock me-2"></i> LỊCH SỬ ĐẶT HẸN
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="orders" role="tabpanel">
+                        @if (Model.OrderHistory != null && Model.OrderHistory.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead style="background-color: #f8f9fa;">
+                                        <tr>
+                                            @* <th class="py-3 text-muted small">MÃ ĐƠN</th> *@
+                                            <th class="py-3 text-muted small">NGÀY ĐẶT</th>
+                                            <th class="py-3 text-muted small">TỔNG TIỀN</th>
+                                            <th class="py-3 text-muted small">TRẠNG THÁI</th>
+                                            <th class="py-3 text-muted small">THAO TÁC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderHistory)
+                                        {
+                                            <tr>
+                                                @* <td><span class="fw-bold text-dark">#@item.ID.ToString().Substring(18, 6)</span></td> *@
+                                                <td>@item.CreatedDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                                                <td class="fw-bold" style="color: #8e735b;">@item.Total.ToString("N0") đ</td>
+                                                <td>
+                                                    @if (item.Status == "Đã thanh toán" || item.Status == "Đã xử lý" || item.Status == "Hoàn thành")
+                                                    {
+                                                        <span class="status-badge bg-success-soft">@item.Status</span>
+                                                    }
+                                                    else if (item.Status == "Hủy đơn")
+                                                    {
+                                                        <span class="status-badge bg-danger-soft">@item.Status</span>
+                                                    }
+                                                    else if (item.Status == "Đang xử lý")
+                                                    {
+                                                        <span class="status-badge bg-info-soft">@item.Status</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="status-badge bg-pending">@item.Status</span>
+                                                    }
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="@Url.Action("OrderDetail", "Account", new { invoiceId = item.ID })"
+                                                       class="btn btn-sm btn-outline-secondary rounded-pill mb-1" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i> Chi tiết
+                                                    </a>
+
+                                                    @if (item.Status == "Đã thanh toán" || item.Status == "Hoàn thành")
+                                                    {
+                                                        <a href="@Url.Action("ReviewOrder", "Account", new { invoiceId = item.ID })"
+                                                           class="btn btn-sm text-white rounded-pill mb-1"
+                                                           style="background-color: #d2b48c; border: none;" title="Đánh giá sản phẩm">
+                                                            <i class="fas fa-star"></i> Đánh giá
+                                                        </a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-5 text-muted">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4076/4076432.png" width="60" style="opacity: 0.5; margin-bottom: 15px;">
+                                <p>Bạn chưa có đơn hàng nào.</p>
+                                <a href="@Url.Action("Index", "Product")" class="btn btn-outline-dark btn-sm rounded-pill px-4">Mua sắm ngay</a>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="tab-pane fade" id="bookings" role="tabpanel">
+                        @if (Model.BookingHistory != null && Model.BookingHistory.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead style="background-color: #f8f9fa;">
+                                        <tr>
+                                            <th class="py-3 text-muted small">NGÀY HẸN</th>
+                                            <th class="py-3 text-muted small">GIỜ HẸN</th>
+                                            <th class="py-3 text-muted small">TRẠNG THÁI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.BookingHistory)
+                                        {
+                                            <tr>
+                                                <td class="fw-bold">@item.ReservationDate.ToString("dd/MM/yyyy")</td>
+                                                <td style="color: #d2b48c; font-weight: bold;">
+                                                    <i class="far fa-clock me-1"></i> @item.ReservationDate.ToString("HH:mm")
+                                                </td>
+                                                <td>
+                                                    @if (item.ReservationStatus == "Đã ghé" || item.ReservationStatus == "Hoàn thành")
+                                                    {
+                                                        <span class="status-badge bg-success-soft">Hoàn thành</span>
+                                                    }
+                                                    else if (item.ReservationStatus == "Hủy")
+                                                    {
+                                                        <span class="status-badge bg-danger-soft">Đã hủy</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="status-badge bg-info-soft">@item.ReservationStatus</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-5 text-muted">
+                                <i class="far fa-calendar-alt mb-3" style="font-size: 3rem; opacity: 0.3;"></i>
+                                <p>Bạn chưa có lịch hẹn nào.</p>
+                                <a href="@Url.Action("Index", "Service")" class="btn btn-outline-dark btn-sm rounded-pill px-4">Đặt lịch ngay</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Hàm kích hoạt input file an toàn
+    function triggerFileInput() {
+        document.getElementById('fileInput').click();
+    }
+
+    // 2. Hàm xem trước ảnh an toàn
+    function previewImage(input) {
+        // Kiểm tra kỹ xem có file không
+        if (input.files && input.files[0]) {
+
+            // Kiểm tra dung lượng (ví dụ: giới hạn 5MB để tránh treo máy)
+            if (input.files[0].size > 5 * 1024 * 1024) {
+                alert("File ảnh quá lớn! Vui lòng chọn ảnh dưới 5MB.");
+                input.value = ""; // Reset input
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('imgPreview').src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+

@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán Momo";
+}
+
+<link href="~/css/non-admin-style/payment-momo-style.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container">
+    <div class="payment-container">
+        <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo Logo" class="momo-logo" />
+
+        <h3 style="color: #d82d8b; font-weight: 800;">THANH TOÁN QUA VÍ MOMO</h3>
+        <p class="text-muted">Mở ứng dụng Momo trên điện thoại và quét mã QR bên dưới</p>
+
+        <img src="@ViewBag.QrUrl" alt="Mã QR Momo" class="qr-image" />
+
+        <div class="bank-info">
+            <p><strong>Người nhận:</strong> @ViewBag.MomoName</p>
+            <p><strong>Số điện thoại:</strong> @ViewBag.MomoPhone</p>
+            <p><strong>Số tiền:</strong> <span style="color: #d82d8b; font-weight: bold; font-size: 1.2rem;">@(((decimal)ViewBag.Amount).ToString("N0")) đ</span></p>
+
+            <p>
+                <strong>Nội dung:</strong>
+                <span class="content-badge"
+                      style="color: #d82d8b; font-weight: bold; background: white; padding: 4px 12px; border-radius: 4px; border: 1px solid #d82d8b; display: inline-block;">
+                    @ViewBag.Content
+                </span>
+            </p>
+        </div>
+
+        <div class="alert alert-secondary mt-3 text-start" style="font-size: 0.9rem;">
+            <i class="fas fa-info-circle" style="color: #d82d8b;"></i> <b>Lưu ý:</b> Sau khi chuyển tiền thành công trên App, vui lòng bấm nút xác nhận bên dưới.
+        </div>
+
+        <a href="@Url.Action("ConfirmPayment", "ShoppingCart", new { invoiceId = ViewBag.InvoiceId })" class="btn-finish">
+            <i class="fas fa-check-circle me-2"></i> TÔI ĐÃ CHUYỂN MOMO
+        </a>
+
+        <div class="mt-4">
+            <a href="@Url.Action("CancelOrder", "ShoppingCart", new { invoiceId = ViewBag.InvoiceId })"
+               class="text-muted text-decoration-none"
+               style="font-size: 0.9rem; font-weight: 500;"
+               onclick="confirmCancelMomo(event, this.href)">
+                <i class="fas fa-times-circle"></i> Hủy giao dịch
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmCancelMomo(event, url) {
+        event.preventDefault(); // Chặn chuyển trang ngay lập tức
+
+        Swal.fire({
+            title: 'Hủy giao dịch Momo?',
+            text: "Bạn có chắc muốn hủy giao dịch này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33', // Màu đỏ cho nút hủy
+            cancelButtonColor: '#6c757d', // Màu xám cho nút quay lại
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Quay lại',
+            iconColor: '#d82d8b' // Màu icon cho tông xuyệt tông với Momo
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url; // Chuyển trang nếu bấm Đồng ý
+            }
+        })
+    }
+</script>

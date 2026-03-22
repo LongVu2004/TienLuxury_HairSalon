@@ -1,0 +1,180 @@
+﻿@model List<TienLuxury.Areas.Admin.ViewModels.ReviewListViewModel>
+@{
+    ViewData["Title"] = "Quản lý Đánh giá";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/admin-style/review-product-style.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Reviews Management</span>
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="reviews-container">
+
+    <div class="reviews-header">
+        <h2 class="reviews-title">Quản lý Đánh giá & Bình luận</h2>
+    </div>
+
+        <div class="review-table-card">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="25%">Sản phẩm</th>
+                        <th width="15%">Người dùng</th>
+                        <th width="10%">Đánh giá</th>
+                        <th width="30%">Nội dung</th>
+                        <th width="10%">Trạng thái</th>
+                        <th width="10%">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr class="@(item.IsApproved ? "" : "pending-row")">
+
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="@item.ProductImage"
+                                             class="review-product-img"
+                                             onerror="this.src='/images/no-image.png'" />
+                                        <span class="product-name-link" title="@item.ProductName">
+                                            @item.ProductName
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="@item.Avatar" class="user-avatar" onerror="this.src='/images/default-avatar.png'" />
+                                        <span class="fw-medium">@item.UserName</span>
+                                    </div>
+                                    <div style="font-size: 0.75rem; color: #888; margin-top: 4px; margin-left: 43px;">
+                                        @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="star-rating">
+                                        @for (int i = 0; i < item.Rating; i++)
+                                        {
+                                            <i class="fa-solid fa-star"></i>
+                                        }
+                                        @for (int i = item.Rating; i < 5; i++)
+                                        {
+                                            <i class="fa-solid fa-star text-muted"></i>
+                                        }
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="review-content">
+                                        @item.Comment
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @if (item.IsApproved)
+                                    {
+                                        <span class="status-badge approved">Đã hiển thị</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge pending">Chờ duyệt</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        @if (!item.IsApproved)
+                                        {
+                                            <form asp-action="Approve" method="post" class="me-1">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" class="action-btn btn-approve" title="Duyệt ngay">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </button>
+                                            </form>
+
+                                            <form asp-action="ApproveCensored" method="post" onsubmit="confirmCensor(event)" class="me-1">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" class="action-btn btn-censor" title="Che từ xấu và Duyệt">
+                                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                                </button>
+                                            </form>
+                                        }
+
+                                        <form asp-action="Delete" method="post" onsubmit="confirmDelete(event)">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" class="action-btn btn-delete" title="Xóa">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">Chưa có đánh giá nào.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmCensor(event) {
+        event.preventDefault();
+        var currentForm = event.target;
+
+        Swal.fire({
+            title: 'Xác nhận kiểm duyệt?',
+            text: "Hệ thống sẽ tự động thay thế các từ nhạy cảm bằng dấu ***. Bạn chắc chắn chứ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ffc107',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Duyệt & Che',
+            cancelButtonText: 'Hủy bỏ',
+            color: '#333'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                currentForm.submit();
+            }
+        })
+    }
+
+    function confirmDelete(event) {
+        event.preventDefault();
+        var currentForm = event.target;
+
+        Swal.fire({
+            title: 'Bạn chắc chắn muốn xóa?',
+            text: "Hành động này không thể hoàn tác!",
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545', // Màu đỏ khớp với CSS
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa ngay',
+            cancelButtonText: 'Hủy bỏ'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                currentForm.submit();
+            }
+        })
+    }
+</script>

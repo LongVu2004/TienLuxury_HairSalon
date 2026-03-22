@@ -1,0 +1,79 @@
+@model EmployeeListViewModel
+
+@{
+    ViewData["Title"] = "Employee Management";
+}
+
+
+<link href="~/css/admin-style/service-reservation-management-style.css" rel="stylesheet" />
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Employees Management</span>
+
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="service-reservation-container" id="employee">
+
+    <div class="table-wrapper">
+        
+        <div class="table-header">
+            <h2>Danh Sách Nhân Viên</h2>
+            <button class="add-btn" id="addEmployeeBtn">Thêm nhân viên</button>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Thứ tụ</th>
+                        <th>Tên nhân viên</th>
+                        <th>Giới tính</i></th>
+                        <th>Công việc</th>
+                        <th>Hình ảnh</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="serviceTableBody">
+                    <tr>
+                        @{
+                            int i = 1;
+                            foreach (var e in Model.Employees)
+                            {
+                            <tr data-employee-id="@e.ID">
+                                <td>@i</td>
+                                <td class="truncate-text">@e.Name</td>
+                                <td class="truncate-text"> @(e.Gender ? "Nam" : "Nữ")</td>
+                                <td class="truncate-text">@e.Position</td>
+                                <td class="truncate-text"><img src="@e.ImagePath" alt="@e.ID"></td>
+                                <td class="button-cell">
+                                    <div class="button-group">
+                                        <button id="updateEmployeeBtn" class="edit-btn">
+                                            <i class="fas fa-edit"></i> Chỉnh Sửa
+                                        </button>
+                                        <button id="deleteEmployeeBtn" class="delete-btn">
+                                            <i class="fas fa-trash"></i> Xóa
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="employeeFormContainer" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+
+</div>

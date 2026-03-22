@@ -1,0 +1,380 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 75%;
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+.input-group input[type="text"], #reservationDate{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bebbbb;
+    border-radius: 9px !important;
+    transition: border-color 0.5s, box-shadow 0.3s;
+    border: 2px solid transparent;
+    outline: none;
+}
+
+.input-group input[type="text"]:focus {
+    border: 2px solid #be9b3a;
+}
+
+
+.service-category {
+    margin-bottom: 30px;
+}
+
+.service-category h2 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.service-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 15px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+}
+
+.service-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.service-grid::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 4px;
+}
+
+.service-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: 200px;
+    flex-shrink: 0;
+    height: 250px;
+    transition: all 0.3s ease;
+    will-change: border, box-shadow; /* Tối ưu hiệu ứng */
+}
+
+.service-item.selected {
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+}
+
+.image-container {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+    will-change: transform; /* Tối ưu hover */
+}
+
+.service-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px 4px 0 0;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 0.88rem;
+    letter-spacing: 0.07rem;
+    background-color: rgba(43, 43, 43, 0.46);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, backdrop-filter 0.3s ease; /* Đồng bộ thời gian */
+    padding: 10px;
+    text-align: justify;
+    border-radius: 4px 4px 0 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #f1d468ad rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(0px);
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+}
+
+.overlay::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overlay::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 3px;
+}
+
+.overlay-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(0px);
+    transition: backdrop-filter 0.3s ease, opacity 0.3s ease;
+    z-index: 0;
+}
+
+.overlay-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.image-container:hover .overlay-content {
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+.service-details {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    height: calc(100% - 150px);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.image-container:hover .service-details {
+    transform: translateY(-5px);
+}
+
+.service-details input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.service-details .custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background-color: #fff;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Đồng bộ thời gian */
+}
+
+.service-details .custom-checkbox:hover {
+    background-color: #f0f7ff;
+}
+
+.service-details input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #007bff;
+}
+
+.service-details input[type="checkbox"]:checked + .custom-checkbox::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.service-info {
+    flex-grow: 1;
+    padding-right: 5px;
+}
+
+.service-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.service-price {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 2px 0 0 0;
+}
+
+.total-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#totalAmount {
+    margin: 0;
+}
+
+.book-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    will-change: transform; /* Tối ưu hiệu ứng */
+}
+
+.book-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Dark mode styles */
+.dark-mode .page-container {
+    background-color: #1a1a1a;
+}
+
+.dark-mode .form-container {
+    background-color: #2d2d2d;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .input-group label {
+    color: #e0e0e0;
+}
+
+.dark-mode .input-group input[type="text"],
+.dark-mode #reservationDate {
+    background-color: #333;
+    color: #fff;
+    border-color: #444;
+}
+
+.dark-mode .input-group input[type="text"]:focus {
+    border-color: #be9b3a;
+    box-shadow: 0 0 5px rgba(190, 155, 58, 0.3);
+}
+
+.dark-mode .service-category h2 {
+    color: #e0e0e0;
+    border-bottom-color: #4a90e2;
+}
+
+.dark-mode .service-grid::-webkit-scrollbar-thumb {
+    background-color: #4a90e2;
+}
+
+.dark-mode .service-item {
+    background-color: #333;
+    border-color: #444;
+}
+
+.dark-mode .service-item.selected {
+    border-color: #4a90e2;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.2);
+}
+
+.dark-mode .overlay {
+    background-color: rgba(43, 43, 43, 0.7);
+}
+
+.dark-mode .overlay-content {
+    color: #fff;
+}
+
+.dark-mode .service-details {
+    color: #e0e0e0;
+}
+
+.dark-mode .service-details .custom-checkbox {
+    background-color: #333;
+    border-color: #4a90e2;
+}
+
+.dark-mode .service-details .custom-checkbox:hover {
+    background-color: #404040;
+}
+
+.dark-mode .service-details input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #4a90e2;
+}
+
+.dark-mode .service-name {
+    color: #fff;
+}
+
+.dark-mode .service-price {
+    color: #b0b0b0;
+}
+
+.dark-mode .total-section {
+    background-color: #333;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.dark-mode #totalAmount {
+    color: #fff;
+}
+
+.dark-mode .book-button {
+    background-color: #4a90e2;
+}
+
+.dark-mode .book-button:hover {
+    background-color: #357abd;
+}
+
+.dark-mode .input-group input[type="text"] {
+    background-color: #333;
+    color: #fff; /* Màu chữ mặc định trong dark mode */
+}
+
+.dark-mode .input-group input[type="text"]:-webkit-autofill,
+.dark-mode .input-group input[type="text"]:-webkit-autofill:hover,
+.dark-mode .input-group input[type="text"]:-webkit-autofill:focus,
+.dark-mode .input-group input[type="text"]:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #333 inset !important; /* Nền dark mode */
+    -webkit-text-fill-color: #dddddd !important; /* Chữ dark mode */
+    color: #ddd;
+    border: 2px solid #be9b3a;
+    transition: border-color 0.5s, box-shadow 0.3s;
+}
+
+/* Style khi focus (áp dụng cho cả autofill và không autofill) */
+.input-group input[type="text"]:focus,
+.input-group input[type="text"]:-webkit-autofill:focus {
+    border: 2px solid #be9b3a !important;
+}

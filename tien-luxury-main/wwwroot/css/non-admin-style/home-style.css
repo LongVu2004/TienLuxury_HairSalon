@@ -1,0 +1,953 @@
+/* Carousel */
+.sub-title {
+  text-align: center;
+  color: #1a2b4a;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+}
+
+.carousel-item {
+  transition: transform 0.4s ease-in-out !important;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 292px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+#carouselExampleIndicators {
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.carousel-inner {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.carousel-inner::before,
+.carousel-inner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 15px;
+}
+
+.carousel-inner::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+}
+
+.carousel-inner::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
+}
+
+/* Booking & Rating */
+.booking-box,
+.rating-box {
+  width: 100%;
+  padding: 15px;
+  border-radius: var(--radius-md);
+  font-size: 1em;
+}
+
+.booking-box {
+  background: #84d4f7a6;
+  color: var(--dark-gray);
+}
+
+.rating-box {
+  background: var(--white);
+  box-shadow: 0 2px 10px var(--shadow-light);
+  color: #555;
+  height: 100%;
+  font-size: 0.7em;
+}
+
+.rating-container {
+  box-shadow: none;
+  padding: 0;
+  gap: 20px;
+  max-width: 70%;
+  font-size: 1em;
+}
+
+/* Button */
+.btn-booking {
+  background: linear-gradient(to right, #cdeef0, #fff, #ecafe4);
+  border: none;
+  font-size: 0.7em;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: var(--radius-sm);
+  transition: background 0.5s, transform 0.5s;
+}
+
+.btn-booking:hover {
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  transform: scale(1.05);
+}
+
+
+#phoneInput {
+  font-size: 0.9em;
+}
+
+#phoneInput:focus {
+  outline: none;
+  box-shadow: none;
+
+
+  border-radius: 5px;
+  border: 2px solid #c19f4f;
+}
+
+
+h6 {
+  font-size: 1em;
+}
+
+.rating-message {
+  margin-bottom: 5px;
+}
+
+/* Stars Rating */
+.stars {
+  font-size: 200%;
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  user-select: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.stars span {
+  color: #ddd;
+  transition: color 0.2s ease-in-out;
+}
+
+.stars span.hovered,
+.stars span.selected {
+  color: #ffcc00;
+}
+
+.service-section {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.service-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 10px;
+}
+
+.service-card {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  width: 30%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-container {
+  position: relative;
+}
+
+.service-card {
+  opacity: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.service-details-container {
+  height: 100px;
+  /* Chiều cao cố định */
+  overflow: hidden;
+  /* Ẩn nội dung tràn */
+  margin-top: 10px;
+}
+
+.service-details {
+  font-size: 0.9rem;
+  letter-spacing: 1.2px;
+  line-height: 1.5;
+  max-height: 100%;
+  /* Giới hạn chiều cao tối đa */
+  padding: 0.5rem;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: justify;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.service-card h3 {
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.service-card:hover h3 {
+  color: #ff6600;
+}
+
+.service-price {
+  padding: 0.2rem;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.service-card:hover .service-price {
+  color: #ff6600;
+}
+
+.service-card a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  color: #1450908a;
+}
+
+.service-card a i {
+  font-size: 1em;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.5s ease;
+}
+
+.service-card:hover a::after {
+  opacity: 1;
+  right: -5px;
+}
+
+.service-card:hover a {
+  color: #145295f7;
+}
+
+.service-card:hover a i {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.service-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Salon Space */
+.khong-gian-salon {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.khong-gian-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 2rem 0 0 0;
+  gap: 2rem;
+}
+
+.khong-gian-content {
+  width: 50%;
+  text-align: left;
+  padding: 20px;
+  border: 0 solid #000;
+  border-width: 0 5px;
+  text-align: justify;
+  margin-left: 1rem;
+}
+
+.khong-gian-content h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.khong-gian-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.khong-gian-content .btn {
+  display: inline-block;
+  background: #ff0000;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.khong-gian-video {
+  width: 45%;
+  margin-right: 1rem;
+}
+
+.khong-gian-video iframe {
+  width: 100%;
+  border-radius: 10px;
+}
+
+video {
+  border-radius: var(--radius-md);
+}
+
+/* Floating Menu */
+.floating-menu {
+  position: fixed;
+  bottom: 50px;
+  right: 30px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-toggle {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #007bff, #002b7f);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.menu-toggle:hover {
+  background: linear-gradient(135deg, #0056b3, #001d4d);
+}
+
+.menu-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 70px;
+  right: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
+}
+
+.menu-open .menu-items {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s;
+}
+
+.menu-items li {
+  margin-bottom: 12px;
+}
+
+.menu-items a {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 12px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background 0.3s ease;
+  white-space: nowrap;
+}
+
+.menu-items a:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.menu-items img {
+  width: 30px;
+  height: 30px;
+  margin-right: 12px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.menu-open .menu-toggle {
+  transform: rotate(135deg);
+}
+
+/* Product Banner */
+.banner-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.banner-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #1a2b4a;
+}
+
+.banner-header::before {
+  content: "";
+  width: 5px;
+  height: 20px;
+  background: #5d94ff;
+}
+
+.banner-description {
+  font-size: 16px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+.view-all {
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.view-all:hover {
+  text-decoration: underline;
+}
+
+/* Employee Section */
+.employee-section {
+  text-align: center;
+  padding: 50px 0;
+  background: #f4f4f4;
+}
+
+.employee-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  max-width: 100%;
+  /* Giới hạn chiều rộng tối đa */
+  position: relative;
+  /* Để định vị nút điều hướng tuyệt đối */
+  padding: 0 50px;
+  /* Đảm bảo có không gian cho nút */
+}
+
+.employee-carousel {
+  display: flex;
+  padding-left: 10rem;
+  gap: 30px;
+  width: 800px;
+  /* Kích thước mặc định */
+  max-width: 100%;
+  /* Không vượt quá container */
+  padding: 20px 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+
+  /* Thêm mask để tạo hiệu ứng fade */
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
+
+}
+
+.employee-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-nav {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #ffbe5c;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s;
+  position: absolute;
+  /* Định vị tuyệt đối trong container */
+  top: 50%;
+  /* Căn giữa theo chiều dọc */
+  transform: translateY(-50%);
+  /* Điều chỉnh vị trí dọc */
+  z-index: 1;
+  /* Đảm bảo nút nằm trên carousel */
+}
+
+.carousel-nav.left {
+  left: 10px;
+  /* Nút trái cách mép trái 10px */
+}
+
+.carousel-nav.right {
+  right: 10px;
+  /* Nút phải cách mép phải 10px */
+}
+
+.carousel-nav i {
+  font-size: 1.4rem;
+  color: #ff9800;
+}
+
+.carousel-nav:hover {
+  color: #e89e3c;
+  transform: translateY(-50%) scale(1.2);
+  /* Kết hợp với vị trí ban đầu */
+}
+
+.employee-card {
+  min-width: 180px;
+  /* Kích thước mặc định của card */
+  background: #fff;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.employee-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.employee-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.employee-name {
+  font-size: 1.0rem;
+  margin: 12px 0 5px;
+  color: #222;
+}
+
+.employee-position {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+/* Dark Mode */
+.dark-mode .booking-box {
+  background: #192a31d9;
+  color: #f0f0f0;
+}
+
+.dark-mode .rating-box {
+  background: #252525;
+  color: #ccc;
+  box-shadow: 0 2px 10px var(--shadow-dark);
+}
+
+.dark-mode .btn-booking {
+  background: linear-gradient(to right, #333, #4d4d4d, #666);
+}
+
+.dark-mode .btn-booking:hover {
+  background: linear-gradient(90deg, #4d4d4d, #808080);
+}
+
+.dark-mode .stars span {
+  color: #666;
+}
+
+.dark-mode .stars span.hovered,
+.dark-mode .stars span.selected {
+  color: #ffcc00;
+}
+
+.dark-mode .service-card {
+  background: #2e2e2e;
+}
+
+.dark-mode .employee-card {
+  background: #2e2e2e;
+  ;
+}
+
+.dark-mode .employee-name {
+  color: #dfdcdc;
+}
+
+.dark-mode .employee-position {
+  color: #a5a5a5;
+}
+
+.dark-mode .banner-header {
+  color: #6d96e2;
+  ;
+}
+
+.dark-mode .banner-description {
+  color: #dedede;
+}
+
+.dark-mode .sub-title {
+  color: #73829d;
+}
+
+
+/* Media Queries cho responsive */
+@media (max-width: 900px) {
+  .employee-carousel {
+    width: 600px;
+    /* Giảm chiều rộng carousel */
+  }
+
+  .employee-card {
+    min-width: 150px;
+    /* Giảm kích thước card */
+  }
+
+  .employee-card img {
+    height: 150px;
+    /* Giảm chiều cao ảnh */
+  }
+
+  .employee-container {
+    padding: 0 40px;
+    /* Giảm padding để nút vừa */
+  }
+}
+
+@media (max-width: 700px) {
+  .employee-carousel {
+    width: 400px;
+    /* Giảm chiều rộng carousel */
+  }
+
+  .employee-card {
+    min-width: 120px;
+    /* Giảm kích thước card */
+  }
+
+  .employee-card img {
+    height: 120px;
+    /* Giảm chiều cao ảnh */
+  }
+
+  .employee-container {
+    padding: 0 30px;
+    /* Giảm padding */
+  }
+
+  .carousel-nav.left {
+    left: 5px;
+    /* Giảm khoảng cách mép trái */
+  }
+
+  .carousel-nav.right {
+    right: 5px;
+    /* Giảm khoảng cách mép phải */
+  }
+}
+
+@media (max-width: 500px) {
+  .employee-carousel {
+    width: 300px;
+    /* Giảm tối đa chiều rộng carousel */
+  }
+
+  .employee-card {
+    min-width: 100px;
+    /* Giảm kích thước card tối đa */
+  }
+
+  .employee-card img {
+    height: 100px;
+    /* Giảm chiều cao ảnh tối đa */
+  }
+
+  .employee-name {
+    font-size: 0.9rem;
+    /* Giảm kích thước chữ */
+  }
+
+  .employee-position {
+    font-size: 0.8rem;
+    /* Giảm kích thước chữ */
+  }
+
+  .employee-container {
+    padding: 0 20px;
+    /* Giảm padding tối đa */
+  }
+
+  .carousel-nav.left {
+    left: 2px;
+    /* Giảm khoảng cách mép trái */
+  }
+
+  .carousel-nav.right {
+    right: 2px;
+    /* Giảm khoảng cách mép phải */
+  }
+}
+
+/* General Responsive Adjustments */
+@media (max-width: 1200px) {
+  .service-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .service-card {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+
+  .khong-gian-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .khong-gian-content,
+  .khong-gian-video {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .khong-gian-video {
+    order: -1;
+    margin-bottom: 20px;
+  }
+}
+
+/* Tablet and Large Mobile Devices (768px - 991px) */
+@media (max-width: 991px) {
+  .service-section {
+    padding-top: 40px;
+  }
+
+  .rating-container {
+    max-width: 90%;
+  }
+
+  .floating-menu {
+    bottom: 30px;
+    right: 20px;
+  }
+
+  .menu-toggle {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* Small Tablets (600px - 767px) */
+@media (max-width: 767px) {
+  .sub-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+  }
+
+  .service-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+
+  .carousel-inner::before,
+  .carousel-inner::after {
+    width: 15%;
+  }
+
+  .booking-box,
+  .rating-box {
+    padding: 10px;
+  }
+
+  .khong-gian-content {
+    padding: 15px 0;
+    border-width: 0;
+  }
+}
+
+/* Mobile Devices (480px - 599px) */
+@media (max-width: 599px) {
+  .service-section {
+    width: 95%;
+    padding-top: 30px;
+  }
+
+  .service-container {
+    gap: 20px;
+  }
+
+  .carousel-item img {
+    height: 180px;
+  }
+
+  .btn-booking {
+    padding: 8px 15px;
+    font-size: 0.6em;
+  }
+
+  .rating-container {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .banner-header {
+    font-size: 18px;
+  }
+
+  .banner-description {
+    font-size: 14px;
+  }
+
+  .floating-menu {
+    bottom: 20px;
+    right: 15px;
+  }
+
+  .menu-toggle {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .menu-items a {
+    padding: 10px 12px;
+    font-size: 12px;
+    border-radius: 20px;
+  }
+
+  .menu-items img {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+  }
+}
+
+/* Small Mobile Devices (up to 479px) */
+@media (max-width: 479px) {
+  .sub-title {
+    font-size: 0.8rem;
+  }
+
+  .carousel-item img {
+    height: 150px;
+  }
+
+  .service-card img {
+    height: 180px;
+  }
+
+  .service-details {
+    font-size: 0.8rem;
+    line-height: 1.8;
+  }
+
+  .khong-gian-content h3 {
+    font-size: 18px;
+  }
+
+  .khong-gian-content p {
+    font-size: 14px;
+  }
+
+  .menu-items {
+    bottom: 60px;
+  }
+}
+
+/* Very Small Devices (up to 359px) */
+@media (max-width: 359px) {
+  .service-card {
+    padding: 10px;
+  }
+
+  .floating-menu {
+    bottom: 15px;
+    right: 10px;
+  }
+
+  .menu-toggle {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Landscape Orientation Adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .service-section {
+    padding-top: 30px;
+  }
+
+  .service-card {
+    width: 30%;
+  }
+
+  .service-card img {
+    height: 150px;
+  }
+
+  .floating-menu {
+    bottom: 15px;
+  }
+}

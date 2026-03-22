@@ -1,0 +1,115 @@
+﻿@using TienLuxury.ViewModels
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Đăng ký thành viên - Tien Luxury";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="~/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="~/css/admin-style/login-style.css">
+
+    <style>
+        /* Tinh chỉnh riêng cho trang đăng ký */
+        .register-link {
+            color: #8e735b;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+            .register-link:hover {
+                color: #d4af37;
+                text-decoration: underline;
+            }
+        /* Form đăng ký nhiều ô nên cần giãn cách nhỏ hơn xíu cho gọn */
+        .form-label {
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.8rem !important;
+        }
+        /* Tăng độ rộng container một chút nếu cần thiết */
+        .login-container {
+            padding: 30px;
+            min-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center py-5">
+
+        <div class="brand-content text-center mb-4">
+            <div class="brand-text">
+                <div class="tien-luxury-container justify-content-center">
+                    <div class="tien">TIEN</div>
+                    <div class="right-section">
+                        <div class="luxury">Luxury</div>
+                        <div class="slogan">Lấy lại phong độ</div>
+                    </div>
+                </div>
+                <h2>Đăng ký thành viên</h2>
+            </div>
+        </div>
+
+        <div class="login-container animate__animated animate__fadeInUp">
+            <h3 class="text-center mb-4">Tạo tài khoản mới</h3>
+
+            <form method="post" asp-controller="Account" asp-action="Register">
+
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="Nhập họ và tên">
+                    <span asp-validation-for="FullName" class="text-danger" style="font-size: 0.8rem"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại">
+                    <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size: 0.8rem"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Nhập email">
+                    <span asp-validation-for="Email" class="text-danger" style="font-size: 0.8rem"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu">
+                    <span asp-validation-for="Password" class="text-danger" style="font-size: 0.8rem"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Nhập lại mật khẩu">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-size: 0.8rem"></span>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="submit" class="btn btn-custom w-80">Đăng ký</button>
+                </div>
+
+                <div class="text-center mt-4 pt-2" style="border-top: 1px solid rgba(0,0,0,0.1);">
+                    <span style="font-size: 0.9rem;">Đã có tài khoản? </span>
+                    <a asp-action="Login" asp-controller="Account" class="register-link fw-bold">Đăng nhập ngay</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

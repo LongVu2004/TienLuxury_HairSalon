@@ -1,0 +1,149 @@
+@model InvoiceUpdateVIewModel
+
+@{
+    ViewData["Title"] = "Update Invoice Status";
+}
+
+<link href="~/css/admin-style/update-invoice-style.css" rel="stylesheet">
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid">
+        <span class="navbar-brand">
+            <a href="@Url.Action("Index", "OrdersManagement")"
+                style="text-decoration: none; color: inherit; cursor: pointer;">
+                Orders Management /
+            </a>
+            <span style="font-size: 0.8rem; color: #656060;">@Model.Invoice.ID</span>
+        </span>
+
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="main-container">
+    <div class="modal-header">
+        <h3>Chi tiết đơn hàng</h3>
+    </div>
+
+    <div class="order-information">
+        <div class="order-info-container">
+            <div class="order-info">
+                <p><strong>Ngày đặt:</strong> <span
+                        id="orderDate">@Model.Invoice.CreatedDate.ToLocalTime().ToString("dd/MM/yyyy - HH:mm")</span>
+                </p>
+                <p><strong>Khách hàng:</strong> <span id="customerName">@Model.Invoice.CustomerName</span></p>
+                <p><strong>SĐT:</strong> <span id="customerPhone">@Model.Invoice.PhoneNumber</span></p>
+                <p><strong>Địa chỉ:</strong> <span id="customerAddress">@Model.Invoice.Address</span></p>
+                <p><strong>Tổng tiền:</strong> <span id="orderTotal">@Model.Invoice.Total.ToString("C0")</span></p>
+                <p>
+                <form class="status-form" asp-action="UpdateInvoiceStatus" asp-controller="OrdersManagement"
+                    method="post">
+                    <strong>Trạng thái: </strong>
+                    <input type="hidden" asp-for="@Model.Invoice.ID" value="@Model.Invoice.ID" />
+                    <select id="orderStatus" asp-for="@Model.Invoice.Status">
+                        @* <option value="Chưa xử lý">Chưa xử lý</option> *@
+                        <option value="Đã thanh toán">Đã thanh toán</option>
+                        <option value="Đang xử lý">Đang xử lý</option>
+                        <option value="Đã xử lý">Đã xử lý</option>
+                        <option value="Hủy đơn">Hủy đơn</option>
+                    </select>
+                    <button class="save-btn" type="submit">Lưu</button>
+                    <button class="delete-btn" type="button" id="deleteInvoiceBtn"
+                        data-invoice-iđ="@Model.Invoice.ID">Xóa đơn hàng</button>
+                </form>
+                </p>
+            </div>
+        </div>
+
+        <div class="order-items-container">
+            <table class="order-items">
+                <thead>
+                    <tr>
+                        <th class="col-image">Hình ảnh</th>
+                        <th class="col-product-name">Sản phẩm</th>
+                        <th class="col-quantty">Số lượng</th>
+                        <th class="col-price">Giá</th>
+                    </tr>
+                </thead>
+                <tbody id="orderItems">
+                    @{
+                        foreach (var p in Model.Items)
+                        {
+                            <tr>
+                                <td class="col-image">
+                                    <img src="@p.ImagePath" alt="Sản phẩm">
+                                </td>
+                                <td class="col-product-name">@p.ProductName</td>
+                                <td class="col-quantty">@p.Quantity</td>
+                                <td class="col-price">@p.ProductPrice.ToString("C0")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body">
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#deleteInvoiceBtn').click(function () {
+            var invoiceId = $(this).data('invoice-iđ');
+
+            $.ajax({
+                url: '@Url.Action("DeleteConfirmation", "OrdersManagement")',
+                type: 'GET',
+                success: function (response) {
+                    var modal = $(response);
+                    $('.modal-body').append(modal);
+                    $('.modal-body').show();
+
+                    modal.find('.cancel-btn').click(function (e) {
+                        e.preventDefault();
+
+                        modal.find('.confirmation-modal').addClass('fade-out');
+                        modal.addClass('fade-out');
+
+
+                        setTimeout(function () {
+                            modal.remove();
+                        }, 300);
+                    });
+
+                    modal.find('.confirm-btn').click(function (e) {
+
+                        e.preventDefault();
+
+                        modal.find('.confirmation-modal').addClass('fade-out');
+                        modal.addClass('fade-out');
+
+                        setTimeout(function () {
+                            $.ajax({
+                                url: '@Url.Action("DeleteInvoice", "OrdersManagement")',
+                                type: 'POST',
+                                data: { id: invoiceId },
+                                success: function () {
+                                    window.location.href = '@Url.Action("Index", "OrdersManagement")';
+                                },
+                                error: function () {
+                                    alert('Có lỗi xảy ra khi xóa đơn hàng');
+                                    modal.remove();
+                                }
+                            });
+                        }, 300);
+                    });
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải modal xác nhận');
+                }
+            });
+        });
+    });
+</script>

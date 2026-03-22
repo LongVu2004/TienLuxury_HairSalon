@@ -1,0 +1,200 @@
+﻿@* @model ProductByTypeListViewModel *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Product Management"; *@
+@* } *@
+
+@* <link href="~/css/admin-style/product-management-style.css" rel="stylesheet" /> *@
+
+@* <nav class="navbar navbar-light"> *@
+@*     <div class="container-fluid d-flex justify-content-between align-items-center"> *@
+@*         <span class="navbar-brand">Products Management</span> *@
+@*         <div class="datetime-container"> *@
+@*             <span class="datetime-label">Hiện tại: <span id="datetime"></span></span> *@
+@*         </div> *@
+@*     </div> *@
+@* </nav> *@
+
+@* <div class="products-container" id="products"> *@
+@*     <div class="product-header"> *@
+@*         <h2>Sản Phẩm Tại Tiệm</h2> *@
+@*         <button onclick="location.href='@Url.Action("AddProduct", "ProductsManagement")'" class="add-btn"> *@
+@*             <i class="fas fa-plus"></i> Thêm Sản Phẩm *@
+@*         </button> *@
+@*     </div> *@
+
+@*     <!-- Danh sách sản phẩm Hair --> *@
+@*     <h3 class="products-title">Mỹ phẩm tóc</h3> *@
+@*     <div class="products-grid" style="margin-bottom: 30px;"> *@
+@*         @foreach (var p in Model.Hair) *@
+@*         { *@
+@*             <div class="product-card" data-product-id="@p.ID"> *@
+@*                 <div class="product-image"> *@
+@*                     <img src="@p.ImagePath" alt="Product Image"> *@
+@*                 </div> *@
+@*                 <div class="product-info"> *@
+@*                     <h3 class="product-name">@p.ProductName</h3> *@
+@*                     <p class="product-quantity">Số lượng: <span>@p.QuantityInStock</span></p> *@
+@*                     <p class="product-price">Giá: <span>@p.Price.ToString("C0")</span></p> *@
+@*                     <p class="product-status active"> Trạng thái: *@
+@*                         <span class="status-badge @(p.IsSold ? "active" : "inactive")"> *@
+@*                             @(p.IsSold ? "Đang kinh doanh" : "Ngừng kinh doanh") *@
+@*                         </span> *@
+@*                     </p> *@
+@*                 </div> *@
+@*                 <div class="product-actions"> *@
+@*                     <button class="edit-btn" *@
+@*                         onclick="location.href='@Url.Action("UpdateProduct", "ProductsManagement", new { id = p.ID })'"> *@
+@*                         <i class="fas fa-edit"></i> Sửa *@
+@*                     </button> *@
+@*                     @* <button class="delete-btn" *@
+@*                             onclick="location.href='@Url.Action("DeleteProduct", "ProductsManagement", new { id = p.ID })'"> *@
+@*                             <i class="fas fa-trash"></i> Xóa *@
+@*                         </button> *@ 
+@*                 </div> *@
+@*             </div> *@
+@*         } *@
+@*     </div> *@
+
+@*     <!-- Danh sách sản phẩm SkinCare --> *@
+@*     <h3 class="products-title">Skin care</h3> *@
+@*     <div class="products-grid" style="margin-bottom: 30px;"> *@
+@*         @foreach (var p in Model.SkinCare) *@
+@*         { *@
+@*             <div class="product-card" data-product-id="@p.ID"> *@
+@*                 <div class="product-image"> *@
+@*                     <img src="@p.ImagePath" alt="Product Image"> *@
+@*                 </div> *@
+@*                 <div class="product-info"> *@
+@*                     <h3 class="product-name">@p.ProductName</h3> *@
+@*                     <p class="product-quantity">Số lượng: <span>@p.QuantityInStock</span></p> *@
+@*                     <p class="product-price">Giá: <span>@p.Price.ToString("C0")</span></p> *@
+@*                     <p class="product-status active"> Trạng thái: *@
+@*                         <span class="status-badge @(p.IsSold ? "active" : "inactive")"> *@
+@*                             @(p.IsSold ? "Đang kinh doanh" : "Ngừng kinh doanh") *@
+@*                         </span> *@
+@*                     </p> *@
+@*                 </div> *@
+@*                 <div class="product-actions"> *@
+@*                     <button class="edit-btn" *@
+@*                         onclick="location.href='@Url.Action("UpdateProduct", "ProductsManagement", new { id = p.ID })'"> *@
+@*                         <i class="fas fa-edit"></i> Sửa *@
+@*                     </button> *@
+@*                     @* <button class="delete-btn" *@
+@*                             onclick="location.href='@Url.Action("DeleteProduct", "ProductsManagement", new { id = p.ID })'"> *@
+@*                             <i class="fas fa-trash"></i> Xóa *@
+@*                         </button> *@ 
+@*                 </div> *@
+@*             </div> *@
+@*         } *@
+@*     </div> *@
+
+@*     <!-- Danh sách sản phẩm Others --> *@
+@*     <h3 class="products-title">Các sản phẩm khác</h3> *@
+@*     <div class="products-grid" style="margin-bottom: 30px;"> *@
+@*         @foreach (var p in Model.Others) *@
+@*         { *@
+@*             <div class="product-card" data-product-id="@p.ID"> *@
+@*                 <div class="product-image"> *@
+@*                     <img src="@p.ImagePath" alt="Product Image"> *@
+@*                 </div> *@
+@*                 <div class="product-info"> *@
+@*                     <h3 class="product-name">@p.ProductName</h3> *@
+@*                     <p class="product-quantity">Số lượng: <span>@p.QuantityInStock</span></p> *@
+@*                     <p class="product-price">Giá: <span>@p.Price.ToString("C0")</span></p> *@
+@*                     <p class="product-status active"> Trạng thái: *@
+@*                         <span class="status-badge @(p.IsSold ? "active" : "inactive")"> *@
+@*                             @(p.IsSold ? "Đang kinh doanh" : "Ngừng kinh doanh") *@
+@*                         </span> *@
+@*                     </p> *@
+@*                 </div> *@
+@*                 <div class="product-actions"> *@
+@*                     <button class="edit-btn" *@
+@*                         onclick="location.href='@Url.Action("UpdateProduct", "ProductsManagement", new { id = p.ID })'"> *@
+@*                         <i class="fas fa-edit"></i> Sửa *@
+@*                     </button> *@
+@*                     @* <button class="delete-btn" *@
+@*                             onclick="location.href='@Url.Action("DeleteProduct", "ProductsManagement", new { id = p.ID })'"> *@
+@*                             <i class="fas fa-trash"></i> Xóa *@
+@*                         </button> *@ 
+@*                 </div> *@
+@*             </div> *@
+@*         } *@
+@*     </div> *@
+@* </div> *@
+
+
+@using TienLuxury.ViewModels
+@model ProductIndexViewModel
+
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+}
+
+<link href="~/css/admin-style/product-management-style.css" rel="stylesheet" />
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Quản lý sản phẩm</span>
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="products-container" id="products">
+    <div class="product-header">
+        <h2>Danh sách sản phẩm</h2>
+        <button onclick="location.href='@Url.Action("AddProduct", "ProductsManagement")'" class="add-btn">
+            <i class="fas fa-plus"></i> Thêm Sản Phẩm
+        </button>
+    </div>
+
+    @if (Model.CategoryGroups != null && Model.CategoryGroups.Any())
+    {
+        @foreach (var group in Model.CategoryGroups)
+        {
+            <div class="category-section mb-5">
+                <h3 class="products-title border-bottom pb-2">@group.CategoryName</h3>
+                
+                <div class="products-grid">
+                    @foreach (var p in group.Products)
+                    {
+                        <div class="product-card" data-product-id="@p.ID">
+                            <div class="product-image">
+                                <img src="@p.ImagePath" alt="Product Image" onerror="this.src='/images/no-image.png'">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">@p.ProductName</h3>
+                                <p class="product-quantity">Số lượng: <span>@p.QuantityInStock</span></p>
+                                <p class="product-price">Giá: <span>@p.Price.ToString("C0")</span></p>
+                                <p class="product-status active"> 
+                                    Trạng thái:
+                                    <span class="status-badge @(p.IsSold ? "active" : "inactive")">
+                                        @(p.IsSold ? "Đang kinh doanh" : "Ngừng kinh doanh")
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="product-actions">
+                                <button class="edit-btn"
+                                    onclick="location.href='@Url.Action("UpdateProduct", "ProductsManagement", new { id = p.ID })'">
+                                    <i class="fas fa-edit"></i> Sửa
+                                </button>
+                                @* <form asp-action="DeleteProduct" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn xóa?');"> *@
+                                @*     <input type="hidden" name="id" value="@p.ID" /> *@
+                                @*     <button type="submit" class="delete-btn"> *@
+                                @*         <i class="fas fa-trash"></i> Xóa *@
+                                @*     </button> *@
+                                @* </form> *@
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info text-center">Chưa có sản phẩm nào.</div>
+    }
+</div>

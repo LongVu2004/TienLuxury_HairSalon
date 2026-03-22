@@ -1,0 +1,167 @@
+@model ServiceByTypeListViewModel
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@if (HttpContextAccessor.HttpContext.Session.GetString("PhoneNumber") != null)
+{
+    <link href="~/css/non-admin-style/reservation-style.css" rel="stylesheet">
+
+    <div class="page-container">
+        <div class="form-container">
+            <form id="createRevationForm" asp-action="CreateReservation" asp-controller="Reservation" method="post">
+
+                <input type="hidden" name="SelectedServicesIds" id="SelectedServicesIds">
+
+                <div class="d-flex gap-5">
+                    <div class="input-group">
+                        <label for="fullName">Họ và tên</label>
+                        <input type="text" name="FullName" id="fullName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="phoneNumber">Số điện thoại</label>
+                        <input type="text" name="PhoneNumber" id="phoneNumber"
+                            value="@HttpContextAccessor.HttpContext.Session.GetString("PhoneNumber")" readonly>
+                    </div>
+                    <div class="input-group">
+                        <label for="ReservationDate">Ngày hẹn</label>
+                        <input type="datetime-local" name="ReservationDate" id="reservationDate" required>
+                    </div>
+                </div>
+
+
+                <div class="service-category">
+                    <h2>Dịch vụ tóc</h2>
+                    <div class="service-grid">
+                        @{
+                            foreach (var s in Model.Hair)
+                            {
+                                <div class="service-item">
+                                    <div class="image-container">
+                                        <img src="@s.ImagePath" alt="@s.ServiceName">
+                                        <div class="overlay">
+                                            <div class="overlay-background"></div>
+                                            <div class="overlay-content">@s.Description
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="service-details">
+                                        <input type="checkbox" name="service" value="@s.Price.ToString("C0")" id="@s.ID"
+                                            onchange="calculateTotal()">
+                                        <label for="@s.ID" class="custom-checkbox"></label>
+                                        <div class="service-info">
+                                            <p class="service-name">@s.ServiceName</p>
+                                            <p class="service-price">@s.Price.ToString("C0")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="service-category">
+                    <h2>Skin Care</h2>
+                    <div class="service-grid">
+                        @{
+                            foreach (var s in Model.SkinCare)
+                            {
+                                <div class="service-item">
+                                    <div class="image-container">
+                                        <img src="@s.ImagePath" alt="@s.ServiceName">
+                                        <div class="overlay">
+                                            <div class="overlay-background"></div>
+                                            <div class="overlay-content">@s.Description
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="service-details">
+                                        <input type="checkbox" name="service" value="@s.Price.ToString("C0")" id="@s.ID"
+                                            onchange="calculateTotal()">
+                                        <label for="@s.ID" class="custom-checkbox"></label>
+                                        <div class="service-info">
+                                            <p class="service-name">@s.ServiceName</p>
+                                            <p class="service-price">@s.Price.ToString("C0")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="service-category">
+                    <h2>Others</h2>
+                    <div class="service-grid">
+                        @{
+                            foreach (var s in Model.Others)
+                            {
+                                <div class="service-item">
+                                    <div class="image-container">
+                                        <img src="@s.ImagePath" alt="@s.ServiceName">
+                                        <div class="overlay">
+                                            <div class="overlay-background"></div>
+                                            <div class="overlay-content">@s.Description
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="service-details">
+                                        <input type="checkbox" name="service" value="@s.Price.ToString("C0")" id="@s.ID"
+                                            onchange="calculateTotal()">
+                                        <label for="@s.ID" class="custom-checkbox"></label>
+                                        <div class="service-info">
+                                            <p class="service-name">@s.ServiceName</p>
+                                            <p class="service-price">@s.Price.ToString("C0")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="total-section d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5>Tổng tiền: </h5>
+                        <p id="totalAmount"> 0 VNĐ</p>
+                    </div>
+                    <div>
+                        <button type="submit" class="book-button">Đặt lịch</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+}
+else
+{
+
+}
+
+<script src="~/js/non-admin-script/create-reservation-script.js"></script>
+
+<script>
+    function calculateTotal() {
+        const checkboxes = document.querySelectorAll('input[name="service"]:checked');
+        let total = 0;
+        let selectedIds = [];
+
+        checkboxes.forEach(checkbox => {
+            total += parseInt(checkbox.value.replace(/\D/g, '')); // Loại bỏ ký tự không phải số
+            selectedIds.push(checkbox.id); // Lưu lại ID của dịch vụ đã chọn
+            checkbox.closest('.service-item').classList.add('selected');
+        });
+
+        document.querySelectorAll('input[name="service"]:not(:checked)').forEach(unchecked => {
+            unchecked.closest('.service-item').classList.remove('selected');
+        });
+
+        document.getElementById('totalAmount').textContent = total.toLocaleString('vi-VN') + ' VNĐ';
+
+        // Cập nhật giá trị của input hidden
+        document.getElementById('SelectedServicesIds').value = JSON.stringify(selectedIds);
+    }
+</script>

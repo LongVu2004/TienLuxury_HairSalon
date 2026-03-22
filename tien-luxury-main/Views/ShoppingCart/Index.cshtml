@@ -1,0 +1,214 @@
+@model OrderViewModel
+
+<link href="~/css/non-admin-style/shopping-cart-style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<div class="btn-group mt-5 m-4 position-relative">
+    <i class="fa-solid fa-chevron-left sliding-icon"></i>
+    <button class="back-to-shop-btn" onclick="location.href='@Url.Action("Index", "Product")'">Tiếp tục mua sắm</button>
+</div>
+
+@{
+    if (Model.Items != null && Model.Items.Count != 0)
+    {
+        <div class="shopping-cart-container">
+            <section class="cart-left">
+                <h2>Giỏ hàng</h2>
+
+                <div id="cart-items">
+                    @foreach (var i in Model.Items)
+                    {
+                        <div class="cart-item">
+                            <img src="@i.ImagePath" alt="@i.ProductName" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <h3 class="cart-item-name">@i.ProductName</h3>
+                                <p class="cart-item-price">@i.ProductPrice.ToString("C0")</p>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn decrease" type="button" onclick="location.href='@Url.Action("Decrease", "ShoppingCart", new { productId = i.ProductID })'">-</button>
+                                    <input id="input-quantity" type="number" value="@i.Quantity" min="1" class="quantity-input" readonly>
+                                    <button class="quantity-btn increase" type="button" onclick="location.href='@Url.Action("Increase", "ShoppingCart", new { productId = i.ProductID })'">+</button>
+                                </div>
+                            </div>
+                            <button class="remove-item" type="button" onclick="location.href='@Url.Action("Remove", "ShoppingCart", new { productId = i.ProductID })'">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    }
+                </div>
+
+                <div class="cart-summary">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tạm tính:</span>
+                        <span id="subTotal" data-original="@Model.Items.Sum(x => x.ProductPrice * x.Quantity)">
+                            @Model.Items.Sum(x => x.ProductPrice * x.Quantity).ToString("N0")đ
+                        </span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2 text-success" id="discountRow" style="display: none;">
+                        <span><i class="fas fa-ticket-alt me-1"></i>Voucher giảm:</span>
+                        <span id="discountAmount" class="fw-bold">-0đ</span>
+                    </div>
+
+                    <div style="border-top: 1px solid #ddd; margin: 10px 0;"></div>
+
+                    <div class="d-flex justify-content-between">
+                        <strong style="font-size: 1.1rem;">Tổng thanh toán:</strong>
+                        <strong style="font-size: 1.3rem; color: var(--color-dark-coral);" id="finalTotal">
+                            @Model.Items.Sum(x => x.ProductPrice * x.Quantity).ToString("N0")đ
+                        </strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cart-right">
+                <h2>Thông tin đặt hàng</h2>
+
+                <div id="information-form">
+                    <form asp-action="CreateInvoice" method="post" id="order-form">
+
+                        <div class="card mb-3 p-3" style="border: 1px dashed #d2b48c; background: #fffdf9;">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="fw-bold" style="color: #a18859; font-size: 0.85rem;">Mã giảm giá / Voucher</label>
+                                <a href="javascript:void(0)" id="btnOpenVoucherModal" style="font-size: 0.85rem; color: #a18859; text-decoration: none; font-weight: 600;">
+                                    <i class="fas fa-ticket-alt me-1"></i> Chọn hoặc nhập mã
+                                </a>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <input type="text" class="form-control m-0" id="voucherInput" name="AppliedVoucherCode"
+                                       value="@Model.AppliedVoucherCode"
+                                       placeholder="Mã Voucher"
+                                       style="background-color: white !important; color: black !important; text-transform: uppercase;">
+
+                                <button type="button" class="btn btn-dark" id="btnCheckVoucher"
+                                        style="white-space: nowrap; height: 45px; margin: 0;">
+                                    Áp dụng
+                                </button>
+                            </div>
+                            <small id="voucherMessage" class="mt-2 d-block fst-italic"></small>
+                        </div>
+
+                        @* --- Code Modal Voucher --- *@
+                        <div id="voucherModal" class="modal fade" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Kho Voucher của bạn</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="background-color: #f8f9fa;">
+                                        <div id="voucherListContainer">
+                                            Đang tải dữ liệu...
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Họ và tên *</label>
+                            <input asp-for="@Model.CustomerName" type="text" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label>Số điện thoại *</label>
+                            <input asp-for="@Model.PhoneNumber" type="text" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input asp-for="@Model.Email" type="email" />
+                        </div>
+
+                        <label>Địa chỉ *</label>
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label class="provide-label">Tỉnh / Thành phố *</label>
+                                    <select class="select-input" id="province-select" style="width: 100%; margin: 0;"><option value="">---</option></select>
+                                </div>
+                                <div style="flex: 1;">
+                                    <label class="provide-label">Quận / Huyện* </label>
+                                    <select class="select-input" id="district-select" style="width: 100%; margin: 0;"><option value="">---</option></select>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <label class="provide-label">Xã / Phường *</label>
+                                    <select class="select-input" id="ward-select" style="width: 100%; margin: 0;"><option value="">---</option></select>
+                                </div>
+                                <div style="flex: 1;">
+                                    <label class="provide-label">Số nhà, đường *</label>
+                                    <input id="input-address" type="text" required style="width: 100%; margin: 0;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <input id="full-address" asp-for="@Model.Address" type="hidden">
+
+                        <label>Phương thức thanh toán *</label>
+                        <div class="payment-methods">
+                            <div class="payment-option" data-method="cod" title="Thanh toán khi nhận hàng">
+                                <i class="fas fa-truck"></i><span class="payment-tooltip">COD</span>
+                            </div>
+                            <div class="payment-option" data-method="bank" title="Chuyển khoản ngân hàng">
+                                <i class="fas fa-university"></i><span class="payment-tooltip">Chuyển khoản</span>
+                            </div>
+                            <div class="payment-option" data-method="momo" title="Ví điện tử Momo">
+                                <i class="fas fa-wallet"></i><span class="payment-tooltip">Momo</span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="payment-method" asp-for="@Model.PaymentMethod" required />
+
+                        <button type="submit" class="checkout-btn">Xác nhận và đặt hàng</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    }
+    else
+    {
+        <div class="empty-cart">
+            <script src="https://unpkg.com/@@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+            <dotlottie-player src="https://lottie.host/eaedb738-87ca-46d5-b5ca-6b6491b23b12/JJAudMR6LY.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
+            <p>Giỏ hàng của bạn đang trống, hãy mua sắm ngay!</p>
+        </div>
+    }
+}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/non-admin-script/shopping-cart-script.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy thông báo lỗi từ ViewBag (Server gửi xuống)
+        var errorMessage = '@Html.Raw(ViewBag.ErrorMessage)';
+
+        // Nếu có lỗi thì hiện Popup đẹp
+        if (errorMessage && errorMessage.length > 0) {
+            Swal.fire({
+                icon: 'error',                  // Icon dấu X đỏ đẹp mắt
+                title: 'Rất tiếc!',             // Tiêu đề
+                text: errorMessage,             // Nội dung lỗi (VD: Mã giảm giá đã hết lượt...)
+                showConfirmButton: false,       // Ẩn nút OK đi cho sang
+                timer: 3000,                    // Tự tắt sau 3 giây
+                timerProgressBar: true,         // Có thanh thời gian chạy chạy bên dưới
+                position: 'center',             // Hiện giữa màn hình
+                background: '#fff',             // Nền trắng
+                color: '#333',                  // Chữ đen
+                backdrop: `
+                    rgba(0,0,123,0.1)
+                    left top
+                    no-repeat
+                `
+            });
+        }
+    });
+</script>

@@ -1,0 +1,65 @@
+@model EmployeeAddEditViewModel
+
+@{
+    Layout = null;
+}
+
+<link href="~/css/admin-style/employee-forrm-style.css" rel="stylesheet" />
+
+<form class="employeeForm modal-content" method="post" asp-action="AddEmployee" asp-controller="EmployeesManagement" enctype="multipart/form-data">
+    <span class="fs-4 close" onclick="closeEmployeeForm()" style="cursor: pointer;"><i class="fa-solid fa-xmark"></i></span>
+
+    <h2 class="modalTitle">Thêm nhân viên</h2>
+    
+    <div id="errorMessage" style="display: none;"></div>
+
+    <div class="form-container" style="display: flex; gap: 20px;">
+        <div class="form-left" style="flex: 1;">
+            <div class="form-group mb-3">
+                <label asp-for="Employee.Name">Tên Nhân Viên</label>
+                <input class="form-input" asp-for="Employee.Name" type="text" id="name" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Giới Tính</label>
+                <div class="gender d-flex gap-4">
+                    <label><input class="form-input" asp-for="Employee.Gender" type="radio" value="true" required> Nam</label>
+                    <label><input class="form-input" asp-for="Employee.Gender" type="radio" value="false" required> Nữ</label>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Employee.Position">Vị Trí Làm Việc</label>
+                <input class="form-input" asp-for="Employee.Position" type="text" id="position" required>
+            </div>
+
+            <div class="text-end mt-3">
+                <button  type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+
+        <div class="form-right" style="flex: 1;">
+            <div class="form-group mb-3">
+                <label for="employeeImage">Hình Ảnh Nhân Viên</label>
+                <input class="form-input" type="file" id="employeeImage" accept="image/*">
+            </div>
+            <div id="imagePreview">
+                <img id="previewImage" src="#" alt="Xem trước hình ảnh"
+                    style="max-width: 100%; max-height: 200px; border: 1px solid #ddd; border-radius: 4px;" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.getElementById('employeeImage').addEventListener('change', function (event) {
+        const [file] = event.target.files;
+        if (file) {
+            const preview = document.getElementById('previewImage');
+            preview.src = URL.createObjectURL(file);
+            document.getElementById('imagePreview').style.display = 'block';
+        }
+    });
+</script>
+
+<script src="~/js/admin-script/check-validation-employee.js"></script>

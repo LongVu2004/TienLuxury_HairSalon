@@ -1,0 +1,312 @@
+﻿:root {
+    --primary-color: #d2b48c;
+    --secondary-color: #c8a77b;
+    --hover-color: #b89b6d;
+    --accent-color: #a18859;
+    --background-color: #f8f5f0;
+    --text-color: #5a4a3f;
+    --card-color: #ffffff;
+    --transition-speed: 0.3s;
+    --danger-color: #d9534f;
+    --success-color: #5cb85c;
+    --border-radius: 10px;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* --- 1. Main Layout --- */
+.category-container {
+    padding: 2.5rem;
+    min-height: calc(100vh - 4.5rem);
+    background: var(--background-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header: Title + Add Button */
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.category-title {
+    color: var(--text-color);
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    position: relative;
+    padding-left: 15px;
+}
+
+    .category-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 30px;
+        background-color: var(--primary-color);
+        border-radius: 3px;
+    }
+
+/* --- 2. Table Section (Giống Service Management) --- */
+.category-table-wrapper {
+    background: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 2rem;
+    border: 1px solid rgba(210, 180, 140, 0.3);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+    th:first-child {
+        border-top-left-radius: 8px;
+    }
+
+    th:last-child {
+        border-top-right-radius: 8px;
+    }
+
+tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #eee;
+}
+
+    tbody tr:nth-child(even) {
+        background-color: rgba(210, 180, 140, 0.08);
+    }
+
+    tbody tr:hover {
+        background-color: rgba(210, 180, 140, 0.15);
+    }
+
+/* --- 3. Buttons (Đồng bộ với Service) --- */
+/* Nút Thêm mới */
+.add-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+    .add-btn:hover {
+        background: var(--hover-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(161, 136, 89, 0.3);
+        color: white;
+    }
+
+/* Nút Hành động trong bảng */
+.action-btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.edit-btn {
+    background: var(--accent-color);
+}
+
+    .edit-btn:hover {
+        background: var(--hover-color);
+        transform: translateY(-2px);
+        color: white;
+    }
+
+.delete-btn {
+    background: var(--danger-color);
+}
+
+    .delete-btn:hover {
+        background: #c9302c;
+        transform: translateY(-2px);
+    }
+
+/* --- 4. Form Styles (Cho trang Add/Update Category) --- */
+/* Form Container */
+.category-form-card {
+    background: var(--card-color);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    max-width: 700px;
+    margin: 0 auto; /* Căn giữa form */
+    box-shadow: var(--box-shadow);
+    border-top: 5px solid var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #fafafa;
+}
+
+    .form-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(210, 180, 140, 0.2);
+        outline: none;
+        background-color: #fff;
+    }
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Nút trong Form */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.cancel-btn {
+    background: transparent;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .cancel-btn:hover {
+        background: #eee;
+        color: #333;
+    }
+
+.save-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .save-btn:hover {
+        background: var(--hover-color);
+        box-shadow: 0 4px 10px rgba(210, 180, 140, 0.4);
+        transform: translateY(-2px);
+    }
+
+/* --- 5. Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- 6. Responsive --- */
+@media (max-width: 768px) {
+    .category-container {
+        padding: 1rem;
+    }
+
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .table-responsive {
+        border-radius: var(--border-radius);
+    }
+
+    /* Trên mobile có thể ẩn bớt cột Mô tả nếu dài quá */
+    .desc-col {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

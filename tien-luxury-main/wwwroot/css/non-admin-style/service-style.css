@@ -1,0 +1,556 @@
+/* Sử dụng các biến CSS từ trang chính */
+.service-page {
+    background-color: var(--color-white);
+    color: var(--color-text-dark);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.dark-mode .service-page {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+}
+
+/* Hero Section */
+.service-hero {
+    text-align: center;
+    padding: var(--space-xl) 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius-lg);
+    margin: var(--space-xl);
+    color: var(--color-text-light);
+}
+
+.dark-mode .service-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+}
+
+.service-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-white);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.service-hero p {
+    font-size: var(--text-lg);
+    max-width: 700px;
+    margin: 0 auto var(--space-lg);
+}
+
+.service-btn,
+.booking-btn {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition);
+    border: none;
+    cursor: pointer;
+    font-size: var(--text-base);
+}
+
+.booking-btn {
+    border-radius: 8px;
+    background-color: #a88041;
+}
+
+.booking-btn:hover {
+    background-color: #cfa970c6;
+    transform: scale(1.02);
+    background-color: var(--color-coral);
+    /* Chuyển sang coral khi hover */
+    box-shadow: 0 5px 15px rgba(207, 169, 112, 0.3);
+}
+
+.service-btn:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(207, 169, 112, 0.3);
+}
+
+
+
+.booking-container {
+    padding: var(--space-sm) 0;
+}
+
+.booking-combo {
+    display: inline-flex;
+    position: relative;
+    height: 40px;
+}
+
+.slide-container {
+    display: flex;
+    flex-direction: column;
+    /* Thay đổi từ row (mặc định) sang column */
+    position: absolute;
+    left: 100%;
+    top: 0;
+    height: auto;
+    /* Thay đổi từ 100% sang auto để chứa nội dung */
+    width: 0;
+    overflow: hidden;
+    background-color: var(--color-light-gray);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+    opacity: 0;
+    z-index: 2;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    box-shadow: 0 2px 5px var(--shadow-light);
+    padding-left: var(--space-sm);
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    width: 100%;
+}
+
+.slide-container.active {
+    width: 300px;
+    opacity: 1;
+}
+
+.slide-input {
+    padding: var(--space-sm);
+    border: 1px solid var(--color-dark-gray);
+    border-radius: var(--radius-sm);
+    flex-grow: 1;
+    /* Cho phép input chiếm không gian còn lại */
+    background-color: var(--color-white);
+    transition: border-color var(--transition);
+    font-size: var(--text-sm);
+}
+
+.slide-input:focus {
+    border-color: var(--color-accent);
+    outline: none;
+}
+
+.confirm-btn {
+    padding: var(--space-sm);
+    background-color: var(--color-accent);
+    color: var(--color-text-dark);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.2s ease, background-color var(--transition);
+    font-size: var(--text-base);
+}
+
+#phoneError {
+    width: 100%;
+    margin-top: var(--space-xs);
+}
+
+.confirm-btn:hover {
+    background-color: var(--color-coral);
+}
+
+.confirm-btn:active {
+    transform: scale(0.95);
+}
+
+
+/* Dark Mode Styles cho Booking Component */
+.dark-mode .booking-container {
+    background-color: var(--color-bg-dark);
+}
+
+.dark-mode .slide-container {
+    background-color: var(--color-card-dark);
+    box-shadow: 0 2px 5px var(--shadow-dark);
+    border-left: 1px solid var(--color-header-dark);
+}
+
+.dark-mode .slide-input {
+    background-color: var(--color-card-dark);
+    border-color: var(--color-header-dark);
+    color: var(--color-text-light);
+}
+
+.dark-mode .slide-input:focus {
+    border-color: var(--color-accent);
+}
+
+.dark-mode .confirm-btn {
+    background-color: var(--color-accent);
+    color: var(--color-bg-dark);
+}
+
+.dark-mode .confirm-btn:hover {
+    background-color: var(--color-dark-coral);
+}
+
+
+
+/* Service Sections */
+.service-section {
+    margin-bottom: var(--space-xl);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px var(--shadow-light);
+    overflow: hidden;
+    transition: transform var(--transition), background-color var(--transition);
+}
+
+.dark-mode .service-section {
+    background-color: var(--color-card-dark);
+    box-shadow: 0 10px 30px var(--shadow-dark);
+}
+
+.service-section:hover {
+    transform: translateY(-5px);
+}
+
+.section-title {
+    padding: var(--space-md) var(--space-lg);
+    background: linear-gradient(135deg, var(--color-light-gray) 0%, #c3cfe2 100%);
+}
+
+.dark-mode .section-title {
+    background: linear-gradient(135deg, var(--color-header-dark) 0%, #3a4a6b 100%);
+}
+
+.section-title h2 {
+    font-size: 1.8rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+    padding-left: var(--space-sm);
+    position: relative;
+}
+
+.section-title h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    bottom: 5px;
+    width: 5px;
+    background-color: var(--color-accent);
+    border-radius: var(--radius-sm);
+}
+
+.section-title p {
+    color: var(--color-text-dark);
+    font-size: var(--text-base);
+    padding-left: var(--space-md);
+}
+
+.dark-mode .section-title p {
+    color: var(--color-text-light);
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    /* Giảm minmax từ 280px xuống 220px */
+    gap: var(--space-md);
+    /* Giảm khoảng cách giữa các item */
+    padding: var(--space-lg);
+}
+
+.service-item {
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    transition: all var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--color-light-gray);
+}
+
+.dark-mode .service-item {
+    background-color: var(--color-card-dark);
+    box-shadow: 0 5px 15px var(--shadow-dark);
+    border-color: var(--color-header-dark);
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px var(--shadow-light);
+}
+
+.dark-mode .service-item:hover {
+    box-shadow: 0 15px 30px var(--shadow-dark);
+}
+
+/* Container chứa hình ảnh */
+.image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Hiệu ứng zoom ảnh khi hover */
+.service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.3s ease;
+    /* Thêm filter để blur */
+}
+
+/* Overlay mặc định ẩn */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Nền tối mờ */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hiển thị overlay khi hover */
+.service-item:hover .overlay {
+    opacity: 1;
+}
+
+/* Blur ảnh khi hover, nhưng không ảnh hưởng overlay */
+.service-item:hover .service-image {
+    transform: scale(1.1);
+    filter: blur(4px);
+    /* Hiệu ứng blur cho ảnh */
+}
+
+/* Container chứa description để cuộn */
+.description-wrapper {
+    max-height: 100%;
+    /* Giới hạn chiều cao bằng image-container */
+    overflow-y: auto;
+    /* Cho phép cuộn dọc nếu nội dung dài */
+    padding: var(--space-sm);
+    width: 90%;
+    /* Để có khoảng cách hai bên */
+}
+
+/* Style cho description */
+.description-wrapper .description {
+    color: var(--color-white);
+    /* Chữ trắng để nổi trên nền tối */
+    font-size: var(--text-sm);
+    letter-spacing: 1.5px;
+    line-height: 2;
+    /* Giãn cách chữ hợp lý */
+    text-align: justify;
+    /* Căn đều hai lề */
+    margin: 0;
+    background: transparent;
+    /* Đảm bảo không bị ảnh hưởng bởi blur */
+}
+
+/* Tùy chỉnh scrollbar (nếu muốn) */
+.description-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.description-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent);
+    border-radius: 10px;
+}
+
+.description-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Service Info */
+.service-info {
+    padding: var(--space-md);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Đảm bảo căn chỉnh đều */
+}
+
+.service-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-dark);
+}
+
+.dark-mode .service-info h3 {
+    color: var(--color-text-light);
+}
+
+.service-info .price {
+    font-weight: bold;
+    color: var(--color-accent);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-md);
+}
+
+.btn-book {
+    align-self: flex-start;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: all var(--transition);
+}
+
+.btn-book:hover {
+    background-color: var(--color-dark-coral);
+}
+
+/* Dark mode cho overlay description */
+.dark-mode .description-wrapper .description {
+    color: var(--color-text-light);
+}
+
+/* Testimonials */
+.service-testimonials {
+    background-color: var(--color-light-gray);
+    padding: var(--space-xl) 0;
+    margin-bottom: var(--space-xl);
+}
+
+.dark-mode .service-testimonials {
+    background-color: var(--color-header-dark);
+}
+
+.service-testimonials h2 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    color: var(--color-accent);
+    font-size: 1.8rem;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-lg);
+}
+
+.testimonial {
+    background-color: var(--color-white);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    box-shadow: 0 5px 15px var(--shadow-light);
+}
+
+.dark-mode .testimonial {
+    background-color: var(--color-card-dark);
+    box-shadow: 0 5px 15px var(--shadow-dark);
+}
+
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: var(--space-md);
+    color: var(--color-text-dark);
+}
+
+.dark-mode .testimonial-text {
+    color: var(--color-text-light);
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+}
+
+.testimonial-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: var(--space-sm);
+}
+
+.author-info h4 {
+    color: var(--color-text-dark);
+    margin-bottom: var(--space-xs);
+}
+
+.dark-mode .author-info h4 {
+    color: var(--color-text-light);
+}
+
+.author-info p {
+    color: var(--color-text-dark);
+    font-size: var(--text-sm);
+    opacity: 0.7;
+}
+
+.dark-mode .author-info p {
+    color: var(--color-text-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+@media (max-width: 768px) {
+    .booking-combo {
+        display: block; /* Chuyển thành bố cục dọc */
+        height: auto;
+    }
+
+    .slide-container {
+        position: static; /* Không sử dụng position tuyệt đối */
+        width: 100%;
+        border-radius: var(--radius-sm);
+        padding: var(--space-sm);
+    }
+
+    .slide-container.active {
+        width: 100%;
+        opacity: 1;
+    }
+
+    .input-row {
+        flex-direction: column; /* Chuyển thành bố cục dọc */
+        gap: var(--space-xs);
+    }
+
+    .slide-input {
+        width: 100%;
+    }
+
+    .confirm-btn {
+        width: 100%;
+        padding: var(--space-sm);
+        font-size: var(--text-sm);
+    }
+}
+
+/* 🌟 Media Query cho màn hình rất nhỏ (dưới 480px) */
+@media (max-width: 480px) {
+    .slide-container.active {
+        width: 100%;
+    }
+
+    .slide-input {
+        font-size: var(--text-xs);
+    }
+
+    .confirm-btn {
+        font-size: var(--text-xs);
+    }
+}

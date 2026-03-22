@@ -1,0 +1,125 @@
+﻿@model List<TienLuxury.Models.Category>
+@{
+    ViewData["Title"] = "Quản lý Danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/admin-style/category-management-style.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Category Management</span>
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="category-container">
+    <div class="category-header">
+        <h2 class="category-title">Quản lý Danh mục sản phẩm</h2>
+        <a href="@Url.Action("AddCategory")" class="add-btn">
+            <i class="fas fa-plus"></i> Thêm Danh mục
+        </a>
+    </div>
+
+    <div class="category-table-wrapper">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="30%">Tên danh mục</th>
+                        <th width="50%">Mô tả</th>
+                        <th width="20%">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span style="font-weight: 600; color: #5a4a3f;">@item.CategoryName</span>
+                                </td>
+                                <td class="desc-col">
+                                    <span class="text-muted">@item.Description</span>
+                                </td>
+                                <td>
+                                    <div class="action-btn-group">
+                                        <a href="@Url.Action("UpdateCategory", new { id = item.Id })" class="edit-btn" title="Sửa">
+                                            <i class="fas fa-edit"></i> Sửa
+                                        </a>
+
+                                        <form asp-action="Delete" method="post" onsubmit="confirmDelete(event)">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" class="delete-btn" title="Xóa">
+                                                <i class="fa-solid fa-trash"></i> Xóa
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="3" class="text-center py-5 text-muted">Chưa có danh mục nào.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete(event) {
+        event.preventDefault();
+        var currentForm = event.target;
+        Swal.fire({
+            title: 'Bạn chắc chắn chứ?',
+            text: "Nếu xóa, bạn cần đảm bảo danh mục này trống (không chứa sản phẩm)!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d9534f',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Vâng, xóa nó!',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                currentForm.submit();
+            }
+        })
+    }
+
+    // 3. SCRIPT HIỂN THỊ THÔNG BÁO SAU KHI RELOAD (QUAN TRỌNG)
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy thông báo từ TempData
+        var successMsg = '@Html.Raw(TempData["Success"])';
+        var errorMsg = '@Html.Raw(TempData["Error"])';
+
+        // Nếu có thông báo thành công -> Hiện Toast xanh
+        if (successMsg && successMsg.length > 0) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: successMsg,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+
+        // Nếu có thông báo lỗi (VD: Đang có sản phẩm) -> Hiện Popup đỏ
+        if (errorMsg && errorMsg.length > 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Không thể xóa!',
+                text: errorMsg,
+                confirmButtonColor: '#d9534f',
+                confirmButtonText: 'Đã hiểu'
+            });
+        }
+    });
+</script>

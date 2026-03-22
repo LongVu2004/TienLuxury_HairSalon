@@ -1,0 +1,80 @@
+@model MessageViewModel
+
+@{
+    ViewData["Title"] = "- Contact";
+}
+
+<link rel="stylesheet" href="~/css/non-admin-style/contact-style.css" />
+
+<div class="contact">
+    <h2>ĐÁNH GIÁ CHẤT LƯỢNG CỦA CHÚNG TÔI</h2>
+
+    <!-- Banner nằm ngay dưới tiêu đề -->
+    <div class="contact-banner">
+        <img src="~/image/banner/contact_banner.jpg" alt="HairSalon Banner" />
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <p>
+                <i class="fa-solid fa-map-location-dot"></i>
+                <a href="https://maps.app.goo.gl/ns3sXh8eZcUcQJgEA" target="_blank">
+                    267 Đường Số 1, Bình Hưng Hoà B, Bình Tân, Hồ Chí Minh
+                </a>
+            </p>
+            <p>
+                <i class="fa-solid fa-phone fa-shake"></i>
+                <a href="tel:0366050144">0366 050 144</a>
+            </p>
+            <p>
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:hairsalon@gmail.com">hairsalon@gmail.com</a>
+            </p>
+            <p>
+                <i class="fas fa-clock"></i> Mon - Sat, 8:00 - 22:00
+            </p>
+            <div class="social-links text-center">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form class="contact-form" asp-action="SendMessage" asp-controller="Contact" style="width: 100%;">
+
+                <h3 style="margin-bottom: 20px; color: #333;">Gửi phản hồi</h3>
+
+                <input type="text" placeholder="Họ và tên" asp-for="@Model.Message.CustomerName" required readonly style="background-color: #f9f9f9;" />
+                <input type="email" placeholder="Email" asp-for="@Model.Message.Email" readonly style="background-color: #f9f9f9;" />
+                <input type="text" placeholder="Số điện thoại" asp-for="@Model.Message.PhoneNumber" required readonly style="background-color: #f9f9f9;" />
+
+                <textarea placeholder="Nội dung đánh giá..." rows="4" asp-for="@Model.Message.Content" required></textarea>
+
+                <button type="submit">Gửi đánh giá</button>
+            </form>
+        }
+        else
+        {
+            <div class="login-request text-center" style="padding: 40px 20px; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee;">
+                <i class="fas fa-lock" style="font-size: 50px; color: #d2b48c; margin-bottom: 20px;"></i>
+                <h4 style="color: #5a4a3f; margin-bottom: 10px;">Bạn cần đăng nhập</h4>
+                <p class="text-muted mb-4">Vui lòng đăng nhập tài khoản thành viên để gửi đánh giá và góp ý cho chúng tôi.</p>
+
+                <a href="@Url.Action("Login", "Account", new { ReturnUrl = Context.Request.Path })"
+                   class="btn"
+                   style="background-color: #d2b48c; color: white; padding: 10px 30px; border-radius: 25px; text-decoration: none; font-weight: bold;">
+                    Đăng nhập ngay
+                </a>
+            </div>
+        }
+    </div>
+
+    <!-- Bản đồ Google Maps -->
+    <div class="map">
+        <iframe src="https://www.google.com/maps?q=267+Đường+Số+1,+Bình+Hưng+Hoà+B,+Bình+Tân,+Hồ+Chí+Minh&output=embed"
+            width="100%" height="350" style="border: 0; border-radius: 12px;" allowfullscreen=""
+            loading="lazy"></iframe>
+    </div>
+</div>

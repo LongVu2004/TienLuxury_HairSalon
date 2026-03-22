@@ -1,0 +1,98 @@
+﻿@model ServiceAddUpdateViewModel
+
+@{
+    Layout = null;
+}
+
+<link href="~/css/admin-style/form-with-image-style.css" rel="stylesheet" />
+
+<form class="serviceForm modal-content form-with-image" method="post" asp-action="AddService"
+    asp-controller="ServicesManagement" enctype="multipart/form-data">
+    <span class="fs-4 close" onclick="closeServiceForm()" style="cursor: pointer;"><i class="fa-solid fa-xmark"></i></span>
+    
+    <h2 class="modalTitle" class="m-0">Thêm Dịch Vụ</h2>
+
+    <div id="errorMessage" class="alert alert-danger py-1" style="display: none;"></div>
+
+    <div class="form-container" style="display: flex; gap: 20px;">
+        <!-- Cột trái - Các trường thông tin hiện tại -->
+        <div class="form-left" style="flex: 1;">
+            <div class="form-group mb-3">
+                <label for="serviceName">Tên Dịch Vụ</label>
+                <input asp-for="Service.ServiceName" type="text" id="serviceName" placeholder="Nhập tên dịch vụ"
+                    class="form-input" />
+                <span asp-validation-for="Service.ServiceName" class="text-danger error-field"
+                    data-valmsg-for="Service.ServiceName"></span>
+            </div>
+
+
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="servicePrice">Giá</label>
+                    <input asp-for="Service.Price" type="number" id="servicePrice" placeholder="Nhập giá dịch vụ"
+                        class="form-input" />
+                    <span asp-validation-for="Service.Price" class="text-danger error-field"
+                        data-valmsg-for="Service.Price"></span>
+                </div>
+
+                <div class="form-group half">
+                    <label for="ServiceType">Loại dịch vụ</nav></i></label>
+                    <select asp-for="Service.ServiceType" class="form-input" id="ServiceType" required>
+                        <option value="Dịch vụ tóc">Dịch vụ tóc</option>
+                        <option value="Skin care">Skin Care</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="serviceInfo">Thông Tin</label>
+                <textarea asp-for="Service.Description" id="serviceInfo" placeholder="Nhập mô tả dịch vụ"
+                    class="form-input"></textarea>
+                <span asp-validation-for="Service.Description" class="text-danger error-field"
+                    data-valmsg-for="Service.Description"></span>
+            </div>
+        </div>
+
+        <!-- Cột phải - Trường tải ảnh -->
+        <div class="form-right" style="flex: 1;">
+            <div class="form-group mb-3">
+                <label for="serviceImage">Hình ảnh dịch vụ</label>
+                <input type="file" class="form-input" id="serviceImage" name="serviceImage" accept="image/*" required />
+
+                <!-- Khung xem trước ảnh -->
+                <div id="imagePreview" style="margin-top: 15px">
+                    <img id="previewImage" src="#" alt="Xem trước hình ảnh"
+                        style="max-width: 100%; max-height: 200px; border: 1px solid #ddd; border-radius: 4px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <div class="d-flex align-items-center gap-3">
+            <label for="serviceStatus">Trạng thái dịch vụ:</label>
+            <div class="custom-checkbox ms-2">
+                <input type="checkbox" id="serviceStatus" asp-for="Service.IsActivated" value="true">
+                <label for="serviceStatus"></label>
+            </div>
+            <span class="text-muted fs-6" style="opacity: 0.6;">(Tích để kích hoạt dịch vụ)</span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn-primary">Lưu</button>
+</form>
+
+<script src="~/js/admin-script/check-validation-service.js"></script>
+
+<script>
+    document.getElementById('serviceImage').addEventListener('change', function (event) {
+        const [file] = event.target.files;
+        if (file) {
+            const preview = document.getElementById('previewImage');
+            preview.src = URL.createObjectURL(file);
+            document.getElementById('imagePreview').style.display = 'block';
+        }
+    });
+</script>

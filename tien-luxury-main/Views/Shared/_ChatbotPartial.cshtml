@@ -1,0 +1,362 @@
+﻿<div class="floating-menu">
+    <div class="menu-toggle">
+        <i class="fa-solid fa-plus"></i>
+    </div>
+    <ul class="menu-items">
+        <li><a href="https://zalo.me/" target="_blank"><img src="~/image/contact-icon/zalo-icon.webp" alt="Zalo" /> Chat Zalo</a></li>
+        <li><a href="https://www.facebook.com/" target="_blank"><img src="~/image/contact-icon/facebook-icon.webp" alt="Facebook" /> Chat Facebook</a></li>
+        <li><a href="tel:0366050144"><img src="~/image/contact-icon/hotline-icon.png" alt="Hotline" /> Gọi hotline</a></li>
+        <li>
+            <a href="javascript:void(0)" onclick="toggleMiniChat()">
+                <img src="~/image/contact-icon/chat-icon.png" alt="AI Chat" /> Tư vấn ngay
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div id="mini-chat-box">
+    <div class="chat-header-custom">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" width="24" style="filter: brightness(0) invert(1);">
+            Hair Salon AI
+        </div>
+        <button class="close-btn-custom" onclick="toggleMiniChat()">×</button>
+    </div>
+
+    <div id="chat-content-area" class="chat-body-custom">
+    </div>
+
+    <div class="chat-footer-custom">
+        <input type="text" id="chat-input-field" placeholder="Nhập tin nhắn..." onkeypress="handleEnterChat(event)" autocomplete="off">
+        <button onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<style>
+    /* (Giữ nguyên CSS cũ của bạn) */
+    #mini-chat-box {
+        position: fixed !important;
+        bottom: 100px;
+        right: 90px;
+        width: 340px;
+        height: 450px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+        z-index: 999999;
+        display: none;
+        flex-direction: column;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        overflow: hidden;
+        border: 1px solid #e0e0e0;
+        animation: slideIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .chat-header-custom {
+        background: linear-gradient(90deg, #E30019, #bf0015);
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .close-btn-custom {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+        .close-btn-custom:hover {
+            opacity: 1;
+        }
+
+    .chat-body-custom {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background-color: #f4f6f8;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .msg-row {
+        display: flex;
+        width: 100%;
+    }
+
+    .msg-bot {
+        justify-content: flex-start;
+    }
+
+    .msg-user {
+        justify-content: flex-end;
+    }
+
+    .msg-bubble {
+        max-width: 80%;
+        padding: 10px 14px;
+        font-size: 14px;
+        line-height: 1.4;
+        position: relative;
+        word-wrap: break-word;
+    }
+
+    .msg-bot .msg-bubble {
+        background: #ffffff;
+        color: #333;
+        border-radius: 15px 15px 15px 2px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border: 1px solid #eee;
+    }
+
+    .msg-user .msg-bubble {
+        background: #E30019;
+        color: white;
+        border-radius: 15px 15px 2px 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .chat-footer-custom {
+        padding: 10px;
+        background: white;
+        border-top: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .chat-footer-custom input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+            .chat-footer-custom input:focus {
+                border-color: #E30019;
+            }
+
+        .chat-footer-custom button {
+            background: #E30019;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+            .chat-footer-custom button:hover {
+                background: #c90016;
+            }
+
+    /* CSS cho Menu Plus */
+    .floating-menu {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 99999;
+    }
+
+    .menu-toggle {
+        width: 50px;
+        height: 50px;
+        background: #E30019;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        transition: transform 0.3s;
+    }
+
+    .menu-items {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        bottom: 60px;
+        right: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        transform: translateY(20px);
+        width: 200px;
+    }
+
+    .menu-open .menu-items {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .menu-open .menu-toggle {
+        transform: rotate(45deg);
+    }
+
+    .menu-items li {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .menu-items a {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 8px 15px;
+        border-radius: 25px;
+        text-decoration: none;
+        color: #333;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        font-size: 14px;
+        font-weight: 500;
+        transition: transform 0.2s;
+    }
+
+        .menu-items a:hover {
+            transform: translateX(-5px);
+            color: #E30019;
+        }
+
+    .menu-items img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        object-fit: contain;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Toggle menu floating
+        document.querySelector(".menu-toggle").addEventListener("click", function () {
+            document.querySelector(".floating-menu").classList.toggle("menu-open");
+        });
+
+        // TẢI LỊCH SỬ CHAT KHI CHUYỂN TRANG
+        loadChatHistory();
+    });
+
+    function toggleMiniChat() {
+        var box = document.getElementById("mini-chat-box");
+        if (box.style.display === "none" || box.style.display === "") {
+            box.style.display = "flex";
+            setTimeout(() => document.getElementById("chat-input-field").focus(), 100);
+        } else {
+            box.style.display = "none";
+        }
+    }
+
+    function handleEnterChat(e) {
+        if (e.key === 'Enter') sendChatMessage();
+    }
+
+    function formatMessage(text) {
+        if (!text) return "";
+        let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        formatted = formatted.replace(/\n/g, '<br>');
+        return formatted;
+    }
+
+    // --- LOGIC LƯU TRỮ SESSION STORAGE ---
+
+    // Hàm thêm tin nhắn vào giao diện + Lưu vào Storage
+    function appendMessage(html, sender, rawText) {
+        var contentArea = document.getElementById("chat-content-area");
+        contentArea.innerHTML += html;
+        contentArea.scrollTop = contentArea.scrollHeight;
+
+        // Lưu vào Session Storage (Chỉ lưu text gốc chưa format HTML để tái sử dụng sạch sẽ)
+        let history = JSON.parse(sessionStorage.getItem("hairSalonChatHistory")) || [];
+        history.push({ sender: sender, text: rawText });
+        sessionStorage.setItem("hairSalonChatHistory", JSON.stringify(history));
+    }
+
+    // Hàm tải lại lịch sử
+    function loadChatHistory() {
+        var contentArea = document.getElementById("chat-content-area");
+        let history = JSON.parse(sessionStorage.getItem("hairSalonChatHistory"));
+
+        if (history && history.length > 0) {
+            contentArea.innerHTML = ""; // Xóa nội dung mặc định
+            history.forEach(msg => {
+                let html = "";
+                if (msg.sender === "bot") {
+                    html = `<div class="msg-row msg-bot"><div class="msg-bubble">${formatMessage(msg.text)}</div></div>`;
+                } else {
+                    html = `<div class="msg-row msg-user"><div class="msg-bubble">${msg.text}</div></div>`;
+                }
+                contentArea.innerHTML += html;
+            });
+        } else {
+            // Nếu chưa có lịch sử thì hiện lời chào
+            contentArea.innerHTML = `
+                <div class="msg-row msg-bot">
+                    <div class="msg-bubble">Chào bạn! 👋 <br>Mình là trợ lý ảo Hair Salon. Bạn cần tư vấn kiểu tóc hay đặt lịch?</div>
+                </div>`;
+        }
+        contentArea.scrollTop = contentArea.scrollHeight;
+    }
+
+    async function sendChatMessage() {
+        var input = document.getElementById("chat-input-field");
+        var message = input.value.trim();
+        if (!message) return;
+
+        // 1. Hiện tin nhắn User & Lưu
+        let userHtml = `<div class="msg-row msg-user"><div class="msg-bubble">${message}</div></div>`;
+        appendMessage(userHtml, "user", message);
+
+        input.value = "";
+
+        try {
+            // Hiệu ứng đang gõ (Không lưu vào storage)
+            var loadingId = "loading-" + Date.now();
+            document.getElementById("chat-content-area").innerHTML += `
+                <div id="${loadingId}" class="msg-row msg-bot">
+                    <div class="msg-bubble" style="font-style:italic; color:#888;">...</div>
+                </div>`;
+            document.getElementById("chat-content-area").scrollTop = document.getElementById("chat-content-area").scrollHeight;
+
+            const response = await fetch('/Chat/SendMessage', { // Đảm bảo đường dẫn đúng với Controller của bạn
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            });
+
+            document.getElementById(loadingId).remove();
+
+            if (!response.ok) throw new Error('Error');
+            const data = await response.json();
+
+            // 2. Hiện tin nhắn Bot & Lưu
+            let botHtml = `<div class="msg-row msg-bot"><div class="msg-bubble">${formatMessage(data.reply)}</div></div>`;
+            appendMessage(botHtml, "bot", data.reply);
+
+        } catch (error) {
+            if(document.getElementById(loadingId)) document.getElementById(loadingId).remove();
+            let errHtml = `<div class="msg-row msg-bot"><div class="msg-bubble" style="color:red;">Lỗi kết nối server!</div></div>`;
+            // Không lưu tin nhắn lỗi vào lịch sử
+            document.getElementById("chat-content-area").innerHTML += errHtml;
+        }
+    }
+</script>

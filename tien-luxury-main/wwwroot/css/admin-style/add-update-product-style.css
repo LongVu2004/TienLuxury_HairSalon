@@ -1,0 +1,202 @@
+﻿/* Sử dụng biến từ CSS gốc */
+:root {
+    --primary-color: #d2b48c;
+    --secondary-color: #c8a77b;
+    --hover-color: #b89b6d;
+    --accent-color: #a18859;
+    --background-color: #f8f5f0;
+    --text-color: #5a4a3f;
+    --card-color: #ffffff;
+    --transition-speed: 0.3s;
+}
+
+.product-container {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+}
+
+.smaler-header {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.smaler-header-2 {
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.productForm {
+    display: flex;
+    flex-direction: column;
+/*    height: 100%;*/
+    background-color: var(--card-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.form-layout {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-left, .form-right {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-group.half {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: white;
+    transition: border-color var(--transition-speed);
+}
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(210, 180, 140, 0.25);
+    }
+
+.description-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.description-area {
+    flex: 1;
+    resize: none;
+    min-height: 600px;
+}
+.note-editable {
+    min-height: 600px !important;
+}
+
+.image-preview {
+    margin-top: 10px;
+    width: 100%;
+    height: 200px;
+    border: 1px dashed #ddd;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#previewImg {
+    max-width: 100%;
+    max-height: 100%;
+    /* display: none; */
+    object-fit: contain;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.save-btn, .cancel-btn {
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.save-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+    .save-btn:hover {
+        background-color: var(--hover-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+.cancel-btn {
+    background-color: #f5f5f5;
+    color: var(--text-color);
+}
+
+    .cancel-btn:hover {
+        background-color: #ebebeb;
+        transform: translateY(-2px);
+    }
+
+.text-danger {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-layout {
+        flex-direction: column;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.delete-btn-header {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 10px; /* Cách nút Hủy một chút */
+}
+
+    .delete-btn-header:hover {
+        background-color: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3);
+    }

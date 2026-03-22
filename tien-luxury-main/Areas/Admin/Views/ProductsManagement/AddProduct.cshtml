@@ -1,0 +1,128 @@
+﻿@model ProductAddEditViewModel
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<link href="~/css/admin-style/add-update-product-style.css" rel="stylesheet" />
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">
+            <a href="@Url.Action("Index","ProductsManagement")" style="text-decoration: none; color: inherit; cursor: pointer;">Products Management</a>
+            <span class="smaler-header">/ Add product</span>
+        </span>
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+
+<div class="product-container">
+
+    <form class="productForm" method="post" asp-action="AddProduct" asp-controller="ProductsManagement"
+        enctype="multipart/form-data">
+        <div class="action-buttons">
+            <a href="@Url.Action("Index", "ProductsManagement")" class="cancel-btn text-decoration-none">
+                <i class="fas fa-times"></i> Hủy
+            </a>
+
+            <button type="submit" class="save-btn">
+                <i class="fas fa-save"></i> Thêm Sản Phẩm
+            </button>
+        </div>
+
+        <div class="form-layout">
+            <div class="form-left">
+                <div class="form-group">
+                    <label for="productName">Tên Sản Phẩm</label>
+                    <input asp-for="Product.ProductName" type="text" class="form-input" id="productName" required>
+                    <span asp-validation-for="Product.ProductName" class="text-danger error-field"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="productQuantity">Số Lượng</label>
+                        <input asp-for="Product.QuantityInStock" type="number" class="form-input" id="productQuantity"
+                            min="0" required>
+                        <span asp-validation-for="Product.QuantityInStock" class="text-danger error-field"></span>
+                    </div>
+                    <div class="form-group half">
+                        <label for="productPrice">Giá (VNĐ)</label>
+                        <input asp-for="Product.Price" type="number" class="form-input" id="productPrice" min="0"
+                            step="500" required>
+                        <span asp-validation-for="Product.Price" class="text-danger error-field"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+
+                        <label for="productStatus">Trạng Thái</label>
+                        <select asp-for="Product.IsSold" class="form-input" id="productStatus" required>
+                            <option value="true">Đang Kinh Doanh</option>
+                            <option value="false">Ngừng Kinh Doanh</option>
+                        </select>
+                    </div>
+
+                    @* <div class="form-group half"> *@
+                    @*     <label for="productStatus">Loại sản phẩm</nav></i></label> *@
+                    @*     <select asp-for="Product.ProductType" class="form-input" id="productType" required> *@
+                    @*         <option value="Mỹ phẩm tóc">Sản phẩm tóc</option> *@
+                    @*         <option value="Skin care">Skin Care</option> *@
+                    @*         <option value="Khác">Khác</option> *@
+                    @*     </select> *@
+                    @* </div> *@
+
+                    <div class="form-group half">
+                        <label for="productType">Danh mục sản phẩm</label>
+
+                        <select asp-for="Product.CategoryId" asp-items="Model.CategoryList" class="form-input" id="productType" required>
+                            <option value="">-- Chọn danh mục --</option>
+                        </select>
+
+                        <input type="hidden" asp-for="Product.ProductType" value="Pending..." />
+                        <span asp-validation-for="Product.CategoryId" class="text-danger error-field"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-right">
+                <div class="form-group">
+                    <label for="productImage">Hình Ảnh</label>
+                    <input type="file" class="form-input" id="productImage" name="productImage" accept="image/*"
+                        required>
+                    <div class="image-preview" id="imagePreview">
+                        <img id="previewImg" src="#" alt="Xem trước hình ảnh">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group description-group">
+            <label for="productDescription">Mô Tả</label>
+            <textarea asp-for="Product.Description" class="form-input description-area" id="summernote" rows="8"></textarea>
+        </div>
+    </form>
+</div>
+
+<script>
+    const productImageInput = document.getElementById('productImage');
+    const previewImg = document.getElementById('previewImg');
+
+    productImageInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewImg.style.display = 'none';
+        }
+    });
+</script>

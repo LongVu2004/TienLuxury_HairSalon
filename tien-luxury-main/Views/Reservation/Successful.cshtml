@@ -1,0 +1,63 @@
+@model ReservationViewModel
+
+<link href="~/css/non-admin-style/reservation-successful-style.css" rel="stylesheet">
+
+@if (Model != null)
+{
+    <div class="booking-success-container">
+        <div class="booking-header">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1>Đặt Lịch Thành Công</h1>
+            <p>Mã Phiếu Đặt Lịch: <strong>@Model.Reservation.ID</strong></p>
+        </div>
+
+        <div class="booking-details">
+            <div class="booking-row">
+                <div>
+                    <strong>Họ và Tên</strong>@Model.Reservation.FullName
+                </div>
+                <div>
+                    <strong>Số điện thoại</strong>@Model.Reservation.PhoneNumber
+                </div>
+            </div>
+            <div class="booking-row">
+                <div>
+                    <strong>Ngày Tạo</strong>@Model.Reservation.CreatedDate
+                </div>
+                <div>
+                    <strong>Ngày Đặt</strong>@Model.Reservation.ReservationDate
+                </div>
+            </div>
+        </div>
+
+        <div class="services-section">
+            <h2><i class="fas fa-concierge-bell"></i> Các Dịch Vụ Đã Đặt</h2>
+            @{
+                foreach (var s in Model.Services)
+                {
+                    <div class="service-item">
+                        <div>Tên Dịch Vụ: @s.ServiceName</div>
+                        <div>@s.Price.ToString("C0")</div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-outline" onclick="location.href='@Url.Action("Index", "Home")'">
+                <i class="fas fa-home"></i> Về Trang Chủ
+            </button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="error-404">
+        <script src="https://unpkg.com/@@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+            type="module"></script>
+        <dotlottie-player src="https://lottie.host/20861518-cfd1-4f39-b48c-0cba3822036b/zcgpZFrg3Z.lottie"
+            background="transparent" speed="1" style="width: 600px; height: 600px" loop autoplay></dotlottie-player>
+    </div>
+}

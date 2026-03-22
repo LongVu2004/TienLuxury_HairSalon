@@ -1,0 +1,241 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "";
+}
+<link rel="stylesheet" href="~/css/non-admin-style/home-style.css">
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <!-- Dấu chuyển ảnh -->
+    <div class="carousel-indicators"></div>
+
+    <!-- Ảnh trong slideshow -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/image/banner/contact_banner.jpg" class="d-block w-100" alt="Banner 4" />
+        </div>
+        <div class="carousel-item">
+            <img src="~/image/banner/1.png" class="d-block w-100" alt="Banner 4" />
+        </div>
+        <div class="carousel-item">
+            <img src="~/image/banner/2.png" class="d-block w-100" alt="Banner 1" />
+        </div>
+        <div class="carousel-item">
+            <img src="~/image/banner/3.png" class="d-block w-100" alt="Banner 2" />
+        </div>
+        <div class="carousel-item">
+            <img src="~/image/banner/4.png" class="d-block w-100" alt="Banner 3" />
+        </div>
+        <div class="carousel-item">
+            <img src="~/image/banner/5.png" class="d-block w-100" alt="Banner 3" />
+        </div>
+    </div>
+
+    <!-- Nút điều hướng -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<div class="container-lg bg-transparent">
+    <div class="rating-container container-sm mt-3 bg-transparent">
+        <div class="row">
+            <div class="col-md-7">
+                <!-- Booking box chiếm 7 phần -->
+                <div class="booking-box">
+                    <h6><strong>ĐẶT LỊCH GIỮ CHỖ CHỈ 30 GIÂY</strong></h6>
+                    <p>Cắt xong trả tiền, hủy lịch không sao</p>
+                    <div class="input-group">
+                        <form class="input-group" id="inputPhoneNumberForm">
+                            <input type="tel" class="form-control" id="phoneInput" name="PhoneNumber"
+                                placeholder="Nhập SĐT để đặt lịch" />
+                            <button class="btn-booking" id="bookNow" onclick="validatePhone()">ĐẶT LỊCH NGAY</button>
+                        </form>
+                    </div>
+                    <div id="phoneError" class="text-danger mt-2" style="font-size: 0.8rem; display: none;">Số điện
+                        thoại không hợp lệ.</div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <!-- Rating box chiếm 5 phần -->
+                <div class="rating-box">
+                    <h6><strong>QUÝ KHÁCH ĐÁNH GIÁ CHẤT LƯỢNG PHỤC VỤ</strong></h6>
+                    <p class="rating-message">Phản hồi của quý khách sẽ giúp cải thiện chất lượng dịch vụ tốt hơn</p>
+                    <div class="stars" id="ratingStars">
+                        <span data-value="1">&#9733;</span>
+                        <span data-value="2">&#9733;</span>
+                        <span data-value="3">&#9733;</span>
+                        <span data-value="4">&#9733;</span>
+                        <span data-value="5">&#9733;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="service-section container-sm mt-3">
+        <h2 class="sub-title">DỊCH VỤ</h2>
+
+        <div class="service-container">
+            <div class="service-card">
+                <div class="image-container">
+                    <img src="~/image/service-type/skin-care.webp" alt="Dịch vụ tóc" />
+                </div>
+                <div class="service-details-container">
+                    <p class="service-details">Khám phá làn da hoàn hảo với dịch vụ chăm sóc da chuyên sâu tại Tiền
+                        Luxury.
+                        Mang đến vẻ đẹp tự nhiên, rạng ngời từ bên trong.</p>
+                </div>
+                <h3 class="service-name">Chăm sóc da</h3>
+                <p class="service-price">Giá từ 70.000đ</p>
+                <a href="@Url.Action("Index", "Service")#skin-care">Tìm hiểu thêm <i
+                        class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="image-container">
+                    <img src="~/image/service-type/dich-vu-toc.jpg" alt="Dịch vụ tóc" />
+                </div>
+                <div class="service-details-container">
+                    <p class="service-details">Chăm sóc và tạo kiểu chuyên nghiệp – Mang đến mái tóc khỏe đẹp, thời
+                        thượng và đầy cuốn hút!</p>
+                </div>
+                <h3 class="service-name">Dịch vụ tóc</h3>
+                <p class="service-price">Giá từ 50.000đ</p>
+                <a href="@Url.Action("Index", "Service")#hair-services">Tìm hiểu thêm <i
+                        class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="image-container">
+                    <img src="~/image/service-type/dich-vu-khac.jpg" alt="Dịch vụ khác" />
+                </div>
+                <div class="service-details-container">
+                    <p class="service-details">Biến hóa phong cách dễ dàng với hệ thống dịch vụ đa dạng tại Tiền Luxury.
+                        Khẳng định cá tính riêng của bạn!</p>
+                </div>
+                <h3 class="service-name">Dịch vụ khác</h3>
+                <p class="service-price">Giá từ 30.000đ</p>
+                <a href="@Url.Action("Index", "Service")#other-services">Tìm hiểu thêm <i
+                        class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="khong-gian-salon container-sm mt-3">
+        <h2 class="sub-title">KHÔNG GIAN HAIR SALON</h2>
+        <div class="khong-gian-container">
+            <!-- Phần mô tả không gian -->
+            <div class="khong-gian-content">
+                <h3>KHÔNG GIAN SANG TRỌNG, HIỆN ĐẠI</h3>
+                <p>
+                    Hair Salon được thiết kế với phong cách sang trọng, hiện đại, mang
+                    đến trải nghiệm thư giãn tuyệt vời. Không gian rộng rãi, sạch sẽ,
+                    kết hợp với ánh sáng ấm áp tạo cảm giác thoải mái cho khách hàng.
+                    Khi bạn đến với chúng tôi, sẽ có nước suối miễn phí dành cho bạn.
+                </p>
+
+                <h3>TIỆN NGHI ĐẦY ĐỦ, TRẢI NGHIỆM THƯ GIÃN</h3>
+                <p>
+                    Salon trang bị ghế nằm thư giãn, âm nhạc nhẹ nhàng, hương thơm dịu
+                    nhẹ cùng với đội ngũ nhân viên chuyên nghiệp sẽ giúp bạn tận hưởng
+                    khoảng thời gian làm đẹp một cách thoải mái nhất.
+                </p>
+
+                <a href="#" class="btn">Đặt lịch ngay ></a>
+            </div>
+
+            <!-- Phần hình ảnh hoặc video không gian salon -->
+            <div class="khong-gian-video">
+                <video width="100%" height="315" controls>
+                    <source src="video/khonggian.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ thẻ video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-sm mt-3">
+        <section id="employees">
+            <!-- Hàng Thợ Cắt -->
+            <div class="employee-container">
+                <button class="carousel-nav left" data-target="barber-carousel">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-wrapper">
+                    <div class="employee-carousel" id="barber-carousel">
+
+                        @{
+                            foreach (var e in Model.Employees)
+                            {
+                                if (e.Gender == true)
+                                {
+                                    <div class="employee-card">
+                                        <img src="@e.ImagePath" alt="@e.Name" />
+                                        <h4 class="employee-name">@e.Name</h4>
+                                        <p class="employee  -position">@e.Position</p>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+                <button class="carousel-nav right" data-target="barber-carousel">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Hàng Skinner -->
+            <div class="employee-container">
+                <button class="carousel-nav left" data-target="skinner-carousel">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-wrapper">
+                    <div class="employee-carousel" id="skinner-carousel">
+                        @{
+                            foreach (var e in Model.Employees)
+                            {
+                                if (e.Gender == false)
+                                {
+                                    <div class="employee-card">
+                                        <img src="@e.ImagePath" alt="@e.Name" />
+                                        <h4 class="employee-name">@e.Name</h4>
+                                        <p class="employee  -position">@e.Position</p>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+                <button class="carousel-nav right" data-target="skinner-carousel">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <div class="banner-container container-sm mt-3">
+        <div class="banner-header">Tiền Luxury SHOP</div>
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="banner-description">Mỹ phẩm cao cấp chính hãng</p>
+            <a href="@Url.Action("Index", "Product")" target="_blank">Xem tất cả →</a>
+        </div>
+
+
+        <div class="banner">
+            <img src="~/image/service-image/sanphamtoc.jpg" alt="Banner Hair Salon" />
+        </div>
+    </div>
+</div>
+
+<script src="~/js/non-admin-script/check-validation-numberphone.js"></script>
+}

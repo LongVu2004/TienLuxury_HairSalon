@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Services Management";
+}
+
+@model ServicesListViewModel
+
+<link href="~/css/admin-style/service-reservation-management-style.css" rel="stylesheet" />
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Services Management</span>
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="service-reservation-container" id="service">
+
+    <div class="table-wrapper">
+        <div class="table-header">
+            <h2>Danh Sách Dịch Vụ</h2>
+            <button class="add-btn" id="addServiceBtn">Thêm Dịch Vụ</button>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Thứ tụ</th>
+                        <th>Tên Dịch Vụ</th>
+                        <th>Giá</th>
+                        <th>Thông Tin</th>
+                        <th>Loại dịch vụ</th>
+                        <th>Trạng thái</th>
+                        <th>Hình ảnh</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="serviceTableBody">
+                    <tr>
+                        @{
+                            int i = 1;
+                            foreach (var s in Model.Services)
+                            {
+                            <tr data-service-id="@s.ID">
+                                <td>@i</td>
+                                <td class="truncate-text">@s.ServiceName</td>
+                                <td class="truncate-text">@s.Price.ToString("C0")</td>
+                                <td class="truncate-text">@s.Description</td>
+                                <td class="truncate-text">@s.ServiceType</td>
+                                <td class="status-cell">
+                                    <span class="status-badge @(s.IsActivated ? "active" : "inactive")">
+                                        @(s.IsActivated ? "Đang hoạt động" : "Ngưng hoạt động")
+                                    </span>
+                                </td>
+                                <td><img src="@s.ImagePath" alt=""></td>
+                                <td class="button-cell">
+                                    <div class="button-group">
+                                        <button id="updateServiceBtn" class="edit-btn">
+                                            <i class="fas fa-edit"></i> Chỉnh Sửa
+                                        </button>
+                                        @* <button id="deleteServiceBtn" class="delete-btn">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </button> *@
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="serviceFormContainer" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Form content will go here -->
+            </div>
+        </div>
+    </div>
+
+</div>

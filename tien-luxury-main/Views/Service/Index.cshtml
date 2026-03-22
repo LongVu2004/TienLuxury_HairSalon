@@ -1,0 +1,142 @@
+@model ServiceByTypeListViewModel
+
+<link href="~/css/non-admin-style/service-style.css" rel="stylesheet">
+
+<div class="service-page">
+    <section class="service-hero">
+        <div class="container">
+            <h1>Dịch Vụ Làm Đẹp Cao Cấp</h1>
+            <p>Chăm sóc sắc đẹp toàn diện - Tôn vinh vẻ đẹp tự nhiên của bạn với các dịch vụ chuyên nghiệp từ đội ngũ
+                giàu kinh nghiệm</p>
+            <a href="#services" class="service-btn">Khám phá dịch vụ</a>
+        </div>
+    </section>
+
+    <div class="container" id="services">
+        <!-- Dịch vụ tóc -->
+        <section id="hair-services" class="service-section">
+            <div class="section-title">
+                <h2>Dịch Vụ Tóc</h2>
+                <p>Đem đến cho bạn mái tóc đẹp như mơ với các dịch vụ chuyên nghiệp</p>
+            </div>
+
+            <div class="service-grid">
+                @{
+                    foreach (var s in Model.Hair)
+                    {
+                        <div class="service-item">
+                            <div class="image-container">
+                                <img src="@s.ImagePath" alt="@s.ServiceName" class="service-image">
+                                <div class="overlay">
+                                    <div class="description-wrapper">
+                                        <p class="description">@s.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="service-info">
+                                <h3>@s.ServiceName</h3>
+                                <p class="price">@s.Price.ToString("C0")</p>
+                            </div>
+                        </div>
+                    }
+                }
+        </section>
+
+        <!-- Skin care -->
+        <section id="skin-care" class="service-section">
+            <div class="section-title">
+                <h2>Skin Care</h2>
+                <p>Chăm sóc da chuyên sâu cho làn da khỏe mạnh, rạng rỡ</p>
+            </div>
+
+            <div class="service-grid">
+
+                @{
+                    foreach (var s in Model.SkinCare)
+                    {
+                        <div class="service-item">
+                            <div class="image-container">
+                                <img src="@s.ImagePath" alt="@s.ServiceName" class="service-image">
+                                <div class="overlay">
+                                    <div class="description-wrapper">
+                                        <p class="description">@s.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="service-info">
+                                <h3>@s.ServiceName</h3>
+                                <p class="price">@s.Price.ToString("C0")</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+
+        <!-- Dịch vụ khác -->
+        <section id="other-services" class="service-section">
+            <div class="section-title">
+                <h2>Dịch Vụ Khác</h2>
+                <p>Các dịch vụ làm đẹp đa dạng khác dành cho bạn</p>
+            </div>
+
+            <div class="service-grid">
+                @{
+                    foreach (var s in Model.Others)
+                    {
+                        <div class="service-item">
+                            <div class="image-container">
+                                <img src="@s.ImagePath" alt="@s.ServiceName" class="service-image">
+                                <div class="overlay">
+                                    <div class="description-wrapper">
+                                        <p class="description">@s.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="service-info">
+                                <h3>@s.ServiceName</h3>
+                                <p class="price">@s.Price.ToString("C0")</p>
+                            </div>
+                        </div>
+                    }
+                }
+        </section>
+
+        <div class="booking-container">
+            <div class="booking-combo">
+                <button class="booking-btn">Đặt lịch</button>
+                <form class="slide-container" id="inputPhoneNumberForm">
+                    <div class="input-row">
+                        <input id="phoneInput" type="tel" class="slide-input" placeholder="Nhập số điện thoại"
+                            name="PhoneNumber">
+                        <button class="confirm-btn" onclick="validatePhone()">Xác nhận</button>
+                    </div>
+                    <div id="phoneError" class="text-danger" style="font-size: 0.8rem; display: none;">Số điện thoại
+                        không hợp lệ.</div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/js/non-admin-script/check-validation-numberphone.js"></script>
+
+<script>
+    const bookingBtn = document.querySelector('.booking-btn');
+    const slideContainer = document.querySelector('.slide-container');
+    const slideInput = document.querySelector('.slide-input');
+
+    bookingBtn.addEventListener('click', function () {
+        slideContainer.classList.toggle('active');
+        if (slideContainer.classList.contains('active')) {
+            setTimeout(() => slideInput.focus(), 400);
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!bookingBtn.contains(event.target) && !slideContainer.contains(event.target)) {
+            slideContainer.classList.remove('active');
+        }
+    });
+</script>

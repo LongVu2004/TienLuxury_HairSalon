@@ -1,0 +1,39 @@
+﻿@model TienLuxury.Areas.Admin.ViewModels.CategoryAddEditViewModel
+@{
+    ViewData["Title"] = "Cập nhật danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/admin-style/category-management-style.css" rel="stylesheet" />
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid">
+        <span class="navbar-brand">
+            <a href="@Url.Action("Index")" class="text-decoration-none text-dark">Quản lý Danh mục</a>
+            <span class="text-muted">/ Cập nhật: @Model.Category.CategoryName</span>
+        </span>
+    </div>
+</nav>
+
+<div class="product-container" style="max-width: 800px; margin: 0 auto;">
+    <form method="post">
+        <input type="hidden" asp-for="Category.Id" />
+
+        <div class="action-buttons text-end mb-3">
+            <a href="@Url.Action("Index")" class="cancel-btn text-decoration-none"><i class="fas fa-times"></i> Hủy</a>
+            <button type="submit" class="save-btn"><i class="fas fa-save"></i> Cập nhật</button>
+        </div>
+
+        <div class="form-layout" style="display: block;">
+            <div class="form-group mb-3">
+                <label>Tên Danh mục</label>
+                <input asp-for="Category.CategoryName" class="form-input" required />
+                <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Mô tả</label>
+                <textarea asp-for="Category.Description" class="form-input" rows="4"></textarea>
+            </div>
+        </div>
+    </form>
+</div>

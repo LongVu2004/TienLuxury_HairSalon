@@ -1,0 +1,122 @@
+﻿body {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+
+    background: linear-gradient(150deg, #f5f5ed, #ede4be);
+    min-height: 100vh;
+    font-size: clamp(16px, 2vw, 20px);
+    padding: 20px;
+    animation: fadeIn 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.container-fluid {
+    width: 100%;
+    margin: 0.5rem auto;
+    padding: 20px;
+}
+
+/* Form đăng nhập */
+.login-container {
+    background: #f4f1d6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    font-size: 1rem;
+    margin: 1rem auto;
+}
+
+input.form-control {
+    border: 1px solid #D2B48C;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background: white;
+    color: #3E3E3E;
+}
+
+input.form-control:focus {
+    border: 2px solid #A89078 !important;
+    outline: none !important;
+    box-shadow: 0px 0px 5px rgba(168, 144, 120, 0.5) !important;
+}
+
+/* Nút Xác nhận */
+.btn-custom {
+    background: #BFA58A;
+    border: none;
+    color: white;
+}
+
+.btn-custom:hover {
+    background: #A89078;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin: 2rem;
+    padding: 1rem 0;
+    font-size: 1.8rem;
+}
+
+.brand-text {
+    padding: 20px;
+}
+
+.tien-luxury-container {
+    display: flex;
+    align-items: stretch;
+    max-height: 85px;
+    justify-content: center;
+}
+  
+.tien {
+    font-size: 80px;
+    font-weight: bold;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+  
+.right-section {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: space-between;
+}
+  
+.luxury {
+    font-size: 35px;
+    font-weight: bold;
+    position: relative;
+}
+
+.luxury::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 80%;
+    height: 2px;
+    background-color: black;
+}
+  
+.slogan {
+    font-size: 20px;
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

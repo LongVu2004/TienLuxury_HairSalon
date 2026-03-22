@@ -1,0 +1,105 @@
+﻿.payment-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    border: 1px solid #d2b48c;
+}
+
+.qr-image {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.bank-info {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+    .bank-info p {
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+    .bank-info strong {
+        color: #5a4a3f;
+    }
+
+.btn-finish {
+    background-color: #d2b48c;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+    .btn-finish:hover {
+        background-color: #b08d55;
+        color: white;
+    }
+
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0;
+}
+
+.dark-mode .payment-container {
+    background-color: #1e1e1e;
+    border-color: #d2b48c; /* Giữ viền màu vàng luxury */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+/* Mã QR giữ nền trắng */
+.dark-mode .qr-image {
+    background-color: #fff;
+    border-color: #333;
+    padding: 10px; /* Thêm đệm trắng để QR dễ quét hơn trên nền tối */
+}
+
+/* Khung thông tin chuyển màu tối */
+.dark-mode .bank-info {
+    background-color: #252525;
+    border: 1px solid #444;
+}
+
+    .dark-mode .bank-info strong {
+        color: #d2b48c; /* Màu vàng thay vì nâu đậm */
+    }
+
+/* Alert cảnh báo */
+.dark-mode .alert-warning {
+    background-color: #332b00 !important; /* Vàng rêu tối */
+    border-color: #665c00 !important;
+    color: #fff3cd;
+}
+
+/* Nút Hủy đơn */
+.dark-mode .text-danger {
+    color: #ff6b6b !important; /* Đỏ sáng hơn cho dễ nhìn */
+}
+
+    .dark-mode .text-danger:hover {
+        color: #ff4c4c !important;
+    }
+.dark-mode .content-badge {
+    background-color: #333 !important;
+    color: #4da3ff !important; /* Xanh dương sáng trên nền tối */
+    border: 1px solid #4da3ff !important;
+}

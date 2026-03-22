@@ -1,0 +1,178 @@
+﻿@model TienLuxury.Models.AppUser
+
+@{
+    ViewData["Title"] = "Chi tiết tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/admin-style/Invoice-management-style.css" rel="stylesheet" />
+<link href="~/css/admin-style/dash-board-style.css" rel="stylesheet" />
+
+<style>
+    .detail-label {
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 5px;
+    }
+
+    .detail-value {
+        background-color: #fff; /* Nền trắng cho ô dữ liệu */
+        border: 1px solid rgba(210, 180, 140, 0.5); /* Viền màu gold nhạt */
+        border-radius: 8px;
+        padding: 10px 15px;
+        color: #333;
+        width: 100%;
+        display: block;
+        margin-bottom: 15px;
+        font-size: 1rem;
+    }
+
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        margin: 0 auto 20px auto;
+        box-shadow: var(--box-shadow);
+    }
+
+    .btn-back {
+        background-color: #6c757d;
+        color: white;
+        border-radius: 8px;
+        padding: 10px 20px;
+        transition: 0.3s;
+    }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+</style>
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="navbar-brand">Account Details</span>
+        <div class="datetime-container">
+            <span class="datetime-label">Hiện tại: <span id="datetime"></span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="orders-container">
+    <div class="table-wrapper" style="max-width: 800px;">
+
+        <div class="table-header">
+            <h2>Hồ sơ khách hàng</h2>
+            @if (Model.Role == "Admin")
+            {
+                <span class="status" style="background-color: #d9534f; font-size: 1rem; padding: 8px 15px;">Quản trị viên</span>
+            }
+            else
+            {
+                <span class="status" style="background-color: #5cb85c; font-size: 1rem; padding: 8px 15px;">Khách hàng</span>
+            }
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4 text-center border-end" style="border-color: rgba(210, 180, 140, 0.3) !important;">
+                <div class="avatar-circle">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h4 style="color: var(--text-color);">@Model.FullName</h4>
+                <p class="text-muted">@Model.Email</p>
+                <p class="text-muted" style="font-size: 0.9rem;">
+                    Tham gia ngày:<br>
+                    <strong>@Model.CreatedAt.ToString("dd/MM/yyyy")</strong>
+                </p>
+            </div>
+
+            <div class="col-md-8 ps-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="detail-label">ID:</label>
+                        <div class="detail-value" style="background-color: #f8f9fa; color: #888;">
+                            @Model.Id
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="detail-label">Họ và tên:</label>
+                        <div class="detail-value">@Model.FullName</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="detail-label">Số điện thoại:</label>
+                        <div class="detail-value">
+                            @(string.IsNullOrEmpty(Model.PhoneNumber) ? "Chưa cập nhật" : Model.PhoneNumber)
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="detail-label">Email đăng nhập:</label>
+                        <div class="detail-value">@Model.Email</div>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-back">
+                        <i class="fas fa-arrow-left me-2"></i> Quay lại
+                    </a>
+
+                    @if (Model.Role != "Admin")
+                    {
+                        <button type="button" class="btn" style="background-color: #d9534f; color: white; border-radius: 8px; padding: 10px 20px;"
+                                onclick="confirmDeleteDetail('@Model.Id', '@Model.FullName')">
+                            <i class="fas fa-trash me-2"></i> Xóa tài khoản
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
+    <input type="hidden" name="id" id="deleteId" />
+</form>
+
+<script>
+    // 1. Đồng hồ
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const dateString = now.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+        const datetimeElement = document.getElementById('datetime');
+        if(datetimeElement) {
+            datetimeElement.textContent = `${timeString} - ${dateString}`;
+        }
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // 2. Xử lý xóa
+    function confirmDeleteDetail(id, name) {
+        Swal.fire({
+            title: 'CẢNH BÁO XÓA!',
+            text: `Bạn đang xóa tài khoản: ${name}. Hành động này không thể hoàn tác!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d9534f',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Xác nhận xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteId').value = id;
+                document.getElementById('deleteForm').submit();
+            }
+        })
+    }
+</script>

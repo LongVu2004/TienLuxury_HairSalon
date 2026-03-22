@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tiền Luxury @ViewData["Title"]</title>
+
+    <link rel="icon" href="~/logo.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300&display=swap" />
+    <link rel="stylesheet" href="~/css/non-admin-style/main-styles.css">
+
+</head>
+
+<body>
+    <header class="bg-beige py shadow-sm rounded">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="logo-container fw-bold fs-5">
+                <a href="@Url.Action("Index", "Home")">
+                    <img class="logo" src="~/logo.png" alt="Logo" />
+                </a>
+            </div>
+
+            <nav class="d-flex flex-grow-1 align-items-center justify-content-between">
+                <ul class="nav d-flex align-items-center ms-auto">
+                    <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Index", "Service")">Dịch vụ</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Index", "Product")">Sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Index", "Home")#employees">Nhân viên</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Index", "Contact")">Đánh giá</a></li>
+
+                    <li class="nav-item ms-3">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            
+                                var userAvatar = User.FindFirst("Avatar")?.Value ?? "/images/default-avatar.png";
+                            
+
+                            <div class="dropdown user-dropdown position-relative">
+                                <a class="nav-link p-0" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="@userAvatar" alt="User" class="header-avatar" 
+                                         onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'">
+                                </a>
+                                <ul class="dropdown-menu shadow border-0" aria-labelledby="userDropdown" style="right: 0; left: auto; margin-top: 10px;">
+                                    <li class="px-3 py-2 text-center border-bottom mb-2 bg-light">
+                                        <span class="fw-bold" style="color: #8e735b;">@User.Identity.Name</span>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item py-2" href="@Url.Action("Profile", "Account")">
+                                            <i class="fas fa-id-card me-2 text-muted"></i> Hồ sơ cá nhân
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item py-2" href="@Url.Action("Profile", "Account")">
+                                            <i class="fas fa-history me-2 text-muted"></i> Lịch sử đơn hàng
+                                        </a>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider my-2"></li>
+
+                                    <li>
+                                        <a class="dropdown-item py-2 text-danger fw-bold" href="@Url.Action("Logout", "Account")"
+                                           onclick="sessionStorage.removeItem('hairSalonChatHistory');">
+                                            <i class="fas fa-sign-out-alt me-2"></i> Đăng xuất
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            /* --- TRƯỜNG HỢP CHƯA ĐĂNG NHẬP --- */
+                            <a class="btn btn-outline-dark rounded-pill px-4" href="@Url.Action("Login", "Account")">
+                                <i class="fas fa-user me-1"></i> Đăng nhập
+                            </a>
+                        }
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="d-flex align-items-center">
+                <button id="theme-toggle" class="btn ms-3">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="text-dark text-center py-4" style="font-size: 14px;">
+
+        <p class="footer-content">&copy; 2025 HairSalon. All rights reserved.<br>
+            TienHairSalon là một thương hiệu cao cấp chuyên cung cấp các dịch vụ chăm sóc tóc chuyên nghiệp cho khách
+            hàng với chất lượng tốt nhất và sự hài lòng của khách hàng. Hãy đến với chúng tôi để có một trải nghiệm khó
+            quên</p>
+
+        <div class="footer-content container mx-auto" style="font-size: 13px;">
+            <div class="row justify-content-between text-start"> <!-- Chia đều 3 cột -->
+                <!-- Cột 1: Dịch vụ & Ưu đãi -->
+                <div class="col-12 col-md-4">
+                    <h5 class="mb-3"><i class="fas fa-scissors"></i> Services & Offers</h5>
+                    <p class="mb-2"><i class="fas fa-cut"></i> Haircut & Styling</p>
+                    <p class="mb-2"><i class="fas fa-paint-brush"></i> Hair Coloring</p>
+                    <p class="mb-2"><i class="fas fa-spa"></i> Scalp Treatment</p>
+                    <p class="mb-2"><i class="fas fa-gift"></i> Membership Discounts</p>
+                    <p class="mb-2"><i class="fas fa-birthday-cake"></i> Birthday Specials</p>
+                </div>
+
+                <!-- Cột 2: Đội ngũ phát triển -->
+                <div class="col-12 col-md-4">
+                    <h5 class="mb-3"><i class="fas fa-code"></i> Dev Team</h5>
+                    <p class="mb-2"><i class="fas fa-user"></i> Lead Developer: Long Vũ</p>
+                    <p class="mb-2"><i class="fas fa-pencil-ruler"></i> UI/UX Designer: Ngọc Trọng</p>
+                    <p class="mb-2"><i class="fas fa-server"></i> Backend Engineer: Long Vũ</p>
+                    <p class="mb-2"><i class="fas fa-laptop-code"></i> Frontend Developer: Trọng Phước</p>
+                    <p class="mb-2"><i class="fa-solid fa-database"></i> Database & analysis: Trọng Phước</p>
+                </div>
+
+                <!-- Cột 3: Liên hệ & Mạng xã hội -->
+                <div class="col-12 col-md-4">
+                    <h5 class="mb-3"><i class="fas fa-address-book"></i> Contact & Follow Us</h5>
+                    <p class="mb-2"><i class="fas fa-envelope"></i> Email: hairsalon@gmail.com<a href=""></a></p>
+                    <p class="mb-2"><i class="fas fa-phone"></i> Phone: 0366 050 144 </p>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt"></i> Address: 267 Đường Số 1, Bình Hưng Hoà B, Bình Tân, TP.HCM</p>
+                    <p class="mb-2"><i class="fas fa-share-alt"></i> Follow Vũ:
+                        <a class="contact-link" href="" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a> |
+                        <a class="contact-link" href="" target="_blank"><i class="fa-solid fa-envelope"></i> Email</a> |
+                        <a class="contact-link" href="" target="_blank"><i class="fab fa-facebook"></i> Facebook</a> 
+                    </p>
+                    <p class="mb-2"><i class="fas fa-share-alt"></i> Follow Trọng:
+                        <a class="contact-link" href="" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a> |
+                        <a class="contact-link" href="" target="_blank"><i class="fab fa-facebook"></i> Facebook</a> |
+                        <a class="contact-link" href="" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                    </p>
+                    <p class="mb-2"><i class="fas fa-share-alt"></i> Follow Phước:
+                        <a class="contact-link" href="" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a> |
+                        <a class="contact-link" href="" target="_blank"><i class="fab fa-facebook"></i> Facebook</a> |
+                        <a class="contact-link" href="" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p class="footer-content member mt-3">Phạm Long Vũ - 2280618021 <i class="fa-solid fa-xmark"></i> Nguyễn Trọng Phước - 2280602505</i>
+            <i class="fa-solid fa-xmark"></i> Hồ Ngọc Trọng - 2280603414</p>    
+    </footer>
+    
+
+    <partial name="_ChatbotPartial" />
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/non-admin-script/home-index-script.js"></script>
+    <script src="~/js/non-admin-script/theme-toggle.js"></script>
+    <script src="~/js/chatbot.js" asp-append-version="true"></script>
+    <script>
+        // Chuyển đổi True/False của C# sang true/false của Javascript
+        var isUserLoggedIn = @(User.Identity.IsAuthenticated.ToString().ToLower());
+
+        // Cấu hình Toast (Thông báo góc)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end', // Hiện ở góc trên bên phải
+            showConfirmButton: false,
+            timer: 3000, // Tự mất sau 3 giây
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        // Kiểm tra nếu có SuccessMessage từ Controller
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                    Toast.fire({
+                        icon: 'success',
+                        title: '@TempData["SuccessMessage"]'
+                    });
+            </text>
+        }
+
+        // Kiểm tra nếu có ErrorMessage từ Controller
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+                    Toast.fire({
+                        icon: 'error',
+                        title: '@TempData["ErrorMessage"]'
+                    });
+            </text>
+        }
+    </script>
+    <style>
+        /* CSS cho Avatar trên Header */
+        .header-avatar {
+            width: 40px; /* Kích thước nhỏ gọn */
+            height: 40px;
+            border-radius: 50%; /* Bo tròn */
+            object-fit: cover; /* Cắt ảnh vừa khung */
+            border: 2px solid #d2b48c; /* Viền màu vàng Luxury */
+            transition: 0.3s;
+        }
+
+            .header-avatar:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 10px rgba(210, 180, 140, 0.5);
+            }
+
+        /* Ẩn dấu mũi tên mặc định của dropdown bootstrap nếu muốn gọn hơn */
+        .dropdown-toggle::after {
+            display: none !important;
+        }
+    </style>
+
+
+</body>
+
+</html>

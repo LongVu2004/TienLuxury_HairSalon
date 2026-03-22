@@ -1,0 +1,168 @@
+#editForm {
+    background-color: var(--card-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 550px;
+    max-width: 95%;
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modalTitle {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.9rem;
+    font-weight: 600;
+}
+
+.d-flex.gap-5 {
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid rgba(210, 180, 140, 0.3);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all var(--transition-speed);
+    background-color: var(--background-color);
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+    background-color: rgba(210, 180, 140, 0.1);
+    color: #7f8c8d;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(210, 180, 140, 0.2);
+    background-color: var(--card-color);
+}
+
+/* Style cho bảng dịch vụ với scroll */
+.form-group .table-container {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid rgba(210, 180, 140, 0.3);
+    border-radius: 6px;
+    margin-top: 8px;
+}
+
+.form-group table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.form-group th {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.form-group th,
+.form-group td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(210, 180, 140, 0.3);
+}
+
+.form-group tr:nth-child(even) {
+    background-color: rgba(210, 180, 140, 0.1);
+}
+
+.form-group tr:hover {
+    background-color: rgba(210, 180, 140, 0.2);
+}
+
+/* Custom scrollbar */
+.form-group .table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.form-group .table-container::-webkit-scrollbar-track {
+    background: var(--background-color);
+    border-radius: 0 6px 6px 0;
+}
+
+.form-group .table-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.form-group .table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-color);
+}
+
+form .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+form button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.save-btn {
+    background-color: #ae8b4b ;
+    color: white;
+}
+
+.save-bt:hover {
+    background-color: #b8935a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #7e7b7b;
+}
+
+
+.close:hover {
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 600px) {
+    .d-flex.gap-5 {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    form#editForm {
+        padding: 15px;
+    }
+}
