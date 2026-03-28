@@ -61,12 +61,12 @@ TienLuxury/
 
 1. Clone repository:
 ```bash
-git clone https://github.com/DuongVo04/tien-luxury.git
+git clone https://github.com/LongVu2004/TienLuxury_HairSalon.git
 ```
 
 2. Navigate to project directory:
 ```bash
-cd tien-luxury
+cd tien-luxury-main
 ```
 
 3. Restore packages:
@@ -89,8 +89,9 @@ dotnet run
 
 ## Author
 
-- DuongVo04
-- ngDucTuan062004
+- LongVu2004
+- hotrong14
+- trongphuoc21
 
 ## License
 
